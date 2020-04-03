@@ -1,8 +1,10 @@
+import com.jfrog.bintray.gradle.BintrayExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
     `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 dependencies {
@@ -43,3 +45,23 @@ publishing {
         }
     }
 }
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    publish = true
+    override = true
+    setPublications("mavenJava")
+    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+        repo = "repo"
+        name = "rakuten-connector"
+        userOrg = "alexbogovich"
+        websiteUrl = "https://github.com/alexbogovich/affiliate-network-connectors/rakuten-connector"
+        githubRepo = "alexbogovich/affiliate-network-connectors"
+        vcsUrl = "https://github.com/alexbogovich/affiliate-network-connectors.git"
+        description = "Rakuten connector"
+        setLabels("kotlin", "jvm", "rakuten")
+        setLicenses("Apache-2.0")
+    })
+}
+

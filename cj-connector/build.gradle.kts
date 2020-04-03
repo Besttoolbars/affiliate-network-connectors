@@ -1,8 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.jfrog.bintray.gradle.BintrayExtension
 
 plugins {
     kotlin("jvm")
     `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 dependencies {
@@ -42,4 +44,23 @@ publishing {
             artifact(sourcesJar.get())
         }
     }
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    publish = true
+    override = true
+    setPublications("mavenJava")
+    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+        repo = "repo"
+        name = "cj-connector"
+        userOrg = "alexbogovich"
+        websiteUrl = "https://github.com/alexbogovich/affiliate-network-connectors/cj-connector"
+        githubRepo = "alexbogovich/affiliate-network-connectors"
+        vcsUrl = "https://github.com/alexbogovich/affiliate-network-connectors.git"
+        description = "CJ jvm connector"
+        setLabels("kotlin", "jvm", "cj")
+        setLicenses("Apache-2.0")
+    })
 }
