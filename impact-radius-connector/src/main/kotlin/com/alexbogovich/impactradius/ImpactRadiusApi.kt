@@ -5,6 +5,7 @@ import com.alexbogovich.impactradius.response.ImpactRadiusAdsResponse
 import com.alexbogovich.impactradius.response.ImpactRadiusCampaignsResponse
 import com.alexbogovich.impactradius.response.ImpactRadiusPromoAdsResponse
 import com.alexbogovich.shared.provideXmlObjectMapper
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -37,11 +38,14 @@ interface ImpactRadiusApi {
     ): CompletableFuture<ImpactRadiusAdsResponse>
 
     companion object {
-        fun provider(url: String = "https://api.impactradius.com"): ImpactRadiusApi {
+        fun provider(url: String = "https://api.impactradius.com", client: OkHttpClient? = null): ImpactRadiusApi {
             val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+            if (client != null) {
+                retrofit.client(client)
+            }
             return retrofit.build().create(ImpactRadiusApi::class.java)
         }
     }

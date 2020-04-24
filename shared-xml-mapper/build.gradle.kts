@@ -10,7 +10,7 @@ dependencies {
     api("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${property("jackson.version")}")
     api("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${property("jackson.version")}")
-    api("com.fasterxml.woodstox:woodstox-core:6.0.3")
+    api("com.fasterxml.woodstox:woodstox-core:6.1.1")
 }
 
 java {

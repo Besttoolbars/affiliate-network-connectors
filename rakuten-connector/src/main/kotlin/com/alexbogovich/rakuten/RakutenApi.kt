@@ -3,6 +3,7 @@ package com.alexbogovich.rakuten
 import com.alexbogovich.rakuten.response.*
 import com.alexbogovich.shared.provideXmlObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.*
@@ -43,11 +44,14 @@ interface RakutenApi {
     ): CompletableFuture<RakutenBannerResponse>
 
     companion object {
-        fun provider(url: String = "https://api.rakutenmarketing.com"): RakutenApi {
+        fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenApi {
             val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+            if (client != null) {
+                retrofit.client(client)
+            }
             return retrofit.build().create(RakutenApi::class.java)
         }
     }
@@ -65,11 +69,14 @@ interface RakutenTokenApi {
     ): CompletableFuture<OAuth2Token>
 
     companion object {
-        fun provider(url: String = "https://api.rakutenmarketing.com"): RakutenTokenApi {
+        fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenTokenApi {
             val objectMapper = jacksonObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+            if (client != null) {
+                retrofit.client(client)
+            }
             return retrofit.build().create(RakutenTokenApi::class.java)
         }
     }

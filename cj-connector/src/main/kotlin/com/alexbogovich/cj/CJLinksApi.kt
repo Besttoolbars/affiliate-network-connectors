@@ -2,6 +2,7 @@ package com.alexbogovich.cj
 
 import com.alexbogovich.cj.response.CjLinksResponse
 import com.alexbogovich.shared.provideXmlObjectMapper
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.GET
@@ -25,11 +26,14 @@ interface CJLinksApi {
     ): CompletableFuture<CjLinksResponse>
 
     companion object {
-        fun provider(url: String = "https://link-search.api.cj.com"): CJLinksApi {
+        fun provider(url: String = "https://link-search.api.cj.com", client: OkHttpClient? = null): CJLinksApi {
             val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+            if (client != null) {
+                retrofit.client(client)
+            }
             return retrofit.build().create(CJLinksApi::class.java)
         }
     }
