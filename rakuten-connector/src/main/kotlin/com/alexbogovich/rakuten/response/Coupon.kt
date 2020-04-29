@@ -45,11 +45,11 @@ data class RakutenCoupon(
 
     @JacksonXmlElementWrapper(localName = "categories", useWrapping = true)
     @JacksonXmlProperty(localName = "categories")
-    val categories: List<RakutenCouponCategory>,
+    val categories: List<RakutenCouponCategory> = emptyList(),
 
     @JacksonXmlElementWrapper(localName = "promotiontypes", useWrapping = true)
     @JacksonXmlProperty(localName = "promotiontypes")
-    val promotionTypes: List<RakutenCouponPromotionType>
+    val promotionTypes: List<RakutenCouponPromotionType> = emptyList()
 )
 
 @JacksonXmlRootElement(localName = "couponfeed")
@@ -65,7 +65,7 @@ data class RakutenCouponResponse(
 
     @JacksonXmlElementWrapper(localName = "link", useWrapping = false)
     @JacksonXmlProperty(localName = "link")
-    val links: List<RakutenCoupon>
+    val links: List<RakutenCoupon> = emptyList()
 )
 
 sealed class RakutenBaseTag {
