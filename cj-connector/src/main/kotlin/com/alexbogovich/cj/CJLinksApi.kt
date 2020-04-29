@@ -19,7 +19,7 @@ interface CJLinksApi {
         @Query("records-per-page") size: Int,
         @Query("link-type") linkType: String,
         @Query("advertiser-ids") advertiserIds: String? = "joined",
-        @Query("language") language: String? = null,
+        @Query("language") language: CjLanguageEnum? = null,
         @Query("promotion-type") promotionType: String? = null,
         @Query("category") category: String? = null,
         @Query("keywords") keywords: String? = null

@@ -1,0 +1,41 @@
+package com.alexbogovich.cj
+
+enum class CjLanguageEnum(private val code: Int) {
+    ENGLISH(9),
+    SPANISH(29),
+    FRENCH(11),
+    GERMAN(12),
+    SWEDISH(30),
+    ARABIC(1),
+    BENGALI(2),
+    BULGARIAN(3),
+    CHINESE_SIMPLIFIED(4),
+    CHINESE_TRADITIONAL(5),
+    CZECH(6),
+    DANISH(7),
+    DUTCH(8),
+    FINNISH(10),
+    GREEK(13),
+    HEBREW(14),
+    HINDI(15),
+    HUNGARIAN(16),
+    INDONESIAN(17),
+    ITALIAN(18),
+    JAPANESE(19),
+    KOREAN(20),
+    MALAY(21),
+    NORWEGIAN(22),
+    PERSIAN(23),
+    POLISH(24),
+    PORTUGUESE(25),
+    ROMANIAN(26),
+    RUSSIAN(27),
+    SLOVENIAN(28),
+    TAMIL(31),
+    THAI(32),
+    TURKISH(33),
+    UKRAINIAN(34),
+    VIETNAMESE(35);
+
+    override fun toString(): String = code.toString()
+}
