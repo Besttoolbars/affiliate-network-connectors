@@ -77,7 +77,7 @@ data class ImpactRadiusPromoAd(
     @JacksonXmlProperty(localName = "CampaignName")
     val campaignName: String,
     @JacksonXmlProperty(localName = "PromoType")
-    val promoType: String,
+    val promoType: String?,
     @JacksonXmlProperty(localName = "TrackingLink")
     val trackingLink: String,
     @JacksonXmlProperty(localName = "LandingPageUrl")
