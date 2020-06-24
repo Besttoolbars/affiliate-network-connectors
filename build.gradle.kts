@@ -1,11 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.3.71" apply false
+    kotlin("jvm") version "1.3.72" apply false
     id("com.jfrog.bintray") version "1.8.5" apply false
     id("com.github.ben-manes.versions") version "0.28.0"
 }
 
-extra["retrofit.version"] = "2.8.1"
-extra["jackson.version"] = "2.10.3"
+extra["retrofit.version"] = "2.9.0"
+extra["jackson.version"] = "2.11.0"
 
 allprojects {
     repositories {
@@ -14,6 +14,6 @@ allprojects {
     }
 
     group = "com.alexbogovich"
-    version = "0.0.4"
+    version = "0.0.5"
 }
 
