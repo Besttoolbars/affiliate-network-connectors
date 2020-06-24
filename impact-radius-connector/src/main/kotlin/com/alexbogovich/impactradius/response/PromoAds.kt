@@ -81,7 +81,7 @@ data class ImpactRadiusPromoAd(
     @JacksonXmlProperty(localName = "TrackingLink")
     val trackingLink: String,
     @JacksonXmlProperty(localName = "LandingPageUrl")
-    val landingPageUrl: String,
+    val landingPageUrl: String?,
     @JacksonXmlProperty(localName = "AdHtml")
     val adHtml: String,
     @JacksonXmlProperty(localName = "AdSize")
