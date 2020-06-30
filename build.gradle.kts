@@ -13,7 +13,7 @@ allprojects {
         jcenter()
     }
 
-    group = "com.alexbogovich"
-    version = "0.0.5"
+    group = "net.besttoolbars"
+    version = "0.0.7"
 }
 

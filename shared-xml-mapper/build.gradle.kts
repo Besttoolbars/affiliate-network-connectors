@@ -49,10 +49,10 @@ bintray {
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
         name = "shared-xml-mapper"
-        userOrg = "alexbogovich"
-        websiteUrl = "https://github.com/alexbogovich/affiliate-network-connectors/shared-xml-mapper"
-        githubRepo = "alexbogovich/affiliate-network-connectors"
-        vcsUrl = "https://github.com/alexbogovich/affiliate-network-connectors.git"
+        userOrg = "besttoolbars"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-xml-mapper"
+        githubRepo = "Besttoolbars/affiliate-network-connectors"
+        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
         description = "Shared xml mapper for affiliate connectors"
         setLabels("kotlin", "jvm", "xml mapper for affiliate connectors")
         setLicenses("Apache-2.0")

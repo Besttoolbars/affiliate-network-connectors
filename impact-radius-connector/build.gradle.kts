@@ -55,10 +55,10 @@ bintray {
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "repo"
         name = "impact-radius-connector"
-        userOrg = "alexbogovich"
-        websiteUrl = "https://github.com/alexbogovich/affiliate-network-connectors/rimpact-radius-connector"
-        githubRepo = "alexbogovich/affiliate-network-connectors"
-        vcsUrl = "https://github.com/alexbogovich/affiliate-network-connectors.git"
+        userOrg = "besttoolbars"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/rimpact-radius-connector"
+        githubRepo = "Besttoolbars/affiliate-network-connectors"
+        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
         description = "Impact radius connector"
         setLabels("kotlin", "jvm", "impact-radius")
         setLicenses("Apache-2.0")

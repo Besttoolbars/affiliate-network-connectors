@@ -55,10 +55,10 @@ bintray {
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "repo"
         name = "cj-connector"
-        userOrg = "alexbogovich"
-        websiteUrl = "https://github.com/alexbogovich/affiliate-network-connectors/cj-connector"
-        githubRepo = "alexbogovich/affiliate-network-connectors"
-        vcsUrl = "https://github.com/alexbogovich/affiliate-network-connectors.git"
+        userOrg = "besttoolbars"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/cj-connector"
+        githubRepo = "Besttoolbars/affiliate-network-connectors"
+        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
         description = "CJ jvm connector"
         setLabels("kotlin", "jvm", "cj")
         setLicenses("Apache-2.0")
