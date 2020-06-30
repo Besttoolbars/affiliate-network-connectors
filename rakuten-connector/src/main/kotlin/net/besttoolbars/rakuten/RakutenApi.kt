@@ -44,6 +44,20 @@ interface RakutenApi {
         @Path("page") page: Int = 1
     ): CompletableFuture<RakutenBannerResponse>
 
+    @GET("/productsearch/1.0")
+    fun productSearch(
+        @Header("Authorization") bearerAuthToken: String,
+        @Query("keyword") keyword: String = "",
+        @Query("exact") exactKeyword: String = "",
+        @Query("one") oneKeyword: String = "",
+        @Query("none") none: String = "",
+        @Query("cat") cat: String = "",
+        @Query("language") language: String = "en_US",
+        @Query("max") max: Int = 100,
+        @Query("pagenumber") page: Int = 1,
+        @Query("mid") mid: String = ""
+    ): CompletableFuture<RakutenProductResponse>
+
     companion object {
         fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenApi {
             val objectMapper = provideXmlObjectMapper()
