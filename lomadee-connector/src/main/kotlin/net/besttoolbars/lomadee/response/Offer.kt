@@ -1,5 +1,7 @@
 package net.besttoolbars.lomadee.response
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
 data class OffersResponse (
     val requestInfo: RequestInfo,
     val pagination: Pagination,
@@ -25,29 +27,36 @@ data class Offer (
     val link: String,
     val thumbnail: String,
     val price: Long,
-    val installment: Map<Any, Any>,
+    val installment: OfferInstallment,
     val store: OfferStore
 )
 
 data class OfferCategory(
     val id: Int,
     val name: String,
-    val hasOffer: Int
+    val hasOffer: Int = 0,
+    val link: String? = null
 )
 
-data class OfferStore (
+data class OfferStore(
     val id: Long,
     val name: String,
     val thumbnail: String,
     val link: String,
-    val hasOffer: Long,
-    val maxCommission: Long,
-    val events: List<Event>
+    val hasOffer: Long? = null,
+    val maxCommission: Double? = null,
+    val events: List<OfferEvent> = emptyList()
 )
 
-data class Event (
+data class OfferEvent(
     val event: String,
     val eventType: String,
     val fixedCommission: Boolean,
-    val commission: Long
+    val commission: Double
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class OfferInstallment(
+    val quantity: Int = 0,
+    val value: Double = 0.0
 )
