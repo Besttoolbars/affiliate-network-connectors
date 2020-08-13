@@ -64,3 +64,7 @@ bintray {
         setLicenses("Apache-2.0")
     })
 }
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
