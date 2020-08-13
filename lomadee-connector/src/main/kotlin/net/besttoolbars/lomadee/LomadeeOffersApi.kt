@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture
 
 interface LomadeeOffersApi {
     @GET("/v3/{app-token}/category/_all")
-    fun categories(
+    fun offerCategories(
         @Path("app-token") token: String,
         @Query("sourceId") source: String,
         @Query("storeId") storeId: Int? = null,
@@ -21,7 +21,7 @@ interface LomadeeOffersApi {
     ): CompletableFuture<OfferCategoriesResponse>
 
     @GET("/v3/{app-token}/store/_all")
-    fun stores(
+    fun offerStores(
         @Path("app-token") token: String,
         @Query("sourceId") source: String,
         @Query("storeId") storeId: Int? = null,
@@ -31,8 +31,8 @@ interface LomadeeOffersApi {
     @GET("/v3/{app-token}/offer/_store/{storeId}")
     fun offersByStore(
         @Path("app-token") token: String,
-        @Query("sourceId") source: String,
         @Path("storeId") storeId: Int,
+        @Query("sourceId") source: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
         @Query("categoryId") categoryId: Int? = null
@@ -41,20 +41,10 @@ interface LomadeeOffersApi {
     @GET("/v3/{app-token}/offer/_category/{categoryId}")
     fun offersByCategory(
         @Path("app-token") token: String,
-        @Query("sourceId") source: String,
         @Path("categoryId") categoryId: Int,
+        @Query("sourceId") source: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
         @Query("storeId") storeId: Int? = null
     ): CompletableFuture<OffersResponse>
-
-    companion object {
-        fun provider(url: String = "https://api.lomadee.com", client: OkHttpClient? = null): LomadeeOffersApi {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(JacksonConverterFactory.create())
-            client?.let { retrofit.client(it) }
-            return retrofit.build().create(LomadeeOffersApi::class.java)
-        }
-    }
 }
