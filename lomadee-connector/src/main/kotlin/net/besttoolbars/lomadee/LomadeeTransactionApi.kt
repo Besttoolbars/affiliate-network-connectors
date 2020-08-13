@@ -1,15 +1,11 @@
 package net.besttoolbars.lomadee
 
 import net.besttoolbars.connectors.shared.provideXmlObjectMapper
-import net.besttoolbars.lomadee.response.OfferCategoriesResponse
-import net.besttoolbars.lomadee.response.OfferStoresResponse
-import net.besttoolbars.lomadee.response.OffersResponse
 import net.besttoolbars.lomadee.response.TransactionReport
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.CompletableFuture
 
@@ -18,8 +14,8 @@ interface LomadeeTransactionApi {
     fun reportTransaction(
         @Query("token") token: String,
         @Query("publisherId") publisherId: String,
-        @Query("startDate") startDate: Int,
-        @Query("startDate") endDate: Int,
+        @Query("startDate") startDate: QueryDate,
+        @Query("endDate") endDate: QueryDate,
         @Query("eventStatus") eventStatus: Int
     ): CompletableFuture<TransactionReport>
 

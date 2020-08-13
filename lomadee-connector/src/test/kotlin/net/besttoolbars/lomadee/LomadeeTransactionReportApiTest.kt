@@ -112,7 +112,11 @@ internal class LomadeeTransactionReportApiTest {
 
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(response))
         val lomadeeTransactionApi = LomadeeTransactionApi.provider(mockWebServer.url("/").toString())
-        val report = lomadeeTransactionApi.reportTransaction("", "", 11, 11, 3).get()
+        val report = lomadeeTransactionApi.reportTransaction("", "",
+            QueryDate.of(2020, 8, 13),
+            QueryDate.of(2020, 8, 1),
+            3)
+            .get()
         Assertions.assertEquals(expected, report)
     }
 }
