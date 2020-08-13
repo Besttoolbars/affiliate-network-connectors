@@ -1,6 +1,10 @@
 package net.besttoolbars.lomadee.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import net.besttoolbars.lomadee.deserializer.LomadeeVigencyLocalDateTimeDeserializer
+import java.time.LocalDateTime
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CouponResponse (
@@ -27,7 +31,8 @@ data class Coupon (
     val discount: Long,
     val store: CouponStore,
     val category: CouponCategory,
-    val vigency: String,
+    @JsonDeserialize(using = LomadeeVigencyLocalDateTimeDeserializer::class)
+    val vigency: LocalDateTime,
     val link: String
 )
 

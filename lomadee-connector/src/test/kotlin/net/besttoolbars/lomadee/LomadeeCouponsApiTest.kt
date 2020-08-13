@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.io.IOException
+import java.time.LocalDateTime
 
 internal class LomadeeCouponsApiTest {
     private val mockWebServer = MockWebServer()
@@ -190,7 +191,7 @@ internal class LomadeeCouponsApiTest {
                         id = 99004,
                         name = "Moda e Acessórios"
                     ),
-                    vigency = "06/09/2020 23:59:00",
+                    vigency = LocalDateTime.of(2020, 9, 6, 23, 59),
                     link = "https://developer.lomadee.com/redir/validation/?sourceId=36712392&appToken=1596966044499ec5f428d"
                 ),
                 Coupon(
@@ -208,7 +209,7 @@ internal class LomadeeCouponsApiTest {
                         id = 99004,
                         name = "Moda e Acessórios"
                     ),
-                    vigency = "07/09/2020 23:59:00",
+                    vigency = LocalDateTime.of(2020, 9, 7, 23, 59),
                     link = "https://developer.lomadee.com/redir/validation/?sourceId=36712392&appToken=1596966044499ec5f428d"
                 )
             )
