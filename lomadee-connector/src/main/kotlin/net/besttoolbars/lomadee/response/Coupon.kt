@@ -28,7 +28,7 @@ data class Coupon (
     val id: Long,
     val description: String,
     val code: String,
-    val discount: Long,
+    val discount: Double,
     val store: CouponStore,
     val category: CouponCategory,
     @JsonDeserialize(using = LomadeeVigencyLocalDateTimeDeserializer::class)

@@ -1,5 +1,6 @@
 package net.besttoolbars.lomadee.response
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
@@ -11,7 +12,8 @@ import java.time.LocalDateTime
 @JacksonXmlRootElement(localName = "result")
 data class TransactionReport(
     val details: Details,
-    val item: Item?
+    @JacksonXmlElementWrapper(useWrapping=false)
+    val item: List<Item> = emptyList()
 )
 
 data class Details(
@@ -23,6 +25,7 @@ data class Details(
     val status: String
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Item(
     @JsonDeserialize(using = LomadeeLocalDateDeserializer::class)
     val date: LocalDate,

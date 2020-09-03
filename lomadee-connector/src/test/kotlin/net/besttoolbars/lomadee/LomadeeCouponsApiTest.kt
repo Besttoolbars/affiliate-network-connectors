@@ -180,7 +180,7 @@ internal class LomadeeCouponsApiTest {
                     id = 9763,
                     description = "20% de desconto em todos produtos vendidos e entregues pela Zattini.",
                     code = "TOPZAT",
-                    discount = 20,
+                    discount = 20.0,
                     store = CouponStore(
                         id = 5953,
                         name = "Zattini",
@@ -198,7 +198,7 @@ internal class LomadeeCouponsApiTest {
                     id = 9762,
                     description = "10%  de desconto em seleção de produtos na Henring.",
                     code = "ZATHERING",
-                    discount = 10,
+                    discount = 10.0,
                     store = CouponStore(
                         id = 5953,
                         name = "Zattini",

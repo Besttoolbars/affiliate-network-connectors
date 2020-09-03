@@ -4,30 +4,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 data class OffersResponse (
     val requestInfo: RequestInfo,
-    val pagination: Pagination,
-    val offers: List<Offer>
+    val pagination: Pagination?,
+    val offers: List<Offer> = emptyList()
 )
 
 data class OfferCategoriesResponse (
     val requestInfo: RequestInfo,
-    val pagination: Pagination,
-    val categories: List<OfferCategory>
+    val pagination: Pagination?,
+    val categories: List<OfferCategory> = emptyList()
 )
 
 data class OfferStoresResponse (
     val requestInfo: RequestInfo,
-    val pagination: Pagination,
-    val stores: List<OfferStore>
+    val pagination: Pagination?,
+    val stores: List<OfferStore> = emptyList()
 )
 
+//@JsonIgnoreProperties(ignoreUnknown = true)
 data class Offer (
     val id: String,
     val name: String,
     val category: OfferCategory,
     val link: String,
     val thumbnail: String,
-    val price: Long,
-    val installment: OfferInstallment,
+    val price: Double,
+    val priceFrom: Double,
+    val installment: OfferInstallment?,
     val store: OfferStore
 )
 
