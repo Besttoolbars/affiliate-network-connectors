@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-object CommissionQuery {
+object CommissionGraphQlQuery {
     fun publisherCommissions(publisher: String, from: LocalDateTime, to: LocalDateTime = LocalDateTime.now()): String {
         val dateFromFormatted = from.atZone(ZoneId.of("Z")).format(DateTimeFormatter.ISO_DATE_TIME)
         val dateToFormatted = to.atZone(ZoneId.of("Z")).format(DateTimeFormatter.ISO_DATE_TIME)

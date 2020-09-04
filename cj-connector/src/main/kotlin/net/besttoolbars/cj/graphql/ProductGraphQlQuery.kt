@@ -1,10 +1,23 @@
 package net.besttoolbars.cj.graphql
 
-object ProductQuery {
-    fun shoppingProducts(companyId: Long, websiteId: Long): String {
+object ProductGraphQlQuery {
+    fun shoppingProducts(
+        companyId: String,
+        websiteId: String,
+        limit: Int = 1000,
+        offset: Int = 0,
+        adIds: Set<String>? = null,
+        googleProductCategoryIds: Set<String>? = null
+    ): String {
         return """
 query {
-  shoppingProducts(companyId: $companyId) {
+  shoppingProducts(
+    companyId: $companyId,
+    limit: $limit,
+    offset: $offset,
+    adIds: $adIds,
+    googleProductCategoryIds: $googleProductCategoryIds
+  ) {
     totalCount
     count
     limit
