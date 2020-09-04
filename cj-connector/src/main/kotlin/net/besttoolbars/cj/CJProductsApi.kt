@@ -4,7 +4,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.cj.graphql.GraphQl
 import net.besttoolbars.cj.graphql.GraphQlBodyConverter
-import net.besttoolbars.cj.response.CJGraphQlResponse
+import net.besttoolbars.cj.response.CjGraphQlResponse
 import net.besttoolbars.cj.response.CJShoppingProductsResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,7 +19,7 @@ interface CJProductsApi {
     fun shoppingProducts(
             @Header("Authorization") authorization: String,
             @Body @GraphQl query: String
-    ): CompletableFuture<CJGraphQlResponse<CJShoppingProductsResponse>>
+    ): CompletableFuture<CjGraphQlResponse<CJShoppingProductsResponse>>
 
     companion object {
         private fun provideJsonMapper() = jacksonObjectMapper().apply {
