@@ -1,7 +1,11 @@
 package net.besttoolbars.cj.response
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import net.besttoolbars.cj.json.CjInstantDeserializer
 import java.time.Instant
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class ShoppingProduct(
     val additionalImageLink: List<String>?,
 
@@ -19,6 +23,7 @@ data class ShoppingProduct(
 
     val availability: String?,
 
+    @JsonDeserialize(using = CjInstantDeserializer::class)
     val availabilityDate: Instant?,
 
     val brand: String?,
@@ -47,6 +52,7 @@ data class ShoppingProduct(
 
     val energyEfficiencyClassMin: String?,
 
+    @JsonDeserialize(using = CjInstantDeserializer::class)
     val expirationDate: Instant?,
 
     val gender: String?,
@@ -71,6 +77,7 @@ data class ShoppingProduct(
 
     val itemListName: String?,
 
+    @JsonDeserialize(using = CjInstantDeserializer::class)
     val lastUpdated: Instant?,
 
     val link: String?,
@@ -99,8 +106,10 @@ data class ShoppingProduct(
 
     val salePrice: AmountWithCurrency?,
 
+    @JsonDeserialize(using = CjInstantDeserializer::class)
     val salePriceEffectiveDateEnd: Instant?,
 
+    @JsonDeserialize(using = CjInstantDeserializer::class)
     val salePriceEffectiveDateStart: Instant?,
 
     val serviceableAreas: String?,
@@ -131,6 +140,10 @@ data class ShoppingProducts(
     val limit: Int?,
     val totalCount: Int?,
     val resultList: List<ShoppingProduct>?
+)
+
+data class CJShoppingProductsResponse(
+    val shoppingProducts: ShoppingProducts
 )
 
 data class GoogleProductCategory(
