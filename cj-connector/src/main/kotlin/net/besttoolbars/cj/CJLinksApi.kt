@@ -26,14 +26,12 @@ interface CJLinksApi {
     ): CompletableFuture<CjLinksResponse>
 
     companion object {
-        fun provider(url: String = "https://link-search.api.cj.com", client: OkHttpClient? = null): CJLinksApi {
+        fun provider(url: String = "https://link-search.api.cj.com", client: OkHttpClient = provideCjRestApiHttpClient()): CJLinksApi {
             val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
+                .client(client)
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            if (client != null) {
-                retrofit.client(client)
-            }
             return retrofit.build().create(CJLinksApi::class.java)
         }
     }

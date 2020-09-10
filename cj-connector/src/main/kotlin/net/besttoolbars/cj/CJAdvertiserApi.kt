@@ -23,14 +23,12 @@ interface CJAdvertiserApi {
     ): CompletableFuture<CjAdvertisersResponse>
 
     companion object {
-        fun provider(url: String = "https://advertiser-lookup.api.cj.com", client: OkHttpClient? = null): CJAdvertiserApi {
+        fun provider(url: String = "https://advertiser-lookup.api.cj.com", client: OkHttpClient = provideCjRestApiHttpClient()): CJAdvertiserApi {
             val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
+                .client(client)
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            if (client != null) {
-                retrofit.client(client)
-            }
             return retrofit.build().create(CJAdvertiserApi::class.java)
         }
     }

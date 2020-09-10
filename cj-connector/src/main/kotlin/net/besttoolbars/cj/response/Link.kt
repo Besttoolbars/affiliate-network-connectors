@@ -126,7 +126,7 @@ data class CjLinks(
     val page: Int,
 
     @field:JacksonXmlElementWrapper(useWrapping = false)
-    val link: List<CjLink>
+    val link: List<CjLink> = emptyList()
 )
 
 @JacksonXmlRootElement(localName = "cj-api")

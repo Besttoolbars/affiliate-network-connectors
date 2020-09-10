@@ -13,6 +13,7 @@ dependencies {
 
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
     implementation("com.squareup.retrofit2:converter-jackson:${property("retrofit.version")}")
+    implementation("com.google.guava:guava:29.0-jre")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.2.0")
