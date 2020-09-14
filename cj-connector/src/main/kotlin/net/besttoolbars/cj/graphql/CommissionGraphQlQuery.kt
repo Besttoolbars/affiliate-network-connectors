@@ -5,7 +5,12 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 object CommissionGraphQlQuery {
-    fun publisherCommissions(publisher: String, from: LocalDateTime, to: LocalDateTime = LocalDateTime.now()): String {
+    fun publisherCommissions(
+        publisher: String,
+        from: LocalDateTime,
+        to: LocalDateTime = LocalDateTime.now(),
+        sinceCommissionId: String? = null
+    ): String {
         val dateFromFormatted = from.atZone(ZoneId.of("Z")).format(DateTimeFormatter.ISO_DATE_TIME)
         val dateToFormatted = to.atZone(ZoneId.of("Z")).format(DateTimeFormatter.ISO_DATE_TIME)
         return """
@@ -13,7 +18,8 @@ query{
   publisherCommissions(
     forPublishers: ["$publisher"],
     sincePostingDate:"$dateFromFormatted",
-    beforePostingDate:"$dateToFormatted"
+    beforePostingDate:"$dateToFormatted",
+    sinceCommissionId: $sinceCommissionId
   ) {
     count 
     payloadComplete 
