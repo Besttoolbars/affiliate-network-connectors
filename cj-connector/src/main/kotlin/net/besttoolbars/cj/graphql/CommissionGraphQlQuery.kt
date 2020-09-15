@@ -25,6 +25,9 @@ query{
     payloadComplete 
     maxCommissionId 
     records {
+      aid
+      clickDate
+      eventDate
       commissionId 
       validationStatus 
       advertiserId 

@@ -9,6 +9,7 @@ import java.time.Instant
 /**
  *
  * @property id Commission identification number.
+ * @property offerId Offer/Ad identification number.
  * @property status The commission's validation status.
  * @property advertiserId CID of the advertiser for this commission.
  * @property advertiserName Name of the advertiser for this commission.
@@ -28,30 +29,34 @@ import java.time.Instant
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CjTransaction (
     @JsonProperty("commissionId")
-    val id: String?,
+    val id: String,
+    @JsonProperty("aid")
+    val offerId: String?,
     @JsonProperty("validationStatus")
     val status: CommissionStatus,
     val advertiserId: String,
-    val advertiserName: String?,
+    val advertiserName: String,
     @JsonProperty("clickReferringURL")
-    val url: String,
-    val coupon: String,
+    val url: String?,
+    val coupon: String?,
     @JsonProperty("orderDiscountUsd")
     val discount: Double,
     @JsonProperty("saleAmountUsd")
     val amount: Double,
     @JsonProperty("pubCommissionAmountUsd")
     val commission: Double?,
-    val orderId: String,
+    val orderId: String?,
     @JsonProperty("postingDate")
     @JsonDeserialize(using = CjInstantDeserializer::class)
     val date: Instant?,
-    val shopperId: String,
-    val source: String,
+    val shopperId: String?,
+    val source: String?,
     val items: List<CjTransactionItem>? = listOf(),
-    val actionTrackerId: String,
+    val actionTrackerId: String?,
     @JsonDeserialize(using = CjInstantDeserializer::class)
-    val eventDate: Instant
+    val eventDate: Instant,
+    @JsonDeserialize(using = CjInstantDeserializer::class)
+    val clickDate: Instant?
 )
 
 /**
