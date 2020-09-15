@@ -10,7 +10,8 @@ import java.time.Instant
  *
  * @property id Commission identification number.
  * @property offerId Offer/Ad identification number.
- * @property status The commission's validation status.
+ * @property actionStatus Status of the commission.
+ * @property validationStatus The commission's validation status. Indicates whether an order is pending validation or has been validated by advertiser.
  * @property advertiserId CID of the advertiser for this commission.
  * @property advertiserName Name of the advertiser for this commission.
  * @property url Click referring URL for the commission.
@@ -32,8 +33,8 @@ data class CjTransaction (
     val id: String,
     @JsonProperty("aid")
     val offerId: String?,
-    @JsonProperty("validationStatus")
-    val status: CommissionStatus,
+    val actionStatus: CjCommissionActionStatus,
+    val validationStatus: CjCommissionValidationStatus,
     val advertiserId: String,
     val advertiserName: String,
     @JsonProperty("clickReferringURL")
@@ -96,9 +97,16 @@ data class CjPublisherCommission (
     val records: List<CjTransaction>
 )
 
-enum class CommissionStatus  {
+enum class CjCommissionValidationStatus  {
     PENDING,
     ACCEPTED,
     DECLINED,
     AUTOMATED;
+}
+
+enum class CjCommissionActionStatus  {
+    NEW,
+    LOCKED,
+    EXTENDED,
+    CLOSED;
 }

@@ -29,6 +29,7 @@ query{
       clickDate
       eventDate
       commissionId 
+      actionStatus
       validationStatus 
       advertiserId 
       advertiserName 

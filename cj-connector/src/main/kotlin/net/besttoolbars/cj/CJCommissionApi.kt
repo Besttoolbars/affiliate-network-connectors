@@ -1,5 +1,6 @@
 package net.besttoolbars.cj
 
+import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.cj.graphql.GraphQl
 import net.besttoolbars.cj.graphql.GraphQlBodyConverter
@@ -21,7 +22,9 @@ interface CJCommissionApi {
     ): CompletableFuture<CjGraphQlResponse<CjPublisherCommissionResponse>>
 
     companion object {
-        private fun provideJsonMapper() = jacksonObjectMapper()
+        private fun provideJsonMapper() = jacksonObjectMapper().apply {
+            enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        }
 
         fun provider(url: String = "https://commissions.api.cj.com", client: OkHttpClient? = null): CJCommissionApi {
             val objectMapper = provideJsonMapper()
