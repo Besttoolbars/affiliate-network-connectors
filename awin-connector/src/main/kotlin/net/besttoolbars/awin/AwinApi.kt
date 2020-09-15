@@ -1,5 +1,6 @@
 package net.besttoolbars.awin
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.awin.response.AwinAdvertiserDetailsResponse
 import net.besttoolbars.awin.response.AwinAdvertiserResponse
 import net.besttoolbars.awin.response.AwinOffersResponse
@@ -50,10 +51,9 @@ interface AwinApi {
 
     companion object {
         fun provider(url: String = "https://api.awin.com", client: OkHttpClient? = null): AwinApi {
-            val objectMapper = provideXmlObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
-                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper()))
             client?.let { retrofit.client(it) }
             return retrofit.build().create(AwinApi::class.java)
         }
