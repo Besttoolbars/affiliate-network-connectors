@@ -1,5 +1,7 @@
 package net.besttoolbars.awin.response
 
+import net.besttoolbars.awin.CommissionType
+
 data class AwinOffersResponse (
     val advertiser: Long,
     val publisher: Long,
@@ -15,9 +17,4 @@ data class CommissionGroup (
     val percentage: Long? = null,
     val amount: Long? = null,
     val currency: String? = null
-) {
-    enum class CommissionType(val type: String) {
-        PERCENTAGE("percentage"),
-        FIX("fix")
-    }
-}
+)

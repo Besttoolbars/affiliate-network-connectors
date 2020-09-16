@@ -2,6 +2,7 @@ package net.besttoolbars.awin.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import net.besttoolbars.awin.CommissionType
 import net.besttoolbars.awin.CountryCode
 
 /**
@@ -51,12 +52,7 @@ data class CommissionRange (
     val min: Double,
     val max: Double,
     val type: CommissionType
-){
-    enum class CommissionType(val type: String) {
-        PERCENTAGE("percentage"),
-        AMOUNT("amount")
-    }
-}
+)
 
 /**
  * @property approvalPercentage	the approval percentage relates to the proportion of pending transactions which are then validated as approved

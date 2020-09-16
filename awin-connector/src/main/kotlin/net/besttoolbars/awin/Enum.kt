@@ -61,3 +61,9 @@ enum class TransactionTimeZone(val zone: String) {
 
     override fun toString(): String = zone
 }
+
+enum class CommissionType {
+    PERCENTAGE,
+    FIX,
+    AMOUNT
+}
