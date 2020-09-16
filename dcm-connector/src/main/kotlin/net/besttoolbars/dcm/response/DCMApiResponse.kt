@@ -9,6 +9,6 @@ data class DCMResponse<T>(
     val status: Int,
     val httpStatus: Int,
     val data: T,
-    val errors: List<Any>?, // todo find
-    val errorMessage: String?
+    val errors: List<Any>? = emptyList(), // todo find
+    val errorMessage: String? = null
 )

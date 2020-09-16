@@ -20,7 +20,7 @@ data class DCMOffer(
     val conversionCap: Int,
 
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val currency: String?,
+    val currency: String? = null,
 
     @JsonProperty("default_goal_name")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
@@ -30,14 +30,14 @@ data class DCMOffer(
     val defaultPayout: Float,
 
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val description: String?,
+    val description: String? = null,
 
     @JsonProperty("dne_download_url")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val dneDownloadUrl: String?,
+    val dneDownloadUrl: String? = null,
 
     @JsonProperty("dne_list_id")
-    val dneListId: Int?,
+    val dneListId: Int? = null,
 
     @JsonProperty("dne_unsubscribe_url")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
@@ -49,17 +49,17 @@ data class DCMOffer(
 
     @JsonProperty("email_instructions_from")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val emailInstructionsFrom: String?,
+    val emailInstructionsFrom: String? = null,
 
     @JsonProperty("email_instructions_subject")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val emailInstructionsSubject: String?,
+    val emailInstructionsSubject: String? = null,
 
     @JsonProperty("expiration_date")
     val expirationDate: String,
 
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val featured: String?,
+    val featured: String? = null,
 
     @JsonProperty("has_goals_enabled")
     @JsonDeserialize(using = DCMBooleanDeserializer::class)
@@ -96,7 +96,7 @@ data class DCMOffer(
 
     @JsonProperty("preview_url")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val previewUrl: String?,
+    val previewUrl: String? = null,
 
     val protocol: ProtocolType,
 
@@ -120,7 +120,7 @@ data class DCMOffer(
 
     @JsonProperty("terms_and_conditions")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
-    val termsAndConditions: String?,
+    val termsAndConditions: String? = null,
 
     @JsonProperty("use_target_rules")
     @JsonDeserialize(using = DCMBooleanDeserializer::class)
@@ -128,52 +128,25 @@ data class DCMOffer(
 )
 
 enum class PayoutType {
-    @JsonProperty("cpa_flat")
     CPA_FLAT,
-
-    @JsonProperty("cpa_percentage")
     CPA_PERCENTAGE,
-
-    @JsonProperty("cpa_both")
     CPA_BOTH,
-
-    @JsonProperty("cpc")
     CPC,
-
-    @JsonProperty("cpm")
     CPM
 }
 
 enum class ProtocolType {
-    @JsonProperty("http")
     HTTP,
-
-    @JsonProperty("https")
     HTTPS,
-
-    @JsonProperty("http_img")
     HTTP_IMG,
-
-    @JsonProperty("https_img")
     HTTPS_IMG,
-
-    @JsonProperty("server")
     SERVER,
-
-    @JsonProperty("server_affiliate")
     SERVER_AFFILIATE,
-
-    @JsonProperty("mobile_app")
     MOBILE_APP,
-
-    @JsonProperty("mobile_device")
     MOBILE_DEVICE,
-
-    @JsonProperty("pay_per_call")
     PAY_PER_CALL
 }
 
 enum class OfferStatus {
-    @JsonProperty("active")
     ACTIVE
 }

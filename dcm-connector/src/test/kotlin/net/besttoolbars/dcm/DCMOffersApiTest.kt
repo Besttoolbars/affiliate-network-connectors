@@ -6,6 +6,8 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DCMOffersApiTest {
     private val mockWebServer = MockWebServer()
@@ -18,7 +20,7 @@ class DCMOffersApiTest {
     }
 
     @Test
-    fun `get offers`() {
+    fun getApprovedOffers() {
         val data = """
             {
                 "request": {
@@ -94,18 +96,18 @@ class DCMOffersApiTest {
         """.trimIndent()
 
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
-        val actual = mockedApi.getOffers(
+        val actual = mockedApi.getApprovedOffers(
             apiKey = "",
             page = 1,
             limit = 20
         ).get()
 
-        val expected = DCMApiResponse<DCMOfferList>(
+        val expected = DCMApiResponse<DCMLimitedList<DCMOfferListData>>(
             request = Any(),
-            response = DCMResponse<DCMOfferList>(
+            response = DCMResponse<DCMLimitedList<DCMOfferListData>>(
                 status = 1,
                 httpStatus = 200,
-                data = DCMOfferList(
+                data = DCMLimitedList(
                     page = 1,
                     current = 0,
                     count = 6,
@@ -151,9 +153,250 @@ class DCMOffersApiTest {
                             )
                         )
                     )
-                ),
-                errorMessage = null,
-                errors = emptyList()
+                )
+            )
+        )
+
+        Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun getCategories() {
+        val data = """
+            {
+                "request": {
+                    "Target": "Affiliate_Offer",
+                    "Format": "json",
+                    "Service": "HasOffers",
+                    "Version": "2",
+                    "api_key": "",
+                    "Method": "getCategories",
+                    "ids": [
+                        "220"
+                    ]
+                },
+                "response": {
+                    "status": 1,
+                    "httpStatus": 200,
+                    "data": [
+                        {
+                            "offer_id": "220",
+                            "categories": {
+                                "52": {
+                                    "id": "52",
+                                    "name": "Gifts & Flowers"
+                                }
+                            }
+                        }
+                    ],
+                    "errors": [],
+                    "errorMessage": null
+                }
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getCategories(
+            apiKey = "",
+            ids = listOf(220)
+        ).get()
+
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse<List<DCMOfferCategory>>(
+                status = 1,
+                httpStatus = 200,
+                data = listOf(
+                    DCMOfferCategory(
+                        offerId = 220,
+                        categories = mapOf(
+                            52 to DCMCategory(
+                                id = 52,
+                                name = "Gifts & Flowers"
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun getOffersUrls() {
+        val data = """
+            {
+                "request": {
+                    "Target": "Affiliate_OfferUrl",
+                    "Format": "json",
+                    "Service": "HasOffers",
+                    "Version": "2",
+                    "Method": "findAll",
+                    "api_key": "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+                    "limit": "1"
+                },
+                "response": {
+                    "status": 1,
+                    "httpStatus": 200,
+                    "data": {
+                        "page": 1,
+                        "current": 0,
+                        "count": 1050,
+                        "pageCount": 1050,
+                        "data": {
+                            "17355": {
+                                "OfferUrl": {
+                                    "id": "17355",
+                                    "offer_id": "354",
+                                    "name": "GAP Exclusive Sale Up to 70% off ",
+                                    "preview_url": "https://www.gap.ae/sale/shop-sale/women/",
+                                    "status": "active",
+                                    "created": "2020-01-08 01:33:43",
+                                    "modified": "2020-04-08 09:33:10"
+                                }
+                            }
+                        }
+                    },
+                    "errors": [],
+                    "errorMessage": null
+                }
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getOffersUrls(
+            apiKey = "",
+            page = 1,
+            limit = 1
+        ).get()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse<DCMLimitedList<DCMOfferUrlListData>>(
+                status = 1,
+                httpStatus = 200,
+                data = DCMLimitedList<DCMOfferUrlListData>(
+                    page = 1,
+                    current = 0,
+                    count = 1050,
+                    pageCount = 1050,
+                    data = mapOf(
+                        "17355" to DCMOfferUrlListData(
+                            offerUrl = DCMOfferUrl(
+                                id = 17355,
+                                offerId = 354,
+                                name = "GAP Exclusive Sale Up to 70% off ",
+                                previewUrl = "https://www.gap.ae/sale/shop-sale/women/",
+                                status = OfferStatus.ACTIVE,
+                                created = LocalDateTime.parse("2020-01-08 01:33:43", formatter),
+                                modified = LocalDateTime.parse("2020-04-08 09:33:10", formatter)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+
+        Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun getOfferFiles() {
+        val data = """
+            {
+                "request": {
+                    "Target": "Affiliate_OfferFile",
+                    "Format": "json",
+                    "Service": "HasOffers",
+                    "Version": "2",
+                    "Method": "findAll",
+                    "api_key": "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+                    "limit": "1"
+                },
+                "response": {
+                    "status": 1,
+                    "httpStatus": 200,
+                    "data": {
+                        "page": 1,
+                        "current": 0,
+                        "count": 5460,
+                        "pageCount": 5460,
+                        "data": {
+                            "18": {
+                                "OfferFile": {
+                                    "id": "18",
+                                    "offer_id": "10",
+                                    "display": "travelwings.com-coupons-codes.jpg",
+                                    "filename": "travelwings.com-coupons-codes.jpg",
+                                    "size": "5150",
+                                    "status": "active",
+                                    "type": "offer thumbnail",
+                                    "width": "150",
+                                    "height": "72",
+                                    "code": null,
+                                    "flash_vars": null,
+                                    "interface": "network",
+                                    "account_id": null,
+                                    "is_private": "0",
+                                    "created": "2016-03-30 06:24:02",
+                                    "modified": "0000-00-00 00:00:00",
+                                    "url": "https://media.go2speed.org/brand/files/dcm/10/travelwings.com-coupons-codes.jpg",
+                                    "thumbnail": "https://media.go2speed.org/brand/files/dcm/10/thumbnails_100/travelwings.com-coupons-codes.jpg"
+                                }
+                            }
+                        }
+                    },
+                    "errors": [],
+                    "errorMessage": null
+                }
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getOfferFiles(
+            apiKey = "",
+            page = 1,
+            limit = 1
+        ).get()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse<DCMLimitedList<DCMOfferFileListData>>(
+                status = 1,
+                httpStatus = 200,
+                data = DCMLimitedList<DCMOfferFileListData>(
+                    page = 1,
+                    current = 0,
+                    count = 5460,
+                    pageCount = 5460,
+                    data = mapOf(
+                        "18" to DCMOfferFileListData(
+                            offerFile = DCMOfferFile(
+                                id = 18,
+                                offerId = 10,
+                                display = "travelwings.com-coupons-codes.jpg",
+                                filename = "travelwings.com-coupons-codes.jpg",
+                                size = 5150,
+                                status = FileStatus.ACTIVE,
+                                type = FileType.OFFER_THUMBNAIL,
+                                width = 150,
+                                height = 72,
+                                code = null,
+                                flashVars = null,
+                                `interface` = Interface.NETWORK,
+                                accountId = null,
+                                isPrivate = false,
+                                created = LocalDateTime.parse("2016-03-30 06:24:02", formatter),
+                                modified = null,
+                                url = "https://media.go2speed.org/brand/files/dcm/10/travelwings.com-coupons-codes.jpg",
+                                thumbnail = "https://media.go2speed.org/brand/files/dcm/10/thumbnails_100/travelwings.com-coupons-codes.jpg"
+                            )
+                        )
+                    )
+                )
             )
         )
 
