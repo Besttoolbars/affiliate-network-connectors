@@ -1,5 +1,6 @@
 package net.besttoolbars.awin
 
+import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.awin.response.AwinAdvertiserDetailsResponse
 import net.besttoolbars.awin.response.AwinAdvertiserResponse
@@ -31,7 +32,7 @@ interface AwinApi {
         @Query("advertiserId") advertiserId: Int
     ): CompletableFuture<AwinAdvertiserDetailsResponse>
 
-    @GET("/publishers/{publisher-id}/commissiongroups?advertiserId=1001")
+    @GET("/publishers/{publisher-id}/commissiongroups")
     fun offers(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,
@@ -50,10 +51,15 @@ interface AwinApi {
     ): CompletableFuture<AwinTransactionResponse>
 
     companion object {
+        private fun provideJsonMapper() = jacksonObjectMapper().apply {
+            enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        }
+
         fun provider(url: String = "https://api.awin.com", client: OkHttpClient? = null): AwinApi {
+            val objectMapper = provideJsonMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
-                .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper()))
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             client?.let { retrofit.client(it) }
             return retrofit.build().create(AwinApi::class.java)
         }

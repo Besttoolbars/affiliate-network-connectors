@@ -1,19 +1,19 @@
 package net.besttoolbars.awin
 
-enum class TransactionStatus(val status: String) {
-    PENDING("pending"),
-    APPROVED("approved"),
-    DECLINE("declined"),
-    DELETED("deleted");
+enum class TransactionStatus {
+    PENDING,
+    APPROVED,
+    DECLINE,
+    DELETED;
 
-    override fun toString(): String = status
+    override fun toString(): String = name.toLowerCase()
 }
 
-enum class TransactionDateType(val type: String) {
-    TRANSACTION("transaction"),
-    VALIDATION("validation");
+enum class TransactionDateType {
+    TRANSACTION,
+    VALIDATION;
 
-    override fun toString(): String = type
+    override fun toString(): String = name.toLowerCase()
 }
 
 /**
