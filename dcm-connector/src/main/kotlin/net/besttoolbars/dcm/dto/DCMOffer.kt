@@ -1,10 +1,10 @@
-package net.besttoolbars.dcm.response
+package net.besttoolbars.dcm.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import net.besttoolbars.dcm.converters.DCMBooleanDeserializer
-import net.besttoolbars.dcm.converters.DCMEmptyStringDeserializer
+import net.besttoolbars.dcm.deserializers.DCMBooleanDeserializer
+import net.besttoolbars.dcm.deserializers.DCMEmptyStringDeserializer
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 data class DCMOffer(

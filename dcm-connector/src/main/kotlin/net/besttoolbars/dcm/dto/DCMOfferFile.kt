@@ -1,9 +1,9 @@
-package net.besttoolbars.dcm.response
+package net.besttoolbars.dcm.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import net.besttoolbars.dcm.converters.DCMBooleanDeserializer
-import net.besttoolbars.dcm.converters.LocalDateTimeDeserializer
+import net.besttoolbars.dcm.deserializers.DCMBooleanDeserializer
+import net.besttoolbars.dcm.deserializers.LocalDateTimeDeserializer
 import java.time.LocalDateTime
 
 data class DCMOfferFile(

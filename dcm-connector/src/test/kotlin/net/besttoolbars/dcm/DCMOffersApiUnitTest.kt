@@ -1,6 +1,6 @@
 package net.besttoolbars.dcm
 
-import net.besttoolbars.dcm.response.*
+import net.besttoolbars.dcm.dto.*
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class DCMOffersApiTest {
+class DCMOffersApiUnitTest {
     private val mockWebServer = MockWebServer()
     private val mockedApi =
-        DCMOffersApi.provider(mockWebServer.url("/").toString())
+        DCMOffersRawApi.provider(mockWebServer.url("/").toString())
 
     @AfterEach
     fun tearDown() {
@@ -102,12 +102,12 @@ class DCMOffersApiTest {
             limit = 20
         ).get()
 
-        val expected = DCMApiResponse<DCMLimitedList<DCMOfferListData>>(
+        val expected = DCMApiResponse(
             request = Any(),
-            response = DCMResponse<DCMLimitedList<DCMOfferListData>>(
+            response = DCMResponse(
                 status = 1,
                 httpStatus = 200,
-                data = DCMLimitedList(
+                data = DCMOfferLimitedList(
                     page = 1,
                     current = 0,
                     count = 6,
@@ -203,7 +203,7 @@ class DCMOffersApiTest {
 
         val expected = DCMApiResponse(
             request = Any(),
-            response = DCMResponse<List<DCMOfferCategory>>(
+            response = DCMResponse(
                 status = 1,
                 httpStatus = 200,
                 data = listOf(
@@ -274,10 +274,10 @@ class DCMOffersApiTest {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val expected = DCMApiResponse(
             request = Any(),
-            response = DCMResponse<DCMLimitedList<DCMOfferUrlListData>>(
+            response = DCMResponse(
                 status = 1,
                 httpStatus = 200,
-                data = DCMLimitedList<DCMOfferUrlListData>(
+                data = DCMOfferUrlLimitedList(
                     page = 1,
                     current = 0,
                     count = 1050,
@@ -364,10 +364,10 @@ class DCMOffersApiTest {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val expected = DCMApiResponse(
             request = Any(),
-            response = DCMResponse<DCMLimitedList<DCMOfferFileListData>>(
+            response = DCMResponse(
                 status = 1,
                 httpStatus = 200,
-                data = DCMLimitedList<DCMOfferFileListData>(
+                data = DCMOfferFileLimitedList(
                     page = 1,
                     current = 0,
                     count = 5460,
@@ -401,5 +401,97 @@ class DCMOffersApiTest {
         )
 
         Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun errorsList() {
+        val data = """
+            {
+                "response": {
+                    "errors": [{
+                        "publicMessage": "Unsupported output format in URL"
+                    }],
+                    "link": "http://developers.hasoffers.com/"
+                }
+            }
+        """.trimIndent()
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getOfferFiles(
+            apiKey = "",
+            page = 1,
+            limit = 1
+        ).get()
+
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse(
+                data = null,
+                errors = listOf(
+                    DCMError(
+                        publicMessage = "Unsupported output format in URL"
+                    )
+                )
+            )
+        )
+
+        Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun errorsObject() {
+        val data = """
+            {
+                "response": {
+                    "errors": {
+                        "publicMessage": "Unsupported output format in URL"
+                    },
+                    "link": "http://developers.hasoffers.com/"
+                }
+            }
+        """.trimIndent()
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getOfferFiles(
+            apiKey = "",
+            page = 1,
+            limit = 1
+        ).get()
+
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse(
+                data = null,
+                errors = listOf(
+                    DCMError(
+                        publicMessage = "Unsupported output format in URL"
+                    )
+                )
+            )
+        )
+
+        Assertions.assertEquals(expected.response, actual.response)
+    }
+
+    @Test
+    fun test() {
+        val api = DCMOffersRawApi.provider()
+        val offers = api.getApprovedOffers(
+            apiKey = "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+            page = 1,
+            limit = 10000
+        ).get()
+
+        val categories = api.getCategories(
+            apiKey = "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+            ids = offers.response.data!!.data.values.map { it.offer.id }
+        ).get().response.data!!
+
+        categories.map { println(it) }
+
+        val distinctCategories = categories
+            .flatMap { it.categories.values }
+            .distinctBy { it.id }
+            .map { it.id }
+
+        println(distinctCategories)
     }
 }

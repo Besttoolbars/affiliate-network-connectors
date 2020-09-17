@@ -1,4 +1,4 @@
-package net.besttoolbars.dcm.converters
+package net.besttoolbars.dcm.deserializers
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext

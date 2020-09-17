@@ -1,9 +1,6 @@
 package net.besttoolbars.dcm
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import net.besttoolbars.dcm.response.*
+import net.besttoolbars.dcm.dto.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -11,19 +8,19 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.CompletableFuture
 
-interface DCMOffersApi {
+interface DCMOffersRawApi {
     // contain, sort
 
-    @GET("/")
+    @GET("/Apiv3/json")
     fun getApprovedOffers(
         @Query("api_key") apiKey: String,
         @Query("Target") target: String = "Affiliate_Offer",
-        @Query("Method") method: String = "findMyApprovedOffers",
+        @Query("Method") method: String = "findAll",
         @Query("page") page: Int,
         @Query("limit") limit: Int
-    ): CompletableFuture<DCMApiResponse<DCMLimitedList<DCMOfferListData>>>
+    ): CompletableFuture<DCMApiResponse<DCMOfferLimitedList>>
 
-    @GET("/")
+    @GET("/Apiv3/json")
     fun getCategories(
         @Query("api_key") apiKey: String,
         @Query("Target") target: String = "Affiliate_Offer",
@@ -31,7 +28,7 @@ interface DCMOffersApi {
         @Query("ids[]") ids: List<Int>
     ): CompletableFuture<DCMApiResponse<List<DCMOfferCategory>>>
 
-    @GET("/")
+    @GET("/Apiv3/json")
     fun getOffersUrls(
         @Query("api_key") apiKey: String,
         @Query("Target") target: String = "Affiliate_OfferUrl",
@@ -44,9 +41,9 @@ interface DCMOffersApi {
         @Query("filters[name]") name: String? = null,
         @Query("filters[offer_id]") offerId: Int? = null,
         @Query("filters[preview_url]") previewUrl: String? = null
-    ): CompletableFuture<DCMApiResponse<DCMLimitedList<DCMOfferUrlListData>>>
+    ): CompletableFuture<DCMApiResponse<DCMOfferUrlLimitedList>>
 
-    @GET("/")
+    @GET("/Apiv3/json")
     fun getOfferFiles(
         @Query("api_key") apiKey: String,
         @Query("Target") target: String = "Affiliate_OfferFile",
@@ -59,21 +56,18 @@ interface DCMOffersApi {
         @Query("filters[name]") name: String? = null,
         @Query("filters[offer_id]") offerId: Int? = null,
         @Query("filters[preview_url]") previewUrl: String? = null
-    ): CompletableFuture<DCMApiResponse<DCMLimitedList<DCMOfferFileListData>>>
+    ): CompletableFuture<DCMApiResponse<DCMOfferFileLimitedList>>
 
     companion object {
-        fun provider(url: String = "https://dcm.api.hasoffers.com/Apiv3/json", client: OkHttpClient? = null): DCMOffersApi {
-            val objectMapper = jacksonObjectMapper()
-                .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMOffersRawApi {
+            val objectMapper = getDCMMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             if (client != null) {
                 retrofit.client(client)
             }
-            return retrofit.build().create(DCMOffersApi::class.java)
+            return retrofit.build().create(DCMOffersRawApi::class.java)
         }
     }
 }
