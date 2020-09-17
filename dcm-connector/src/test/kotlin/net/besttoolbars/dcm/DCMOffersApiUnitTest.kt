@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 class DCMOffersApiUnitTest {
     private val mockWebServer = MockWebServer()
     private val mockedApi =
-        DCMOffersRawApi.provider(mockWebServer.url("/").toString())
+        DCMApi.provider(mockWebServer.url("/").toString())
 
     @AfterEach
     fun tearDown() {
@@ -473,7 +473,7 @@ class DCMOffersApiUnitTest {
 
     @Test
     fun test() {
-        val api = DCMOffersRawApi.provider()
+        val api = DCMApi.provider()
         val offers = api.getApprovedOffers(
             apiKey = "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
             page = 1,

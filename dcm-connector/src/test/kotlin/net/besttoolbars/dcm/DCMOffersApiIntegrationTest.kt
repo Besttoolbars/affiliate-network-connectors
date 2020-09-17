@@ -6,7 +6,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 
 @EnabledIfEnvironmentVariable(named = "DCMApiKey", matches = ".*\\S.*")
 class DCMOffersApiIntegrationTest {
-    val api = DCMOffersRawApi.provider()
+    val api = DCMApi.provider()
     val apiKey = System.getenv("DCMApiKey")
 
     @Test

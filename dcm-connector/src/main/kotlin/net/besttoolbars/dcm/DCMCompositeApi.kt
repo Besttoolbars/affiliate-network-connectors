@@ -3,39 +3,31 @@ package net.besttoolbars.dcm
 import net.besttoolbars.dcm.dto.*
 
 class DCMCompositeApi(
-    private val api: DCMOffersRawApi
+    private val api: DCMApi
 ) {
     fun getOffersWithAttachedData(
         apiKey: String,
         page: Int,
         limit: Int
     ): DCMOfferWithAttachedList {
-        val offersResponse = api.getApprovedOffers(
-            apiKey = apiKey,
-            limit = limit,
-            page = page
-        ).get().response
-        val offersData = getOrThrow(offersResponse, "getApprovedOffers")
-        val offers = offersData.data.values
+        val offersResponse: DCMResponse<DCMOfferLimitedList> = api.getApprovedOffers(apiKey, page, limit).get().response
+        val offersList: DCMOfferLimitedList = getOrThrow(offersResponse, "getApprovedOffers")
+        val offers: Collection<DCMOfferListData> = offersList.data.values
 
-        val categories = getCategories(apiKey, offers.map { it.offer.id })
+        val categories: List<DCMOfferCategory> = getCategories(apiKey, offers.map { it.offer.id })
 
-        val items =  offers.map {
-            val offer = it.offer
+        val items: List<DCMOfferWithAttached> = offers.map {
+            val offer: DCMOffer = it.offer
+            val offerCategories: List<DCMCategory> = categories.find { it.offerId == offer.id }?.categories?.values?.toList() ?: emptyList()
+            val offerUrls: List<DCMOfferUrl> =  getOfferUrls(apiKey, offer.id)
+            val offerFiles: List<DCMOfferFile> = getOfferFiles(apiKey, offer.id)
 
-            val offerCategories = categories.find { it.offerId == offer.id }?.categories?.values?.toList() ?: emptyList()
-
-            DCMOfferWithAttached(
-                offer = offer,
-                offerUrls = getOfferUrls(apiKey, offer.id),
-                offerFiles = getOfferFiles(apiKey, offer.id),
-                categories = offerCategories
-            )
+            DCMOfferWithAttached(offer, offerUrls, offerFiles, offerCategories)
         }
 
         return DCMOfferWithAttachedList(
             items = items,
-            totalCount = offersData.count
+            totalCount = offersList.count
         )
     }
 
@@ -43,10 +35,7 @@ class DCMCompositeApi(
         apiKey: String,
         offerIds: List<Int>
     ): List<DCMOfferCategory> {
-        val response = api.getCategories(
-            apiKey = apiKey,
-            ids = offerIds
-        ).get().response
+        val response: DCMResponse<List<DCMOfferCategory>> = api.getCategories(apiKey, offerIds).get().response
         return getOrThrow(response, "getCategories")
     }
 
@@ -58,13 +47,13 @@ class DCMCompositeApi(
         var page = 1
 
         while (true) {
-            val response = api.getOffersUrls(
+            val response: DCMResponse<DCMOfferUrlLimitedList> = api.getOffersUrls(
                 apiKey = apiKey,
                 page = page,
                 limit = 100,
                 offerId = offerId
             ).get().response
-            val data = getOrThrow(response, "getOffersUrls")
+            val data: DCMOfferUrlLimitedList = getOrThrow(response, "getOffersUrls")
 
             urls = urls + data.data.values.toList().map { it.offerUrl }
             if (urls.size >= data.count) {
@@ -84,13 +73,13 @@ class DCMCompositeApi(
         var page = 1
 
         while (true) {
-            val response = api.getOfferFiles(
+            val response: DCMResponse<DCMOfferFileLimitedList> = api.getOfferFiles(
                 apiKey = apiKey,
                 page = page,
                 limit = 100,
                 offerId = offerId
             ).get().response
-            val data = getOrThrow(response, "getOfferFiles")
+            val data: DCMOfferFileLimitedList = getOrThrow(response, "getOfferFiles")
 
             files = files + data.data.values.toList().map { it.offerFile }
             if (files.size >= data.count) {
