@@ -2,9 +2,9 @@ package net.besttoolbars.dcm
 
 import net.besttoolbars.dcm.dto.*
 
-class DCMCompositeApi {
-    private val api = DCMOffersRawApi.provider()
-
+class DCMCompositeApi(
+    private val api: DCMOffersRawApi
+) {
     fun getOffersWithAttachedData(
         apiKey: String,
         page: Int,
@@ -16,7 +16,6 @@ class DCMCompositeApi {
             page = page
         ).get().response
         val offersData = getOrThrow(offersResponse, "getApprovedOffers")
-
         val offers = offersData.data.values
 
         val categories = getCategories(apiKey, offers.map { it.offer.id })
@@ -56,7 +55,7 @@ class DCMCompositeApi {
         offerId: Int
     ): List<DCMOfferUrl> {
         var urls = listOf<DCMOfferUrl>()
-        var page = 0
+        var page = 1
 
         while (true) {
             val response = api.getOffersUrls(
@@ -82,7 +81,7 @@ class DCMCompositeApi {
         offerId: Int
     ): List<DCMOfferFile> {
         var files = listOf<DCMOfferFile>()
-        var page = 0
+        var page = 1
 
         while (true) {
             val response = api.getOfferFiles(

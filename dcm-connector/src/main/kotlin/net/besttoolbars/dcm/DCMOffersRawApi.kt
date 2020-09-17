@@ -9,8 +9,6 @@ import retrofit2.http.Query
 import java.util.concurrent.CompletableFuture
 
 interface DCMOffersRawApi {
-    // contain, sort
-
     @GET("/Apiv3/json")
     fun getApprovedOffers(
         @Query("api_key") apiKey: String,
