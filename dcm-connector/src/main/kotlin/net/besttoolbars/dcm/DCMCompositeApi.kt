@@ -13,16 +13,17 @@ class DCMCompositeApi(
         val offersResponse: DCMResponse<DCMOfferLimitedList> = api.getApprovedOffers(apiKey, page, limit).get().response
         val offersList: DCMOfferLimitedList = getOrThrow(offersResponse, "getApprovedOffers")
         val offers: Collection<DCMOfferListData> = offersList.data.values
+        val offerIds = offers.map { it.offer.id }
 
-        val categories: List<DCMOfferCategory> = getCategories(apiKey, offers.map { it.offer.id })
+        val categories: List<DCMOfferCategory> = getCategories(apiKey, offerIds)
+        val logos: List<DCMOfferThumbnail> = getThumbnails(apiKey, offerIds)
 
         val items: List<DCMOfferWithAttached> = offers.map {
             val offer: DCMOffer = it.offer
             val offerCategories: List<DCMCategory> = categories.find { it.offerId == offer.id }?.categories?.values?.toList() ?: emptyList()
-            val offerUrls: List<DCMOfferUrl> =  getOfferUrls(apiKey, offer.id)
-            val offerFiles: List<DCMOfferFile> = getOfferFiles(apiKey, offer.id)
+            val logo: DCMOfferFile? = logos.find { it.offerId == offer.id }?.thumbnail?.values?.firstOrNull()
 
-            DCMOfferWithAttached(offer, offerUrls, offerFiles, offerCategories)
+            DCMOfferWithAttached(offer, offerCategories, logo)
         }
 
         return DCMOfferWithAttachedList(
@@ -39,9 +40,17 @@ class DCMCompositeApi(
         return getOrThrow(response, "getCategories")
     }
 
+    fun getThumbnails(
+        apiKey: String,
+        offerIds: List<Int>
+    ): List<DCMOfferThumbnail> {
+        val response: DCMResponse<List<DCMOfferThumbnail>> = api.getThumbnails(apiKey, offerIds).get().response
+        return getOrThrow(response, "getThumbnails")
+    }
+
     fun getOfferUrls(
         apiKey: String,
-        offerId: Int
+        offerId: Int? = null
     ): List<DCMOfferUrl> {
         var urls = listOf<DCMOfferUrl>()
         var page = 1
@@ -63,32 +72,6 @@ class DCMCompositeApi(
         }
 
         return urls
-    }
-
-    fun getOfferFiles(
-        apiKey: String,
-        offerId: Int
-    ): List<DCMOfferFile> {
-        var files = listOf<DCMOfferFile>()
-        var page = 1
-
-        while (true) {
-            val response: DCMResponse<DCMOfferFileLimitedList> = api.getOfferFiles(
-                apiKey = apiKey,
-                page = page,
-                limit = 100,
-                offerId = offerId
-            ).get().response
-            val data: DCMOfferFileLimitedList = getOrThrow(response, "getOfferFiles")
-
-            files = files + data.data.values.toList().map { it.offerFile }
-            if (files.size >= data.count) {
-                break
-            }
-            page++
-        }
-
-        return files
     }
 
     private fun <T> getOrThrow(response: DCMResponse<T>, method: String): T {

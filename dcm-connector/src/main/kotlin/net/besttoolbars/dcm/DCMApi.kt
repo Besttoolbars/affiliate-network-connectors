@@ -15,7 +15,7 @@ interface DCMApi {
         @Query("page") page: Int,
         @Query("limit") limit: Int,
         @Query("Target") target: String = "Affiliate_Offer",
-        @Query("Method") method: String = "findAll"
+        @Query("Method") method: String = "findMyApprovedOffers"
     ): CompletableFuture<DCMApiResponse<DCMOfferLimitedList>>
 
     @GET("/Apiv3/json")
@@ -55,6 +55,14 @@ interface DCMApi {
         @Query("Target") target: String = "Affiliate_OfferFile",
         @Query("Method") method: String = "findAll"
     ): CompletableFuture<DCMApiResponse<DCMOfferFileLimitedList>>
+
+    @GET("/Apiv3/json")
+    fun getThumbnails(
+        @Query("api_key") apiKey: String,
+        @Query("ids[]") ids: List<Int>,
+        @Query("Target") target: String = "Affiliate_Offer",
+        @Query("Method") method: String = "getThumbnail"
+    ): CompletableFuture<DCMApiResponse<List<DCMOfferThumbnail>>>
 
     companion object {
         fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMApi {

@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class DCMOffersApiUnitTest {
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     private val mockWebServer = MockWebServer()
     private val mockedApi =
         DCMApi.provider(mockWebServer.url("/").toString())
@@ -29,7 +30,7 @@ class DCMOffersApiUnitTest {
                     "Service": "HasOffers",
                     "Version": "2",
                     "Method": "findMyApprovedOffers",
-                    "api_key": "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+                    "api_key": "",
                     "page": "1",
                     "limit": "1"
                 },
@@ -233,7 +234,7 @@ class DCMOffersApiUnitTest {
                     "Service": "HasOffers",
                     "Version": "2",
                     "Method": "findAll",
-                    "api_key": "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+                    "api_key": "",
                     "limit": "1"
                 },
                 "response": {
@@ -271,7 +272,6 @@ class DCMOffersApiUnitTest {
             limit = 1
         ).get()
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val expected = DCMApiResponse(
             request = Any(),
             response = DCMResponse(
@@ -312,7 +312,7 @@ class DCMOffersApiUnitTest {
                     "Service": "HasOffers",
                     "Version": "2",
                     "Method": "findAll",
-                    "api_key": "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
+                    "api_key": "",
                     "limit": "1"
                 },
                 "response": {
@@ -361,7 +361,7 @@ class DCMOffersApiUnitTest {
             limit = 1
         ).get()
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
         val expected = DCMApiResponse(
             request = Any(),
             response = DCMResponse(
@@ -472,26 +472,89 @@ class DCMOffersApiUnitTest {
     }
 
     @Test
-    fun test() {
-        val api = DCMApi.provider()
-        val offers = api.getApprovedOffers(
-            apiKey = "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
-            page = 1,
-            limit = 10000
-        ).get()
-
-        val categories = api.getCategories(
-            apiKey = "62d8e9b6aad1cb1e8063c648c2fc7ea1bba706f401cac3c4256a3d62732605a0",
-            ids = offers.response.data!!.data.values.map { it.offer.id }
-        ).get().response.data!!
-
-        categories.map { println(it) }
-
-        val distinctCategories = categories
-            .flatMap { it.categories.values }
-            .distinctBy { it.id }
-            .map { it.id }
-
-        println(distinctCategories)
+    fun getThumbnails() {
+        val data = """
+            {
+              "request": {
+                "Target": "Affiliate_Offer",
+                "Format": "json",
+                "Service": "HasOffers",
+                "Version": "2",
+                "api_key": "",
+                "Method": "getThumbnail",
+                "ids": [
+                  "871"
+                ],
+                "_": "1600672223585"
+              },
+              "response": {
+                "status": 1,
+                "httpStatus": 200,
+                "data": [
+                  {
+                    "offer_id": "871",
+                    "Thumbnail": {
+                      "38743": {
+                        "id": "38743",
+                        "offer_id": "871",
+                        "display": "Kate and asana logo.JPG",
+                        "filename": "Kate and asana logo.JPG",
+                        "size": "15180",
+                        "status": "active",
+                        "type": "offer thumbnail",
+                        "width": "615",
+                        "height": "89",
+                        "code": null,
+                        "flash_vars": null,
+                        "interface": "network",
+                        "account_id": null,
+                        "is_private": "0",
+                        "created": "2018-05-16 08:34:44",
+                        "modified": "0000-00-00 00:00:00",
+                        "url": "https://media.go2speed.org/brand/files/dcm/871/Kate and asana logo.JPG",
+                        "thumbnail": "https://media.go2speed.org/brand/files/dcm/871/thumbnails_100/Kate and asana logo.JPG"
+                      }
+                    }
+                  }
+                ],
+                "errors": [],
+                "errorMessage": null
+              }
+            }
+        """.trimIndent()
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(data))
+        val actual = mockedApi.getThumbnails("", listOf())
+        val expected = DCMApiResponse(
+            request = Any(),
+            response = DCMResponse(
+                data = listOf(
+                    DCMOfferThumbnail(
+                        offerId = 871,
+                        thumbnail = mapOf(
+                            38743 to DCMOfferFile(
+                                id = 38743,
+                                offerId = 871,
+                                display = "Kate and asana logo.JPG",
+                                filename = "Kate and asana logo.JPG",
+                                size = 15180,
+                                status = FileStatus.ACTIVE,
+                                type = FileType.OFFER_THUMBNAIL,
+                                width = 615,
+                                height = 89,
+                                code = null,
+                                flashVars = null,
+                                `interface` = Interface.NETWORK,
+                                accountId = null,
+                                isPrivate = false,
+                                created = LocalDateTime.parse("2018-05-16 08:34:44", formatter),
+                                modified = null,
+                                url = "https://media.go2speed.org/brand/files/dcm/871/Kate and asana logo.JPG",
+                                thumbnail = "https://media.go2speed.org/brand/files/dcm/871/thumbnails_100/Kate and asana logo.JPG"
+                            )
+                        )
+                    )
+                )
+            )
+        )
     }
 }
