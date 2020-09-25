@@ -5,15 +5,11 @@ import net.besttoolbars.awin.CountryCode
 import net.besttoolbars.awin.TransactionStatus
 import java.time.LocalDateTime
 
+typealias AwinTransactionResponse = List<AwinTransaction>
+
 /**
  * @property lapseTime is the conversion time in seconds
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class AwinTransactionResponse(
-    val transactions: List<AwinTransaction> = emptyList()
-)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinTransaction (
     val id: Long,

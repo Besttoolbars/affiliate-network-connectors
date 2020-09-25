@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import net.besttoolbars.awin.CommissionType
 import net.besttoolbars.awin.CountryCode
 
+typealias AwinAdvertiserResponse = List<AwinAdvertiser>
+
 /**
  *
  * @property displayUrl URL of the advertiser
@@ -12,12 +14,6 @@ import net.besttoolbars.awin.CountryCode
  * @property currencyCode ISO code of the currency of the programme
  *
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class AwinAdvertiserResponse(
-    val merchants: List<AwinAdvertiser> = emptyList()
-)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinAdvertiser(
     val id: Long,
