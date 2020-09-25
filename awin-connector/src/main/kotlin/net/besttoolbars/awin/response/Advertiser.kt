@@ -20,7 +20,7 @@ data class AwinAdvertiser(
     val name: String,
     val displayUrl: String,
     val clickThroughUrl: String,
-    val logoUrl: String,
+    val logoUrl: String?,
     val primaryRegion: PrimaryRegion? = null,
     val currencyCode: String? = null,
     val validDomains: List<AdvertiserDomains> = emptyList()

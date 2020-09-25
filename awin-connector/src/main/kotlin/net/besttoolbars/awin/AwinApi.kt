@@ -39,9 +39,10 @@ interface AwinApi {
         @Query("advertiserId") advertiserId: Int
     ): CompletableFuture<AwinOffersResponse>
 
-    @GET("/advertisers/{publisher-id}/transactions/")
+    @GET("/publishers/{publisher-id}/transactions/")
     fun transactions(
         @Path("publisher-id") publisherId: Int,
+        @Query("accessToken") token: String,
         @Query("startDate") startDate: LocalDateTime,
         @Query("endDate") endDate: LocalDateTime,
         @Query("timezone") timezone: TransactionTimeZone,
