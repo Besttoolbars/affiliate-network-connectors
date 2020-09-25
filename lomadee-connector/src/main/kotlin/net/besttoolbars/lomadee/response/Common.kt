@@ -7,7 +7,13 @@ data class Pagination (
     val size: Long,
     val totalSize: Long,
     val totalPage: Long
-)
+) {
+    fun hasNext(): Boolean = page < totalPage && (page + 1) * size <= maxOffers
+
+    companion object {
+        private const val maxOffers = 10_000
+    }
+}
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class RequestInfo (
