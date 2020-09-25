@@ -67,3 +67,13 @@ enum class CommissionType {
     FIX,
     AMOUNT
 }
+
+enum class AwinRelationship{
+    JOINED,
+    PENDING,
+    SUSPENDED,
+    REJECTED,
+    NOTJOINED;
+
+    override fun toString(): String = name.toLowerCase()
+}

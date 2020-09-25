@@ -21,7 +21,7 @@ interface AwinApi {
     fun merchants(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,
-        @Query("relationship") relationship: String? = null,
+        @Query("relationship") relationship: AwinRelationship? = null,
         @Query("countryCode") countryCode: String? = null
     ): CompletableFuture<AwinAdvertiserResponse>
 
