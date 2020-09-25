@@ -25,7 +25,7 @@ interface AwinApi {
         @Query("countryCode") countryCode: String? = null
     ): CompletableFuture<AwinAdvertiserResponse>
 
-    @GET("/publishers/{publisher-id}/programmesdetails")
+    @GET("/publishers/{publisher-id}/programmedetails")
     fun merchants(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,

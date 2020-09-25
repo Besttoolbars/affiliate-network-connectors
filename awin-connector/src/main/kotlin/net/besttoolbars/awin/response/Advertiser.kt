@@ -27,7 +27,7 @@ data class AwinAdvertiser(
 )
 
 data class AdvertiserDomains(
-    val domains: String? = null
+    val domain: String? = null
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -39,8 +39,8 @@ data class PrimaryRegion (
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinAdvertiserDetailsResponse(
     @JsonProperty("programmeInfo")
-    val merchants: AwinAdvertiser,
-    val kpi: Kpi,
+    val merchant: AwinAdvertiser,
+    val kpi: Kpi?,
     val commissionRange: List<CommissionRange> = emptyList()
 )
 
