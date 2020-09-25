@@ -83,30 +83,32 @@ internal class LomadeeTransactionReportApiTest {
                 message = "Success",
                 status = "Success"
             ),
-            item = Item(
-                date = LocalDate.of(2020, 8, 13),
-                currency = "BRL",
-                commission = 0.0,
-                associateId = null,
-                site = Site(0, "Nome do Site"),
-                advertiser = Advertiser(0, "Nome da Loja"),
-                events = listOf(
-                    TransactionEvent(
-                        eventId = "ID do evento",
-                        eventName = "Nome do evento",
-                        commission = 0.0,
-                        gmv = 0.0
-                    )
-                ),
-                application = Application(0, "Nome da Aplicação"),
-                gmv = 0.0,
-                transactionCode = "Código da Transação",
-                transactionId = 0,
-                statusId = 0,
-                statusName = "STATUS",
-                processedDate = LocalDate.of(2020, 8, 13),
-                clickDate = LocalDate.of(2020, 8, 13),
-                checkoutDate = LocalDate.of(2020, 8, 13)
+            item = listOf(
+                Item(
+                    date = LocalDate.of(2020, 8, 13),
+                    currency = "BRL",
+                    commission = 0.0,
+                    associateId = null,
+                    site = Site(0, "Nome do Site"),
+                    advertiser = Advertiser(0, "Nome da Loja"),
+                    events = listOf(
+                        TransactionEvent(
+                            eventId = "ID do evento",
+                            eventName = "Nome do evento",
+                            commission = 0.0,
+                            gmv = 0.0
+                        )
+                    ),
+                    application = Application(0, "Nome da Aplicação"),
+                    gmv = 0.0,
+                    transactionCode = "Código da Transação",
+                    transactionId = 0,
+                    statusId = 0,
+                    statusName = "STATUS",
+                    processedDate = LocalDate.of(2020, 8, 13),
+                    clickDate = LocalDate.of(2020, 8, 13),
+                    checkoutDate = LocalDate.of(2020, 8, 13)
+                )
             )
         )
 

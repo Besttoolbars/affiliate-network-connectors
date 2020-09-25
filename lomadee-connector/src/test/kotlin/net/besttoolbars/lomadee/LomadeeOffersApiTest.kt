@@ -194,7 +194,7 @@ internal class LomadeeOffersApiTest {
                     ),
                     thumbnail = "https://foundit.vteximg.com.br/arquivos/ids/160808_2",
                     installment = OfferInstallment(1, 14.0),
-                    price = 14,
+                    price = 14.0,
                     store = OfferStore(
                         id = 6433,
                         name = "Found IT",
