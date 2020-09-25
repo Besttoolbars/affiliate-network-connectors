@@ -14,6 +14,6 @@ allprojects {
     }
 
     group = "net.besttoolbars"
-    version = "0.0.8-RC"
+    version = "0.0.8"
 }
 
