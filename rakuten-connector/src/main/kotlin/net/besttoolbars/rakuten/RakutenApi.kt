@@ -59,6 +59,12 @@ interface RakutenApi {
         @Query("language") language: String? = null
     ): CompletableFuture<RakutenProductRootResponse>
 
+    @GET("/advertisersearch/1.0")
+    fun merchants(
+        @Header("Authorization") bearerAuthToken: String,
+        @Query("merchantname") merchantName: String? = null
+    ): CompletableFuture<RakutenMerchantRootResponse>
+
     companion object {
         fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenApi {
             val objectMapper = provideXmlObjectMapper()

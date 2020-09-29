@@ -1,14 +1,12 @@
 package net.besttoolbars.rakuten.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText
 import java.time.LocalDateTime
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "result")
 data class RakutenProductRootResponse(
         @JacksonXmlProperty(localName = "TotalMatches")
