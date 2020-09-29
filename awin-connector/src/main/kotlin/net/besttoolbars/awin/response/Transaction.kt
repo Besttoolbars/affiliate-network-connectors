@@ -24,7 +24,7 @@ data class AwinTransaction (
     val saleAmount: Amount,
     val ipHash: String? = null,
     val customerCountry: CountryCode?,
-    val clickRefs: List<Map<String, String>> = emptyList(),
+    val clickRefs: Map<String, String> = emptyMap(),
     val clickDate: LocalDateTime,
     val transactionDate: LocalDateTime,
     val validationDate: Int? = null,
