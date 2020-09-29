@@ -1,12 +1,12 @@
 package net.besttoolbars.awin
 
 import com.fasterxml.jackson.databind.MapperFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.awin.response.AwinAdvertiserDetailsResponse
 import net.besttoolbars.awin.response.AwinAdvertiserResponse
 import net.besttoolbars.awin.response.AwinOffersResponse
 import net.besttoolbars.awin.response.AwinTransactionResponse
-import net.besttoolbars.connectors.shared.provideXmlObjectMapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -54,6 +54,7 @@ interface AwinApi {
     companion object {
         private fun provideJsonMapper() = jacksonObjectMapper().apply {
             enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+            registerModule(JavaTimeModule())
         }
 
         fun provider(url: String = "https://api.awin.com", client: OkHttpClient? = null): AwinApi {

@@ -1,5 +1,6 @@
 package net.besttoolbars.awin.response
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import net.besttoolbars.awin.TransactionStatus
 import java.time.LocalDateTime
@@ -24,7 +25,9 @@ data class AwinTransaction (
     val ipHash: String? = null,
     val customerCountry: String?,
     val clickRefs: Map<String, String> = emptyMap(),
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     val clickDate: LocalDateTime,
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     val transactionDate: LocalDateTime,
     val validationDate: Int? = null,
     val type: String? = null,
@@ -45,7 +48,7 @@ data class AwinTransaction (
     val publisherUrl: String? = null,
     val advertiserCountry: String,
     val orderRef: String?,
-    val customParameters: List<CustomParameter> = emptyList(),
+    val customParameters: List<CustomParameter>? = emptyList(),
     val transactionParts: List<TransactionPart> = emptyList(),
     val paidToPublisher: Boolean,
     val paymentId: Long,
@@ -64,10 +67,12 @@ data class CustomParameter (
     val value: String
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class TransactionPart (
     val commissionGroupId: Long,
     val amount: Double,
     val commissionAmount: Double,
+    val advertiserCost: Double?,
     val commissionGroupCode: String,
     val commissionGroupName: String
 )
