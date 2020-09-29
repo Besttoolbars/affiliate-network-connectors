@@ -3,7 +3,6 @@ package net.besttoolbars.awin.response
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import net.besttoolbars.awin.CommissionType
-import net.besttoolbars.awin.CountryCode
 
 typealias AwinAdvertiserResponse = List<AwinAdvertiser>
 
@@ -33,7 +32,7 @@ data class AdvertiserDomains(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PrimaryRegion (
     val name: String,
-    val countryCode: CountryCode
+    val countryCode: String
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

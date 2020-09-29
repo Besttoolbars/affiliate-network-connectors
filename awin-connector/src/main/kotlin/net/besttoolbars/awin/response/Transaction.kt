@@ -1,7 +1,6 @@
 package net.besttoolbars.awin.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import net.besttoolbars.awin.CountryCode
 import net.besttoolbars.awin.TransactionStatus
 import java.time.LocalDateTime
 
@@ -23,7 +22,7 @@ data class AwinTransaction (
     val commissionAmount: Amount,
     val saleAmount: Amount,
     val ipHash: String? = null,
-    val customerCountry: CountryCode?,
+    val customerCountry: String?,
     val clickRefs: Map<String, String> = emptyMap(),
     val clickDate: LocalDateTime,
     val transactionDate: LocalDateTime,
@@ -44,7 +43,7 @@ data class AwinTransaction (
     val clickDevice: String? = null,
     val transactionDevice: String? = null,
     val publisherUrl: String? = null,
-    val advertiserCountry: CountryCode,
+    val advertiserCountry: String,
     val orderRef: String?,
     val customParameters: List<CustomParameter> = emptyList(),
     val transactionParts: List<TransactionPart> = emptyList(),
