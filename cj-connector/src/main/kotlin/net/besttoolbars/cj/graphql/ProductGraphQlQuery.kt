@@ -71,7 +71,7 @@ query {
         amount
         currency
       }
-      linkCode(pid: ${query.websiteId}) {
+      linkCode(${query.toLinkCodeParams()}) {
         clickUrl
       }
       loyaltyPoints {
@@ -158,19 +158,19 @@ query {
         val advertiserStatus: AdvertiserStatus = AdvertiserStatus.JOINED,
         val keywords: Set<String>? = null
     ) {
-        // val keywords by lazy { keywords?.map { "\"$it\"" } }
-
         fun toShoppingParams(): String =
             gqlParamsBuilder {
-                "companyId" set companyId
+                "companyId" setNotNull companyId
                 "limit" set limit
                 "offset" set offset
-                "adIds" set offerIds
-                "googleProductCategoryIds" set googleProductCategoryIds
-                "partnerIds" set advertiserIds
-                "keywords" set keywords
+                "adIds" setNotEmpty offerIds
                 "partnerStatus" set advertiserStatus
+                "partnerIds" setNotEmpty advertiserIds
+                "keywords" setNotEmpty keywords?.map { "\"$it\"" }
+                "googleProductCategoryIds" setNotEmpty googleProductCategoryIds
             }
+
+        fun toLinkCodeParams(): String = gqlParamsBuilder { "pid" setNotNull websiteId }
 
         enum class AdvertiserStatus {
             JOINED,

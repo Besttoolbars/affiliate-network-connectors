@@ -15,9 +15,9 @@ class ParamsBuilder(f: ParamsBuilder.() -> Unit) {
     }
 
     infix fun String.set(value: Any?) { params[this] = value }
-
-    fun Collection<*>?.ifNotNullAndNotEmpty(pr: () -> Unit) {
-        if (this == null || this.isEmpty()) return
-        pr()
+    infix fun String.setNotNull(value: Any) { params[this] = value }
+    infix fun String.setNotEmpty(value: Collection<*>?) {
+        if (value != null && value.isEmpty()) return
+        this set value
     }
 }
