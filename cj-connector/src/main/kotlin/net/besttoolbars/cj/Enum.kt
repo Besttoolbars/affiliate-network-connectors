@@ -43,3 +43,9 @@ enum class CjLanguageEnum(
 
     override fun toString(): String = code.toString()
 }
+
+enum class CjCommissionRateType {
+    PERCENT,
+    FIXED,
+    FIXED_PER_ORDER
+}

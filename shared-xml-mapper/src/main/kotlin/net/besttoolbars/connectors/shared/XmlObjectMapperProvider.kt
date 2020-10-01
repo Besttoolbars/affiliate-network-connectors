@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule
 import com.fasterxml.jackson.dataformat.xml.XmlFactory
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -33,7 +34,11 @@ fun provideXmlObjectMapper(): ObjectMapper {
     xof.setProperty(WstxOutputProperties.P_OUTPUT_INVALID_CHAR_HANDLER, InvalidCharHandler.ReplacingHandler(' '))
     val woodstoxFactory = XmlFactory(xif, xof)
 
-    val xmlMapper = XmlMapper(woodstoxFactory).registerKotlinModule()
+    val jacksonXmlModule = JacksonXmlModule().apply {
+        setXMLTextElementName("xmlInnerText")
+    }
+
+    val xmlMapper = XmlMapper(woodstoxFactory, jacksonXmlModule).registerKotlinModule()
     val module = SimpleModule()
     module.addDeserializer(String::class.java, StringD)
     xmlMapper.registerModule(module)
