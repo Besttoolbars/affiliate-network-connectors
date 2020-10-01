@@ -1,23 +1,10 @@
 package net.besttoolbars.cj.graphql
 
 object ProductGraphQlQuery {
-    fun shoppingProducts(
-        companyId: String,
-        websiteId: String,
-        limit: Int = 1000,
-        offset: Int = 0,
-        adIds: Set<String>? = null,
-        googleProductCategoryIds: Set<String>? = null
-    ): String {
+    fun shoppingProducts(query: QueryParams): String {
         return """
 query {
-  shoppingProducts(
-    companyId: $companyId,
-    limit: $limit,
-    offset: $offset,
-    adIds: $adIds,
-    googleProductCategoryIds: $googleProductCategoryIds
-  ) {
+  shoppingProducts(${query.toShoppingParams()}) {
     totalCount
     count
     limit
@@ -84,7 +71,7 @@ query {
         amount
         currency
       }
-      linkCode(pid: $websiteId) {
+      linkCode(pid: ${query.websiteId}) {
         clickUrl
       }
       loyaltyPoints {
@@ -130,5 +117,64 @@ query {
   }
 }
     """.trimIndent()
+    }
+    
+    fun shoppingProducts(
+        companyId: String,
+        websiteId: String,
+        limit: Int = 1000,
+        offset: Int = 0,
+        offerIds: Set<String>? = null,
+        advertiserIds: Set<String>? = null,
+        serviceableAreas: Set<String>? = null,
+        googleProductCategoryIds: Set<String>? = null,
+        advertiserStatus: QueryParams.AdvertiserStatus = QueryParams.AdvertiserStatus.JOINED,
+        keywords: Set<String>? = null
+    ): String {
+        val queryParams = QueryParams(
+            companyId,
+            websiteId,
+            limit,
+            offset,
+            offerIds,
+            advertiserIds,
+            serviceableAreas,
+            googleProductCategoryIds,
+            advertiserStatus,
+            keywords
+        )
+        return shoppingProducts(queryParams)
+    }
+
+    data class QueryParams(
+        val companyId: String,
+        val websiteId: String,
+        val limit: Int = 1000,
+        val offset: Int = 0,
+        val offerIds: Set<String>? = null,
+        val advertiserIds: Set<String>? = null,
+        val serviceableAreas: Set<String>? = null,
+        val googleProductCategoryIds: Set<String>? = null,
+        val advertiserStatus: AdvertiserStatus = AdvertiserStatus.JOINED,
+        val keywords: Set<String>? = null
+    ) {
+        // val keywords by lazy { keywords?.map { "\"$it\"" } }
+
+        fun toShoppingParams(): String =
+            gqlParamsBuilder {
+                "companyId" set companyId
+                "limit" set limit
+                "offset" set offset
+                "adIds" set offerIds
+                "googleProductCategoryIds" set googleProductCategoryIds
+                "partnerIds" set advertiserIds
+                "keywords" set keywords
+                "partnerStatus" set advertiserStatus
+            }
+
+        enum class AdvertiserStatus {
+            JOINED,
+            NOT_JOINED
+        }
     }
 }
