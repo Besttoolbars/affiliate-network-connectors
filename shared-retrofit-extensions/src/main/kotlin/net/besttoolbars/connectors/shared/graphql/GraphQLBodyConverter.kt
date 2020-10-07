@@ -1,6 +1,7 @@
 package net.besttoolbars.connectors.shared.graphql
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import net.besttoolbars.connectors.shared.provideJsonObjectMapper
 import okhttp3.RequestBody
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -30,5 +31,5 @@ class GraphQLBodyConverter : Converter.Factory() {
         return isBody && isGraphQl
     }
 
-    private val mapper by lazy { jacksonObjectMapper() }
+    private val mapper by lazy { provideJsonObjectMapper() }
 }

@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
-    api("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
     api("com.google.guava:guava:29.0-jre")
 }

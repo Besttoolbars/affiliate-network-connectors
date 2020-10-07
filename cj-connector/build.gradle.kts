@@ -8,7 +8,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":shared-xml-mapper"))
+    implementation(project(":shared-mapper"))
     implementation(project(":shared-retrofit-extensions"))
     implementation(kotlin("stdlib-jdk8"))
 

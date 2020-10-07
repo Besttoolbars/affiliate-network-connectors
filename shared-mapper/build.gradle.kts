@@ -48,9 +48,9 @@ bintray {
     setPublications("mavenJava")
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
-        name = "shared-xml-mapper"
+        name = "shared-mapper"
         userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-xml-mapper"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-mapper"
         githubRepo = "Besttoolbars/affiliate-network-connectors"
         vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
         description = "Shared xml mapper for affiliate connectors"
