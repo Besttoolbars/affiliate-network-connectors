@@ -1,5 +1,6 @@
 package net.besttoolbars.cj.response
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import net.besttoolbars.connectors.shared.FloatDeserializer
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -97,8 +98,8 @@ data class CjAdvertisersResponse(
 data class CjActionCommission(
     @field:JacksonXmlElementWrapper(localName = "itemlist", useWrapping = false)
     val itemlist: List<CjActionCommissionItem> = emptyList(),
-    val default: String
-): CjCommissionRate(default)
+    val default: CjActionCommissionDefault? = null
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CjActionCommissionItem(
@@ -107,14 +108,25 @@ data class CjActionCommissionItem(
     @field:JacksonXmlProperty(isAttribute = true)
     val id: String,
     @field:JacksonXmlProperty(localName = "xmlInnerText")
-    val text: String
-): CjCommissionRate(text)
+    val text: String?
+): CjCommissionRate(text.orEmpty())
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class CjActionCommissionDefault(
+    @field:JacksonXmlProperty(localName = "xmlInnerText")
+    val text: String? = null,
+    @field:JacksonXmlProperty(localName = "type", isAttribute = true)
+    val type: String? = null
+)
 
 open class CjCommissionRate(value: String) {
+    @delegate:JsonIgnore
     val amount by lazy { value.toSoftDouble() }
+    @delegate:JsonIgnore
     val currency by lazy { value.filter { it.isLetter() } }
 
-    val type by lazy {
+    @delegate:JsonIgnore
+    val rateType by lazy {
         when {
             value.contains('%') -> CjCommissionRateType.PERCENT
             else -> CjCommissionRateType.FIXED
