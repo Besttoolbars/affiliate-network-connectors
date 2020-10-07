@@ -200,7 +200,8 @@ internal class LomadeeOffersApiTest {
                         name = "Found IT",
                         thumbnail= "https://www.lomadee.com/programas/BR/6433/imagemBox_80x60.png",
                         link = "https://developer.lomadee.com/redir/validation/?sourceId=36712392&appToken=1596966044499ec5f428d"
-                    )
+                    ),
+                    priceFrom = 0.0
                 )
             )
         )
