@@ -1,8 +1,8 @@
-package net.besttoolbars.cj.graphql
+package net.besttoolbars.connectors.shared.graphql
 
-fun gqlParamsBuilder(f: ParamsBuilder.() -> Unit): String = ParamsBuilder(f).build()
+fun gqlParamsBuilder(f: GraphQLParamsBuilder.() -> Unit): String = GraphQLParamsBuilder(f).build()
 
-class ParamsBuilder(f: ParamsBuilder.() -> Unit) {
+class GraphQLParamsBuilder(f: GraphQLParamsBuilder.() -> Unit) {
     private val params = mutableMapOf<String, Any?>()
 
     init {

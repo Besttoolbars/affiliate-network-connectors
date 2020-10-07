@@ -1,5 +1,7 @@
 package net.besttoolbars.cj.graphql
 
+import net.besttoolbars.connectors.shared.graphql.gqlParamsBuilder
+
 object ProductGraphQlQuery {
     fun shoppingProducts(query: QueryParams): String {
         return """

@@ -1,6 +1,8 @@
 package net.besttoolbars.cj
 
 import net.besttoolbars.cj.response.CjAdvertisersResponse
+import net.besttoolbars.connectors.shared.RateLimitConfig
+import net.besttoolbars.connectors.shared.provideHttpClientWithRateLimit
 import net.besttoolbars.connectors.shared.provideXmlObjectMapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -8,6 +10,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
+import java.time.Duration
 import java.util.concurrent.CompletableFuture
 
 interface CJAdvertiserApi {
@@ -23,9 +26,13 @@ interface CJAdvertiserApi {
     ): CompletableFuture<CjAdvertisersResponse>
 
     companion object {
-        fun provider(url: String = "https://advertiser-lookup.api.cj.com", client: OkHttpClient? = null): CJAdvertiserApi {
+        fun provider(
+            url: String = "https://advertiser-lookup.api.cj.com",
+            client: OkHttpClient? = null,
+            config: RateLimitConfig = RateLimitConfig(25, Duration.ofMinutes(1))
+        ): CJAdvertiserApi {
             val objectMapper = provideXmlObjectMapper()
-            val httpClient = provideCjRestApiHttpClient(client)
+            val httpClient = provideHttpClientWithRateLimit(config, client)
             val retrofit = Retrofit.Builder()
                 .client(httpClient)
                 .baseUrl(url)

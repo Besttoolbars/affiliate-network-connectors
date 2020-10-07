@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.jfrog.bintray.gradle.BintrayExtension
-
 plugins {
     kotlin("jvm")
     `maven-publish`
@@ -8,17 +5,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":shared-xml-mapper"))
-    implementation(project(":shared-retrofit-extensions"))
     implementation(kotlin("stdlib-jdk8"))
-
+    api("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
-    implementation("com.squareup.retrofit2:converter-jackson:${property("retrofit.version")}")
-    implementation("com.google.guava:guava:29.0-jre")
-
-    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.2.0")
-    testImplementation("commons-io:commons-io:2.6")
+    api("com.google.guava:guava:29.0-jre")
 }
 
 java {
@@ -26,7 +16,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType<KotlinCompile>().all {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
 }
 
@@ -54,19 +44,15 @@ bintray {
     publish = true
     override = true
     setPublications("mavenJava")
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
-        name = "cj-connector"
+        name = "shared-retrofit-extensions"
         userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/cj-connector"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-retrofit-extensions"
         githubRepo = "Besttoolbars/affiliate-network-connectors"
         vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "CJ jvm connector"
-        setLabels("kotlin", "jvm", "cj")
+        description = "Shared retrofit extensions for affiliate connectors"
+        setLabels("kotlin", "jvm", "xml mapper for affiliate connectors")
         setLicenses("Apache-2.0")
     })
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

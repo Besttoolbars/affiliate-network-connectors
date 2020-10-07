@@ -2,10 +2,10 @@ package net.besttoolbars.cj
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import net.besttoolbars.cj.graphql.GraphQl
-import net.besttoolbars.cj.graphql.GraphQlBodyConverter
 import net.besttoolbars.cj.response.CjGraphQlResponse
 import net.besttoolbars.cj.response.CJShoppingProductsResponse
+import net.besttoolbars.connectors.shared.graphql.GraphQLBodyConverter
+import net.besttoolbars.connectors.shared.graphql.GraphQL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -18,7 +18,7 @@ interface CJProductsApi {
     @POST("/query")
     fun shoppingProducts(
             @Header("Authorization") authorization: String,
-            @Body @GraphQl query: String
+            @Body @GraphQL query: String
     ): CompletableFuture<CjGraphQlResponse<CJShoppingProductsResponse>>
 
     companion object {
@@ -29,7 +29,7 @@ interface CJProductsApi {
         fun provider(url: String = "https://ads.api.cj.com", client: OkHttpClient? = null): CJProductsApi {
             val objectMapper = provideJsonMapper()
             val retrofit = Retrofit.Builder()
-                    .addConverterFactory(GraphQlBodyConverter())
+                    .addConverterFactory(GraphQLBodyConverter())
                     .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                     .baseUrl(url)
             if (client != null) {

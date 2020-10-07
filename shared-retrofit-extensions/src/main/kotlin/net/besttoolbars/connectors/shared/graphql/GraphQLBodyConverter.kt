@@ -1,4 +1,4 @@
-package net.besttoolbars.cj.graphql
+package net.besttoolbars.connectors.shared.graphql
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.RequestBody
@@ -9,16 +9,16 @@ import java.lang.reflect.Type
 
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class GraphQl
+annotation class GraphQL
 
-internal class GraphQlBodyConverter : Converter.Factory() {
+class GraphQLBodyConverter : Converter.Factory() {
     override fun requestBodyConverter(type: Type, parameterAnnotations: Array<Annotation>, methodAnnotations: Array<Annotation>, retrofit: Retrofit): Converter<*, RequestBody>? {
         return if (!hasGraphQlBody(parameterAnnotations)) {
             return super.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit)
         } else Converter<Any, RequestBody> { value ->
             val body = when (value) {
                 is String -> value
-                else -> jacksonObjectMapper().writeValueAsString(value)
+                else -> mapper.writeValueAsString(value)
             }
             RequestBody.create(null, body)
         }
@@ -26,7 +26,9 @@ internal class GraphQlBodyConverter : Converter.Factory() {
 
     private fun hasGraphQlBody(annotations: Array<Annotation>): Boolean {
         val isBody = annotations.any{ annotation -> annotation is Body }
-        val isGraphQl = annotations.any{ annotation -> annotation is GraphQl }
+        val isGraphQl = annotations.any{ annotation -> annotation is GraphQL }
         return isBody && isGraphQl
     }
+
+    private val mapper by lazy { jacksonObjectMapper() }
 }
