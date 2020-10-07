@@ -98,6 +98,7 @@ data class CjAdvertisersResponse(
 data class CjActionCommission(
     @field:JacksonXmlElementWrapper(localName = "itemlist", useWrapping = false)
     val itemlist: List<CjActionCommissionItem> = emptyList(),
+    @field:JacksonXmlProperty(localName = "default")
     val default: CjActionCommissionDefault? = null
 )
 
@@ -114,10 +115,10 @@ data class CjActionCommissionItem(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CjActionCommissionDefault(
     @field:JacksonXmlProperty(localName = "xmlInnerText")
-    val text: String? = null,
+    val text: String = "0.0",
     @field:JacksonXmlProperty(localName = "type", isAttribute = true)
     val type: String? = null
-)
+): CjCommissionRate(text)
 
 open class CjCommissionRate(value: String) {
     @delegate:JsonIgnore
