@@ -43,7 +43,7 @@ data class Item(
     val statusId: Int,
     val statusName: String,
     @JsonDeserialize(using = LomadeeLocalDateDeserializer::class)
-    val processedDate: LocalDate,
+    val processedDate: LocalDate?,
     @JsonDeserialize(using = LomadeeLocalDateDeserializer::class)
     val clickDate: LocalDate,
     @JsonDeserialize(using = LomadeeLocalDateDeserializer::class)

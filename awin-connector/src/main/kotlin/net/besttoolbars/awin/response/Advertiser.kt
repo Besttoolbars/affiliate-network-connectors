@@ -3,7 +3,8 @@ package net.besttoolbars.awin.response
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import net.besttoolbars.awin.CommissionType
-import net.besttoolbars.awin.CountryCode
+
+typealias AwinAdvertiserResponse = List<AwinAdvertiser>
 
 /**
  *
@@ -12,39 +13,33 @@ import net.besttoolbars.awin.CountryCode
  * @property currencyCode ISO code of the currency of the programme
  *
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class AwinAdvertiserResponse(
-    val merchants: List<AwinAdvertiser> = emptyList()
-)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinAdvertiser(
     val id: Long,
     val name: String,
     val displayUrl: String,
     val clickThroughUrl: String,
-    val logoUrl: String,
+    val logoUrl: String?,
     val primaryRegion: PrimaryRegion? = null,
     val currencyCode: String? = null,
     val validDomains: List<AdvertiserDomains> = emptyList()
 )
 
 data class AdvertiserDomains(
-    val domains: String? = null
+    val domain: String? = null
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PrimaryRegion (
     val name: String,
-    val countryCode: CountryCode
+    val countryCode: String
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinAdvertiserDetailsResponse(
     @JsonProperty("programmeInfo")
-    val merchants: AwinAdvertiser,
-    val kpi: Kpi,
+    val merchant: AwinAdvertiser,
+    val kpi: Kpi?,
     val commissionRange: List<CommissionRange> = emptyList()
 )
 

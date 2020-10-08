@@ -9,7 +9,7 @@ data class RakutenMerchant(
     val applicationStatus: String,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val categories: String?,
+    val categories: String? = null,
 
     @JacksonXmlProperty(namespace = "ns1")
     val mid: Long,
@@ -40,4 +40,17 @@ data class RakutenMerchantOffer(
 
     @JacksonXmlProperty(namespace = "ns1")
     val offerName: String
+)
+
+@JacksonXmlRootElement(localName = "result")
+data class RakutenMerchantRootResponse(
+    @JacksonXmlProperty(localName = "midlist")
+    val midList: List<RakutenMerchantSearch>? = null
+)
+
+data class RakutenMerchantSearch(
+    @JacksonXmlProperty(localName = "mid")
+    val mid: Long? = null,
+    @JacksonXmlProperty(localName = "merchantname")
+    val merchantName: String? = null
 )
