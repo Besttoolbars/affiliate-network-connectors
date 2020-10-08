@@ -5,12 +5,10 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
-    api("com.fasterxml.jackson.core:jackson-databind:${property("jackson.version")}")
-    api("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
-    api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${property("jackson.version")}")
-    api("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${property("jackson.version")}")
-    api("com.fasterxml.woodstox:woodstox-core:6.2.1")
+    api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
+    api("com.google.guava:guava:29.0-jre")
 }
 
 java {
@@ -48,12 +46,12 @@ bintray {
     setPublications("mavenJava")
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
-        name = "shared-xml-mapper"
+        name = "shared-retrofit-extensions"
         userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-xml-mapper"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-retrofit-extensions"
         githubRepo = "Besttoolbars/affiliate-network-connectors"
         vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "Shared xml mapper for affiliate connectors"
+        description = "Shared retrofit extensions for affiliate connectors"
         setLabels("kotlin", "jvm", "xml mapper for affiliate connectors")
         setLicenses("Apache-2.0")
     })

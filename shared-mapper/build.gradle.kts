@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.jfrog.bintray.gradle.BintrayExtension
-
 plugins {
     kotlin("jvm")
     `maven-publish`
@@ -8,15 +5,12 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
-
-    api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
-    implementation("com.squareup.retrofit2:converter-jackson:${property("retrofit.version")}")
-
-    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.2.0")
-    testImplementation("commons-io:commons-io:2.6")
+    api("com.fasterxml.jackson.core:jackson-databind:${property("jackson.version")}")
+    api("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
+    api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${property("jackson.version")}")
+    api("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${property("jackson.version")}")
+    api("com.fasterxml.woodstox:woodstox-core:6.2.1")
 }
 
 java {
@@ -24,7 +18,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType<KotlinCompile>().all {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
 }
 
@@ -52,19 +46,15 @@ bintray {
     publish = true
     override = true
     setPublications("mavenJava")
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
-        name = "dcm-connector"
+        name = "shared-mapper"
         userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/dcm-connector"
+        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/shared-mapper"
         githubRepo = "Besttoolbars/affiliate-network-connectors"
         vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "DCM jvm connector"
-        setLabels("kotlin", "jvm", "dcm")
+        description = "Shared xml mapper for affiliate connectors"
+        setLabels("kotlin", "jvm", "xml mapper for affiliate connectors")
         setLicenses("Apache-2.0")
     })
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

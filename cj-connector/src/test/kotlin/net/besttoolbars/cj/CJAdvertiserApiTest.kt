@@ -132,7 +132,17 @@ internal class CJAdvertiserApiTest {
                             CjAdvertiserAction(
                                 "Test Purchase",
                                 "advanced sale",
-                                380
+                                380,
+                                CjActionCommission(
+                                    listOf(
+                                        CjActionCommissionItem(
+                                            name = "ALL PRODUCTS",
+                                            id = "37514",
+                                            text = "25.00%"
+                                        )
+                                    ),
+                                    default = "25.00%"
+                                )
                             )
                         ),
                         linkTypes = listOf(
@@ -166,7 +176,11 @@ internal class CJAdvertiserApiTest {
                             CjAdvertiserAction(
                                 "Test Purchase v2",
                                 "advanced sale",
-                                87
+                                87,
+                                CjActionCommission(
+                                    listOf(),
+                                    "5.00%"
+                                )
                             )
                         ),
                         linkTypes = listOf(

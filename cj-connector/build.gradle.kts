@@ -8,8 +8,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":shared-xml-mapper"))
+    implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
+    api(project(":shared-retrofit-extensions"))
 
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
     implementation("com.squareup.retrofit2:converter-jackson:${property("retrofit.version")}")
