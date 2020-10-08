@@ -9,7 +9,7 @@ data class RakutenMerchant(
     val applicationStatus: String,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val categories: String?,
+    val categories: String? = null,
 
     @JacksonXmlProperty(namespace = "ns1")
     val mid: Long,

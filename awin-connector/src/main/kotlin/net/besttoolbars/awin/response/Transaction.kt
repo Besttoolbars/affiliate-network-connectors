@@ -1,19 +1,15 @@
 package net.besttoolbars.awin.response
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import net.besttoolbars.awin.CountryCode
 import net.besttoolbars.awin.TransactionStatus
 import java.time.LocalDateTime
+
+typealias AwinTransactionResponse = List<AwinTransaction>
 
 /**
  * @property lapseTime is the conversion time in seconds
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class AwinTransactionResponse(
-    val transactions: List<AwinTransaction> = emptyList()
-)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AwinTransaction (
     val id: Long,
@@ -27,17 +23,19 @@ data class AwinTransaction (
     val commissionAmount: Amount,
     val saleAmount: Amount,
     val ipHash: String? = null,
-    val customerCountry: CountryCode,
-    val clickRefs: List<Map<String, String>> = emptyList(),
+    val customerCountry: String?,
+    val clickRefs: Map<String, String> = emptyMap(),
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     val clickDate: LocalDateTime,
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     val transactionDate: LocalDateTime,
     val validationDate: Int? = null,
-    val type: String,
+    val type: String? = null,
 
     val declineReason: Any? = null,
 
     val voucherCodeUsed: Boolean,
-    val voucherCode: String,
+    val voucherCode: String? = null,
     val lapseTime: Long,
     val amended: Boolean,
 
@@ -45,12 +43,12 @@ data class AwinTransaction (
     val oldSaleAmount: Any? = null,
     val oldCommissionAmount: Any? = null,
 
-    val clickDevice: String,
-    val transactionDevice: String,
-    val publisherUrl: String,
-    val advertiserCountry: CountryCode,
-    val orderRef: String,
-    val customParameters: List<CustomParameter> = emptyList(),
+    val clickDevice: String? = null,
+    val transactionDevice: String? = null,
+    val publisherUrl: String? = null,
+    val advertiserCountry: String,
+    val orderRef: String?,
+    val customParameters: List<CustomParameter>? = emptyList(),
     val transactionParts: List<TransactionPart> = emptyList(),
     val paidToPublisher: Boolean,
     val paymentId: Long,
@@ -69,10 +67,12 @@ data class CustomParameter (
     val value: String
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class TransactionPart (
     val commissionGroupId: Long,
     val amount: Double,
     val commissionAmount: Double,
+    val advertiserCost: Double?,
     val commissionGroupCode: String,
     val commissionGroupName: String
 )

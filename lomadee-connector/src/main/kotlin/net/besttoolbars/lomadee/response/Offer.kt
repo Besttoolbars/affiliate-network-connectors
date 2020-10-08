@@ -20,7 +20,7 @@ data class OfferStoresResponse (
     val stores: List<OfferStore> = emptyList()
 )
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Offer (
     val id: String,
     val name: String,

@@ -32,11 +32,11 @@ data class RakutenBannerLink(
     val clickURL: String,
 
     @JacksonXmlProperty(namespace = "ns1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
     val endDate: LocalDate,
 
     @JacksonXmlProperty(namespace = "ns1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
     val startDate: LocalDate,
 
     @JacksonXmlProperty(namespace = "ns1")
@@ -97,7 +97,7 @@ data class RakutenTextLink(
     val clickURL: String,
 
     @JacksonXmlProperty(namespace = "ns1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
     val endDate: LocalDate,
 
     @JacksonXmlProperty(namespace = "ns1")
@@ -107,7 +107,7 @@ data class RakutenTextLink(
     val showURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
     val startDate: LocalDate,
 
     @JacksonXmlProperty(namespace = "ns1")

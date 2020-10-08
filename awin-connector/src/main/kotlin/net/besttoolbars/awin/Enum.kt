@@ -16,34 +16,6 @@ enum class TransactionDateType {
     override fun toString(): String = name.toLowerCase()
 }
 
-/**
- * @property BR Brazil programs running in BRL
- * @property BU Brazil programs running in USD
- */
-
-enum class CountryCode {
-    AT,
-    AU,
-    BE,
-    BR,
-    BU,
-    CA,
-    CH,
-    DE,
-    DK,
-    ES,
-    FI,
-    FR,
-    GB,
-    IE,
-    IT,
-    NL,
-    NO,
-    PL,
-    SE,
-    US,
-}
-
 enum class TransactionTimeZone(val zone: String) {
     EUROPE_BERLIN("Europe/Berlin"),
     EUROPE_PARIS("Europe/Paris"),
