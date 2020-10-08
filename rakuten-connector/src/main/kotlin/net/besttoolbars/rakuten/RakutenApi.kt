@@ -3,7 +3,6 @@ package net.besttoolbars.rakuten
 import net.besttoolbars.rakuten.response.*
 import net.besttoolbars.connectors.shared.provideXmlObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import net.besttoolbars.rakuten.response.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -43,6 +42,28 @@ interface RakutenApi {
         @Path("endDate") endDate: String = "",
         @Path("page") page: Int = 1
     ): CompletableFuture<RakutenBannerResponse>
+
+    @GET("/productsearch/1.0")
+    fun products(
+        @Header("Authorization") bearerAuthToken: String,
+        @Query("keyword") keyword: String? = null,
+        @Query("exact") exact: String? = null,
+        @Query("one") one: String? = null,
+        @Query("none") none: String? = null,
+        @Query("cat") category: String? = null,
+        @Query("max") max: Int? = null,
+        @Query("pagenumber") pageNumber: Int? = null,
+        @Query("mid") merchantId: Int? = null,
+        @Query("sort") sort: String? = null,
+        @Query("sorttype") sortType: String? = null,
+        @Query("language") language: String? = null
+    ): CompletableFuture<RakutenProductRootResponse>
+
+    @GET("/advertisersearch/1.0")
+    fun merchants(
+        @Header("Authorization") bearerAuthToken: String,
+        @Query("merchantname") merchantName: String? = null
+    ): CompletableFuture<RakutenMerchantRootResponse>
 
     companion object {
         fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenApi {
