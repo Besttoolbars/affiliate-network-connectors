@@ -141,7 +141,7 @@ internal class CJAdvertiserApiTest {
                                             text = "25.00%"
                                         )
                                     ),
-                                    default = "25.00%"
+                                    default = CjActionCommissionDefault("25.00%")
                                 )
                             )
                         ),
@@ -179,7 +179,7 @@ internal class CJAdvertiserApiTest {
                                 87,
                                 CjActionCommission(
                                     listOf(),
-                                    "5.00%"
+                                    CjActionCommissionDefault("5.00%")
                                 )
                             )
                         ),
