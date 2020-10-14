@@ -81,7 +81,7 @@ data class ImpactRadiusAd(
     @JacksonXmlProperty(localName = "AdvertiserId")
     val advertiserId: String,
     @JacksonXmlProperty(localName = "AdvertiserName")
-    val advertiserName: String,
+    val advertiserName: String?,
     @JacksonXmlProperty(localName = "Code")
     val code: String,
     @JacksonXmlProperty(localName = "IFrameCode")
