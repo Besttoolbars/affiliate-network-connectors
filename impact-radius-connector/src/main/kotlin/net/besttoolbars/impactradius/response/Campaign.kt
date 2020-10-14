@@ -94,7 +94,7 @@ data class ImpactRadiusCampaign(
     val allowsDeeplinking: Boolean,
     @JacksonXmlElementWrapper(localName = "DeeplinkDomains", useWrapping = true)
     @JacksonXmlProperty(localName = "DeeplinkDomains")
-    val deeplinkDomains: List<String>,
+    val deeplinkDomains: List<String> = emptyList(),
     @JacksonXmlProperty(localName = "Uri")
     val uri: String
 )
