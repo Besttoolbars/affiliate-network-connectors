@@ -6,18 +6,14 @@ plugins {
     id("com.jfrog.bintray")
 }
 
-group = "net.besttoolbars"
-version = "0.0.7"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jackson.version")}")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${property("jackson.version")}")
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
     implementation("com.squareup.retrofit2:converter-jackson:${property("retrofit.version")}")
 
@@ -67,7 +63,7 @@ bintray {
         githubRepo = "Besttoolbars/affiliate-network-connectors"
         vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
         description = "City Ads jvm connector"
-        setLabels("kotlin", "jvm", "cj")
+        setLabels("kotlin", "jvm", "city-ads")
         setLicenses("Apache-2.0")
     })
 }

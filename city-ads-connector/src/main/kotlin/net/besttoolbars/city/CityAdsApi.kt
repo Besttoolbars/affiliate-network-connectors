@@ -1,8 +1,7 @@
 package net.besttoolbars.city
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.city.response.*
+import net.besttoolbars.connectors.shared.provideJsonObjectMapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -35,7 +34,7 @@ interface CityAdsApi {
 
     companion object {
         fun provider(url: String = "https://cityads.com", client: OkHttpClient? = null): CityAdsApi {
-            val objectMapper = jacksonObjectMapper().apply { registerModule(JavaTimeModule()) }
+            val objectMapper = provideJsonObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
