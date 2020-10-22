@@ -177,7 +177,7 @@ query {
                 "companyId" setNotNull companyId
                 "limit" set limit
                 "offset" set offset
-                "currency" set currency
+                "currency" set currency?.let { "\"$it\"" }
                 "lowPrice" set lowPrice
                 "highPrice" set highPrice
                 "adIds" setNotEmpty offerIds
