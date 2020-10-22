@@ -131,19 +131,27 @@ query {
         serviceableAreas: Set<String>? = null,
         googleProductCategoryIds: Set<String>? = null,
         advertiserStatus: QueryParams.AdvertiserStatus = QueryParams.AdvertiserStatus.JOINED,
-        keywords: Set<String>? = null
+        keywords: Set<String>? = null,
+        availability: QueryParams.Availability? = null,
+        currency: String? = null,
+        lowPrice: Double? = null,
+        highPrice: Double? = null
     ): String {
         val queryParams = QueryParams(
-            companyId,
-            websiteId,
-            limit,
-            offset,
-            offerIds,
-            advertiserIds,
-            serviceableAreas,
-            googleProductCategoryIds,
-            advertiserStatus,
-            keywords
+            companyId = companyId,
+            websiteId = websiteId,
+            limit = limit,
+            offset = offset,
+            offerIds = offerIds,
+            advertiserIds = advertiserIds,
+            serviceableAreas = serviceableAreas,
+            googleProductCategoryIds = googleProductCategoryIds,
+            advertiserStatus = advertiserStatus,
+            keywords = keywords,
+            availability = availability,
+            currency = currency,
+            lowPrice = lowPrice,
+            highPrice = highPrice
         )
         return shoppingProducts(queryParams)
     }
@@ -158,14 +166,22 @@ query {
         val serviceableAreas: Set<String>? = null,
         val googleProductCategoryIds: Set<String>? = null,
         val advertiserStatus: AdvertiserStatus = AdvertiserStatus.JOINED,
-        val keywords: Set<String>? = null
+        val keywords: Set<String>? = null,
+        val availability: Availability? = null,
+        val currency: String? = null,
+        val lowPrice: Double? = null,
+        val highPrice: Double? = null
     ) {
         fun toShoppingParams(): String =
             gqlParamsBuilder {
                 "companyId" setNotNull companyId
                 "limit" set limit
                 "offset" set offset
+                "currency" set currency?.let { "\"$it\"" }
+                "lowPrice" set lowPrice
+                "highPrice" set highPrice
                 "adIds" setNotEmpty offerIds
+                "availability" set availability
                 "partnerStatus" set advertiserStatus
                 "partnerIds" setNotEmpty advertiserIds
                 "keywords" setNotEmpty keywords?.map { "\"$it\"" }
@@ -177,6 +193,12 @@ query {
         enum class AdvertiserStatus {
             JOINED,
             NOT_JOINED
+        }
+
+        enum class Availability {
+            IN_STOCK,
+            OUT_OF_STOCK,
+            PREORDER
         }
     }
 }
