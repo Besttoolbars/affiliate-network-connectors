@@ -31,31 +31,58 @@ import java.time.Instant
 data class CjTransaction (
     @JsonProperty("commissionId")
     val id: String,
+
     @JsonProperty("aid")
     val offerId: String?,
+
     val actionStatus: CjCommissionActionStatus,
+
     val validationStatus: CjCommissionValidationStatus,
+
     val advertiserId: String,
+
     val advertiserName: String,
+
     @JsonProperty("clickReferringURL")
     val url: String?,
+
     val coupon: String?,
+
+    @JsonProperty("orderDiscountPubCurrency")
+    val discountPubCurrency: Double,
+
     @JsonProperty("orderDiscountUsd")
     val discount: Double,
+
+    @JsonProperty("saleAmountPubCurrency")
+    val amountPubCurrency: Double,
+
     @JsonProperty("saleAmountUsd")
     val amount: Double,
+
+    @JsonProperty("pubCommissionAmountPubCurrency")
+    val commissionPubCurrency: Double?,
+
     @JsonProperty("pubCommissionAmountUsd")
     val commission: Double?,
+
     val orderId: String?,
+
     @JsonProperty("postingDate")
     @JsonDeserialize(using = CjInstantDeserializer::class)
     val date: Instant?,
+
     val shopperId: String?,
+
     val source: String?,
+
     val items: List<CjTransactionItem>? = listOf(),
+
     val actionTrackerId: String?,
+
     @JsonDeserialize(using = CjInstantDeserializer::class)
     val eventDate: Instant,
+
     @JsonDeserialize(using = CjInstantDeserializer::class)
     val clickDate: Instant?
 )
@@ -74,12 +101,25 @@ data class CjTransaction (
 data class CjTransactionItem (
     @JsonProperty("itemListId")
     val id: String?,
+
     val commissionItemId: String,
+
     val quantity: Int?,
+
+    val discountPubCurrency: Double,
+
     @JsonProperty("discountUsd")
     val discount: Double,
+
+    @JsonProperty("perItemSaleAmountPubCurrency")
+    val amountPerItemPubCurrency: Double?,
+
     @JsonProperty("perItemSaleAmountUsd")
     val amountPerItem: Double?,
+
+    @JsonProperty("totalCommissionPubCurrency")
+    val amountPubCurrency: Double?,
+
     @JsonProperty("totalCommissionUsd")
     val amount: Double?
 )

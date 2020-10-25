@@ -74,6 +74,23 @@ class DCMCompositeApi(
         return urls
     }
 
+    fun getAllReceipts(
+        apiKey: String,
+        page: Int,
+        limit: Int
+    ): DCMReceiptsList {
+        val receiptsResponse: DCMResponse<DCMReceiptsLimitedList> = api.getAllReceipts(
+            apiKey = apiKey,
+            page = page,
+            limit = limit
+        ).get().response
+        val receiptsList = getOrThrow(receiptsResponse, "getAllReceipts")
+        return DCMReceiptsList(
+            totalCount = receiptsList.count,
+            items = receiptsList.data.map { it.value.receipt }
+        )
+    }
+
     private fun <T> getOrThrow(response: DCMResponse<T>, method: String): T {
         if (response.errors.isNotEmpty() || response.data == null) {
             throw DCMException(method = method, errors = response.errors)

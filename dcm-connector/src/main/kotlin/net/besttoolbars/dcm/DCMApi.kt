@@ -64,6 +64,15 @@ interface DCMApi {
         @Query("Method") method: String = "getThumbnail"
     ): CompletableFuture<DCMApiResponse<List<DCMOfferThumbnail>>>
 
+    @GET("/Apiv3/json")
+    fun getAllReceipts(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("Target") target: String = "Affiliate_AffiliateBilling",
+        @Query("Method") method: String = "findAllReceipts"
+    ): CompletableFuture<DCMApiResponse<DCMReceiptsLimitedList>>
+
     companion object {
         fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMApi {
             val objectMapper = getDCMMapper()
