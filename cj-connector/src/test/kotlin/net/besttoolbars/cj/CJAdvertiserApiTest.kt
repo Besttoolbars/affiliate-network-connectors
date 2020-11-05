@@ -140,7 +140,7 @@ internal class CJAdvertiserApiTest {
                                             text = "25.00%"
                                         )
                                     ),
-                                    default = CjActionCommissionDefault("25.00%")
+                                    default = CjActionCommissionDefault(text = "25.00%")
                                 )
                             )
                         ),
@@ -178,9 +178,8 @@ internal class CJAdvertiserApiTest {
                                 87,
                                 CjActionCommission(
                                     listOf(),
-                                    CjActionCommissionDefault("5.00%")
-                                )
-                            )
+                                    CjActionCommissionDefault(text = "5.00%")
+                            ))
                         ),
                         linkTypes = listOf(
                             "Text Link",
@@ -197,5 +196,21 @@ internal class CJAdvertiserApiTest {
         )
 
         Assertions.assertEquals(expected, result)
+    }
+
+    @Test
+    fun checkAdvenser() {
+        val api = CJAdvertiserApi.provider()
+        val adv = api.advertisers(
+            "Bearer 1m9kcdffxy7jbcrbe4966ryeyn",
+            "5410999",
+            1, 1,
+            advertiserIds = "4430339"
+        ).get()
+            .advertisers
+            .advertiser
+            .first()
+
+        println(adv.actions)
     }
 }

@@ -98,7 +98,6 @@ data class CjAdvertisersResponse(
 data class CjActionCommission(
     @field:JacksonXmlElementWrapper(localName = "itemlist", useWrapping = false)
     val itemlist: List<CjActionCommissionItem> = emptyList(),
-    @field:JacksonXmlProperty(localName = "default")
     val default: CjActionCommissionDefault? = null
 )
 
@@ -108,21 +107,26 @@ data class CjActionCommissionItem(
     val name: String,
     @field:JacksonXmlProperty(isAttribute = true)
     val id: String,
-    @field:JacksonXmlProperty(localName = "xmlInnerText")
+    @JacksonXmlProperty(localName = "xmlInnerText")
     val text: String?
-): CjCommissionRate(text.orEmpty())
+) {
+    val normalize by lazy { CjCommissionRate(text.orEmpty()) }
+}
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CjActionCommissionDefault(
     @field:JacksonXmlProperty(localName = "xmlInnerText")
     val text: String = "0.0",
-    @field:JacksonXmlProperty(localName = "type", isAttribute = true)
+    @field:JacksonXmlProperty(isAttribute = true)
     val type: String? = null
-): CjCommissionRate(text)
+) {
+    val normalize by lazy { CjCommissionRate(text) }
+}
 
 open class CjCommissionRate(value: String) {
     @delegate:JsonIgnore
     val amount by lazy { value.toSoftDouble() }
+
     @delegate:JsonIgnore
     val currency by lazy { value.filter { it.isLetter() } }
 
