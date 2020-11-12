@@ -67,7 +67,13 @@ data class RakutenProductPrice(
          * https://github.com/FasterXML/jackson-module-kotlin/issues/138
          */
         @JacksonXmlText
-        val value: Double? = null
+        val rawValue: String? = null
+
+        val value: Double? by lazy {
+            rawValue
+                ?.replace(",", ".")
+                ?.toDoubleOrNull()
+        }
 }
 
 data class RakutenProductDescription(
