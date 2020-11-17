@@ -197,20 +197,4 @@ internal class CJAdvertiserApiTest {
 
         Assertions.assertEquals(expected, result)
     }
-
-    @Test
-    fun checkAdvenser() {
-        val api = CJAdvertiserApi.provider()
-        val adv = api.advertisers(
-            "Bearer 1m9kcdffxy7jbcrbe4966ryeyn",
-            "5410999",
-            1, 1,
-            advertiserIds = "4430339"
-        ).get()
-            .advertisers
-            .advertiser
-            .first()
-
-        println(adv.actions)
-    }
 }

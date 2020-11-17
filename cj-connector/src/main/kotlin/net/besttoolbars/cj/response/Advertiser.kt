@@ -123,7 +123,7 @@ data class CjActionCommissionDefault(
     val normalize by lazy { CjCommissionRate(text) }
 }
 
-open class CjCommissionRate(value: String) {
+class CjCommissionRate(value: String) {
     @delegate:JsonIgnore
     val amount by lazy { value.toSoftDouble() }
 
