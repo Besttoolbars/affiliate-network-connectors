@@ -9,18 +9,18 @@ import java.time.LocalDate
 
 data class RakutenCoupon(
     @field:JacksonXmlProperty(localName = "type", isAttribute = true)
-    val type: String,
+    val type: String?,
 
     @JacksonXmlProperty(localName = "offerdescription")
-    val offerDescription: String,
+    val offerDescription: String?,
 
     @JacksonXmlProperty(localName = "offerstartdate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val offerStartDate: LocalDate,
+    val offerStartDate: LocalDate?,
 
     @JacksonXmlProperty(localName = "offerenddate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val offerEndDate: LocalDate,
+    val offerEndDate: LocalDate?,
 
     @JacksonXmlProperty(localName = "couponcode")
     val couponCode: String?,
@@ -29,43 +29,43 @@ data class RakutenCoupon(
     val couponRestriction: String?,
 
     @JacksonXmlProperty(localName = "clickurl")
-    val clickUrl: String,
+    val clickUrl: String?,
 
     @JacksonXmlProperty(localName = "impressionpixel")
     val impressionPixel: String?,
 
     @JacksonXmlProperty(localName = "advertiserid")
-    val advertiserId: Long,
+    val advertiserId: Long?,
 
     @JacksonXmlProperty(localName = "advertisername")
-    val advertiserName: String,
+    val advertiserName: String?,
 
     @JacksonXmlProperty
-    val network: RakutenCouponNetwork,
+    val network: RakutenCouponNetwork?,
 
     @JacksonXmlElementWrapper(localName = "categories", useWrapping = true)
     @JacksonXmlProperty(localName = "categories")
-    val categories: List<RakutenCouponCategory> = emptyList(),
+    val categories: List<RakutenCouponCategory>? = null,
 
     @JacksonXmlElementWrapper(localName = "promotiontypes", useWrapping = true)
     @JacksonXmlProperty(localName = "promotiontypes")
-    val promotionTypes: List<RakutenCouponPromotionType> = emptyList()
+    val promotionTypes: List<RakutenCouponPromotionType>? = null
 )
 
 @JacksonXmlRootElement(localName = "couponfeed")
 data class RakutenCouponResponse(
     @JacksonXmlProperty(localName = "TotalMatches")
-    val totalMatch: Long,
+    val totalMatch: Long?,
 
     @JacksonXmlProperty(localName = "PageNumberRequested")
-    val pageNumberRequested: Long,
+    val pageNumberRequested: Long?,
 
     @JacksonXmlProperty(localName = "TotalPages")
-    val totalPage: Long,
+    val totalPage: Long?,
 
     @JacksonXmlElementWrapper(localName = "link", useWrapping = false)
     @JacksonXmlProperty(localName = "link")
-    val links: List<RakutenCoupon> = emptyList()
+    val links: List<RakutenCoupon>? = null
 )
 
 sealed class RakutenBaseTag {

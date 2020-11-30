@@ -8,97 +8,97 @@ import java.time.LocalDate
 
 data class RakutenBannerLink(
     @JacksonXmlProperty(namespace = "ns1")
-    val campaignID: String,
+    val campaignID: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val categoryID: String,
+    val categoryID: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val categoryName: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val linkID: Long,
+    val linkID: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val linkName: String,
+    val linkName: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val mid: Long,
+    val mid: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val nid: Long,
+    val nid: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val clickURL: String,
-
-    @JacksonXmlProperty(namespace = "ns1")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
-    val endDate: LocalDate,
+    val clickURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
-    val startDate: LocalDate,
+    val endDate: LocalDate?,
+
+    @JacksonXmlProperty(namespace = "ns1")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
+    val startDate: LocalDate?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val landURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val iconURL: String,
+    val iconURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val imgURL: String,
+    val imgURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val showURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val height: Int,
+    val height: Int?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val width: Int,
+    val width: Int?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val size: Int,
+    val size: Int?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val serverType: Int
+    val serverType: Int?
 )
 
 @JacksonXmlRootElement(namespace = "ns1", localName = "getBannerLinksResponse")
 data class RakutenBannerResponse(
     @JacksonXmlElementWrapper(useWrapping = false, namespace = "ns1", localName = "return")
     @JacksonXmlProperty(namespace = "ns1", localName = "return")
-    val bannerLinks: List<RakutenBannerLink> = listOf()
+    val bannerLinks: List<RakutenBannerLink>? = null
 )
 
 data class RakutenTextLink(
     @JacksonXmlProperty(namespace = "ns1")
-    val campaignID: String,
+    val campaignID: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val categoryID: String,
+    val categoryID: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val categoryName: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val linkID: Long,
+    val linkID: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val linkName: String,
+    val linkName: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val mid: Long,
+    val mid: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val nid: Long,
+    val nid: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val clickURL: String,
+    val clickURL: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
-    val endDate: LocalDate,
+    val endDate: LocalDate?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val landURL: String?,
@@ -108,15 +108,15 @@ data class RakutenTextLink(
 
     @JacksonXmlProperty(namespace = "ns1")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "LLL dd, yyyy", locale = "EN")
-    val startDate: LocalDate,
+    val startDate: LocalDate?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val textDisplay: String
+    val textDisplay: String?
 )
 
 @JacksonXmlRootElement(namespace = "ns1", localName = "getTextLinksResponse")
 data class RakutenTextLinkResponse(
     @JacksonXmlElementWrapper(useWrapping = false, namespace = "ns1", localName = "return")
     @JacksonXmlProperty(namespace = "ns1", localName = "return")
-    val textLinks: List<RakutenTextLink> = listOf()
+    val textLinks: List<RakutenTextLink>? = null
 )

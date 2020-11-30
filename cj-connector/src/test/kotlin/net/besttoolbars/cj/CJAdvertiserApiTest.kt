@@ -1,7 +1,6 @@
 package net.besttoolbars.cj
 
 import net.besttoolbars.cj.response.*
-import net.besttoolbars.cj.response.*
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach

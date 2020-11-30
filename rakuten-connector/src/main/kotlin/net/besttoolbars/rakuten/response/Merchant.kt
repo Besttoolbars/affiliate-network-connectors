@@ -6,40 +6,40 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 
 data class RakutenMerchant(
     @JacksonXmlProperty(namespace = "ns1")
-    val applicationStatus: String,
+    val applicationStatus: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
     val categories: String? = null,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val mid: Long,
+    val mid: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val name: String,
+    val name: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val offer: RakutenMerchantOffer
+    val offer: RakutenMerchantOffer?
 )
 
 @JacksonXmlRootElement(namespace = "ns1", localName = "getMerchByAppStatusResponse")
 data class RakutenMerchantByStatusResponse(
     @JacksonXmlElementWrapper(useWrapping = false, namespace = "ns1", localName = "return")
     @JacksonXmlProperty(namespace = "ns1", localName = "return")
-    val merchants: List<RakutenMerchant> = listOf()
+    val merchants: List<RakutenMerchant>? = null
 )
 
 data class RakutenMerchantOffer(
     @JacksonXmlProperty(namespace = "ns1")
-    val alsoName: String,
+    val alsoName: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val commissionTerms: String,
+    val commissionTerms: String?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val offerId: Long,
+    val offerId: Long?,
 
     @JacksonXmlProperty(namespace = "ns1")
-    val offerName: String
+    val offerName: String?
 )
 
 @JacksonXmlRootElement(localName = "result")
