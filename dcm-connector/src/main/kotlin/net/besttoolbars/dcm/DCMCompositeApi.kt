@@ -1,6 +1,9 @@
 package net.besttoolbars.dcm
 
 import net.besttoolbars.dcm.dto.*
+import java.net.URI
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DCMCompositeApi(
     private val api: DCMApi
@@ -74,10 +77,49 @@ class DCMCompositeApi(
         return urls
     }
 
+    fun getAllReceipts(
+        apiKey: String,
+        page: Int,
+        limit: Int,
+        date: LocalDateTime
+    ): DCMReceiptsList {
+        val receiptsResponse: DCMResponse<DCMReceiptsLimitedList> = api.getAllReceipts(
+            apiKey = apiKey,
+            page = page,
+            limit = limit,
+            filterByDate = date.format(formatter)
+        ).get().response
+        val receiptsList = getOrThrow(receiptsResponse, "getAllReceipts")
+        return DCMReceiptsList(
+            totalCount = receiptsList.count,
+            items = receiptsList.data.map { it.value.receipt }
+        )
+    }
+
+    fun generateTrackingLink(
+        apiKey: String,
+        offerId: Int,
+        transactionId: String,
+        offerUrlId: Int? = null
+    ): URI {
+        val linkResponse = api.generateTrackingLink(
+            apiKey = apiKey,
+            offerId = offerId,
+            transactionId = transactionId,
+            offerUrlId = offerUrlId
+        ).get().response
+        val link = getOrThrow(linkResponse, "generateTrackingLink")
+        return link.clickUrl
+    }
+
     private fun <T> getOrThrow(response: DCMResponse<T>, method: String): T {
         if (response.errors.isNotEmpty() || response.data == null) {
             throw DCMException(method = method, errors = response.errors)
         }
         return response.data
+    }
+
+    private companion object {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     }
 }

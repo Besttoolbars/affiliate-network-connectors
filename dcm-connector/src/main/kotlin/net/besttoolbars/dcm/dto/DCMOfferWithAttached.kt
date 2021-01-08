@@ -12,3 +12,8 @@ data class DCMOfferWithAttached(
     val categories: List<DCMCategory>,
     val logo: DCMOfferFile?
 )
+
+data class DCMReceiptsList(
+    val totalCount: Int,
+    val items: List<DCMReceipt>
+)

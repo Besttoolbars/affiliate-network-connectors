@@ -35,8 +35,11 @@ query{
       advertiserName 
       clickReferringURL
       coupon 
+      orderDiscountPubCurrency
       orderDiscountUsd 
+      saleAmountPubCurrency
       saleAmountUsd 
+      pubCommissionAmountPubCurrency
       pubCommissionAmountUsd 
       orderId 
       postingDate 
@@ -46,8 +49,11 @@ query{
         itemListId 
         commissionItemId
         quantity
+        discountPubCurrency
         discountUsd
+        perItemSaleAmountPubCurrency
         perItemSaleAmountUsd
+        totalCommissionPubCurrency
         totalCommissionUsd
       }
     }

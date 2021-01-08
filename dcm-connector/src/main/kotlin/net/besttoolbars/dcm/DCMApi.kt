@@ -64,6 +64,27 @@ interface DCMApi {
         @Query("Method") method: String = "getThumbnail"
     ): CompletableFuture<DCMApiResponse<List<DCMOfferThumbnail>>>
 
+    @GET("/Apiv3/json")
+    fun getAllReceipts(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("filters[date]") filterByDate: String,
+        @Query("sort[date]") sortByDate: String = "asc",
+        @Query("Target") target: String = "Affiliate_AffiliateBilling",
+        @Query("Method") method: String = "findAllReceipts"
+    ): CompletableFuture<DCMApiResponse<DCMReceiptsLimitedList>>
+
+    @GET("/Apiv3/json")
+    fun generateTrackingLink(
+        @Query("api_key") apiKey: String,
+        @Query("offer_id") offerId: Int,
+        @Query("params[ad_id]") transactionId: String,
+        @Query("params[url_id]") offerUrlId: Int? = null,
+        @Query("Target") target: String = "Affiliate_Offer",
+        @Query("Method") method: String = "generateTrackingLink"
+    ): CompletableFuture<DCMApiResponse<DCMTrackingLink>>
+
     companion object {
         fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMApi {
             val objectMapper = getDCMMapper()
