@@ -44,7 +44,6 @@ bintray {
     user = System.getenv("BINTRAY_USER")
     key = System.getenv("BINTRAY_KEY")
     publish = true
-    override = true
     setPublications("mavenJava")
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
         repo = "repo"
