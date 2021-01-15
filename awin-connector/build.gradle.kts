@@ -11,6 +11,7 @@ version = "1.0.0"
 
 dependencies {
     implementation(project(":shared-mapper"))
+    implementation(project(":shared-retrofit-extensions"))
     implementation(kotlin("stdlib-jdk8"))
 
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
