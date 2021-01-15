@@ -24,7 +24,7 @@ data class AwinTransaction (
     val saleAmount: Amount,
     val ipHash: String? = null,
     val customerCountry: String?,
-    val clickRefs: Map<String, String> = emptyMap(),
+    val clickRefs: Map<String, String>? = emptyMap(),
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     val clickDate: LocalDateTime,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
