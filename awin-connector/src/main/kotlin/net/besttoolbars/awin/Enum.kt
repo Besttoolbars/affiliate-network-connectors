@@ -3,7 +3,7 @@ package net.besttoolbars.awin
 enum class TransactionStatus {
     PENDING,
     APPROVED,
-    DECLINE,
+    DECLINED,
     DELETED;
 
     override fun toString(): String = name.toLowerCase()
