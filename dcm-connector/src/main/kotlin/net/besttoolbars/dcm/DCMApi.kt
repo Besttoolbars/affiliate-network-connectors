@@ -79,11 +79,33 @@ interface DCMApi {
     fun generateTrackingLink(
         @Query("api_key") apiKey: String,
         @Query("offer_id") offerId: Int,
-        @Query("params[ad_id]") transactionId: String,
+        @Query("params[aff_click_id]") transactionId: String?,
         @Query("params[url_id]") offerUrlId: Int? = null,
         @Query("Target") target: String = "Affiliate_Offer",
         @Query("Method") method: String = "generateTrackingLink"
     ): CompletableFuture<DCMApiResponse<DCMTrackingLink>>
+
+    @GET("/Apiv3/json")
+    fun getConversationReports(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+        @Query("filters[Stat.date][values]") date: String,
+
+        @Query("fields[]") field1: String = "Stat.id",
+        @Query("fields[]") field2: String = "Stat.ad_id",
+        @Query("fields[]") field3: String = "ConversionsMobile.affiliate_click_id",
+        @Query("fields[]") field4: String = "Stat.approved_payout",
+        @Query("fields[]") field5: String = "Stat.conversion_status",
+        @Query("fields[]") field6: String = "Stat.currency",
+        @Query("fields[]") field7: String = "Stat.datetime",
+        @Query("fields[]") field8: String = "Stat.offer_id",
+        @Query("fields[]") field9: String = "Stat.offer_url_id",
+
+        @Query("filters[Stat.date][conditional]") dateSortBy: String = "LESS_THAN_OR_EQUAL_TO",
+        @Query("Target") target: String = "Affiliate_Report",
+        @Query("Method") method: String = "getConversions"
+    ): CompletableFuture<DCMApiResponse<DCMConversionReportListData>>
 
     companion object {
         fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMApi {
