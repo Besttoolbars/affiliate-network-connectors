@@ -4,6 +4,8 @@ plugins {
     id("com.jfrog.bintray")
 }
 
+version = "1.0.0"
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     api("com.fasterxml.jackson.core:jackson-databind:${property("jackson.version")}")

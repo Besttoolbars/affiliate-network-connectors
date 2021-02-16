@@ -7,6 +7,8 @@ plugins {
     id("com.jfrog.bintray")
 }
 
+version = "1.0.0"
+
 dependencies {
     implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
