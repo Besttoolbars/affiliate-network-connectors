@@ -99,7 +99,7 @@ class DCMCompositeApi(
     fun generateTrackingLink(
         apiKey: String,
         offerId: Int,
-        transactionId: String,
+        transactionId: String?,
         offerUrlId: Int? = null
     ): URI {
         val linkResponse = api.generateTrackingLink(
