@@ -7,10 +7,11 @@ plugins {
     id("com.jfrog.bintray")
 }
 
-version = "1.0.0"
+version = "1.0.1"
 
 dependencies {
     implementation(project(":shared-mapper"))
+    implementation(project(":shared-retrofit-extensions"))
     implementation(kotlin("stdlib-jdk8"))
 
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
