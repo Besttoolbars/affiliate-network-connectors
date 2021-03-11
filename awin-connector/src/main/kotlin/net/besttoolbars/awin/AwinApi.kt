@@ -7,12 +7,15 @@ import net.besttoolbars.awin.response.AwinAdvertiserDetailsResponse
 import net.besttoolbars.awin.response.AwinAdvertiserResponse
 import net.besttoolbars.awin.response.AwinOffersResponse
 import net.besttoolbars.awin.response.AwinTransactionResponse
+import net.besttoolbars.connectors.shared.RateLimitConfig
+import net.besttoolbars.connectors.shared.provideHttpClientWithRateLimit
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.CompletableFuture
 
@@ -57,12 +60,17 @@ interface AwinApi {
             registerModule(JavaTimeModule())
         }
 
-        fun provider(url: String = "https://api.awin.com", client: OkHttpClient? = null): AwinApi {
+        fun provider(
+            url: String = "https://api.awin.com",
+            client: OkHttpClient? = null,
+            config: RateLimitConfig = RateLimitConfig(20, Duration.ofMinutes(1))
+        ): AwinApi {
             val objectMapper = provideJsonMapper()
+            val httpClient = provideHttpClientWithRateLimit(config, client)
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
+                .client(httpClient)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            client?.let { retrofit.client(it) }
             return retrofit.build().create(AwinApi::class.java)
         }
     }
