@@ -1,35 +1,47 @@
 package net.besttoolbars.dcm.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import net.besttoolbars.dcm.deserializers.DCMEmptyStringDeserializer
+import net.besttoolbars.dcm.deserializers.DCMNullableNumberDeserializer
 import java.time.LocalDateTime
 
 data class DCMConversionReport(
-    @JsonProperty("Stat.id")
     val id: Int,
 
-    @JsonProperty("Stat.ad_id")
-    val transactionId: Int,
-
-    @JsonProperty("ConversionsMobile.affiliate_click_id")
-    val clickId: String,
-
-    @JsonProperty("Stat.approved_payout")
-    val payout: Double,
-
-    @JsonProperty("Stat.conversion_status")
+    @JsonProperty("conversion_status")
     val status: ConversationStatus,
 
-    @JsonProperty("Stat.currency")
     val currency: String,
 
-    @JsonProperty("Stat.datetime")
-    val date: LocalDateTime,
+    val datetime: LocalDateTime,
 
-    @JsonProperty("Stat.offer_id")
+    @JsonProperty("offer_id")
     val offerId: Int,
 
-    @JsonProperty("Stat.offer_url_id")
-    val offerUrlId: Int?
+    @JsonProperty("offer_url_id")
+    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    val offerUrlId: Int?,
+
+    val payout: Double,
+
+    @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
+    @JsonProperty("affiliate_info1")
+    val coupon: String?,
+
+    @JsonProperty("payout@AED")
+    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    val payoutInAED: Double?,
+
+    @JsonProperty("payout@USD")
+    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    val payoutInUSD: Double?
+)
+
+data class DCMConversionsMobile(
+    @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
+    @JsonProperty("affiliate_click_id")
+    val clickId: String?
 )
 
 enum class ConversationStatus {

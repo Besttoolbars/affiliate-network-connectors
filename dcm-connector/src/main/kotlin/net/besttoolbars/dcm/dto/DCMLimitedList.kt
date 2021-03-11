@@ -16,7 +16,10 @@ data class DCMOfferLimitedList(
 
 data class DCMOfferListData(
     @JsonProperty("Offer")
-    val offer: DCMOffer
+    val offer: DCMOffer,
+
+    @JsonProperty("AffiliateOffer")
+    val affiliateOffer: DCMAffiliateOffer
 )
 
 data class DCMOfferUrlLimitedList(
@@ -70,9 +73,13 @@ data class DCMConversionReportListData(
     val pageCount: Int,
 
     @JsonDeserialize(using = DCMConversationReportsListDataDeserializer::class)
-    val data: Map<String, DCMConversionReportData>
+    val data: List<DCMConversionReportData>
 )
 
 data class DCMConversionReportData(
-    val conversion: DCMConversionReport
+    @JsonProperty("Stat")
+    val stat: DCMConversionReport,
+
+    @JsonProperty("ConversionsMobile")
+    val conversionsMobile: DCMConversionsMobile
 )

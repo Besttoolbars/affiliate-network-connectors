@@ -127,6 +127,22 @@ data class DCMOffer(
     val useTargetRules: Boolean
 )
 
+data class DCMAffiliateOffer(
+    val id: Int,
+
+    @JsonProperty("affiliate_id")
+    val affiliateId: Int,
+
+    @JsonProperty("offer_id")
+    val offerId: Int,
+
+    @JsonProperty("approval_status")
+    val approvalStatus: String,
+
+    @JsonProperty("agreed_terms_and_conditions")
+    val agreedTermsAndConditions: String?
+)
+
 enum class PayoutType {
     CPA_FLAT,
     CPA_PERCENTAGE,

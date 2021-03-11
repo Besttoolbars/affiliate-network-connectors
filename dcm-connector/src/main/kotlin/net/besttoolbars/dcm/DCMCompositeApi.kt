@@ -23,10 +23,11 @@ class DCMCompositeApi(
 
         val items: List<DCMOfferWithAttached> = offers.map {
             val offer: DCMOffer = it.offer
+            val affiliateOffer: DCMAffiliateOffer = it.affiliateOffer
             val offerCategories: List<DCMCategory> = categories.find { it.offerId == offer.id }?.categories?.values?.toList() ?: emptyList()
             val logo: DCMOfferFile? = logos.find { it.offerId == offer.id }?.thumbnail?.values?.firstOrNull()
 
-            DCMOfferWithAttached(offer, offerCategories, logo)
+            DCMOfferWithAttached(offer, affiliateOffer, offerCategories, logo)
         }
 
         return DCMOfferWithAttachedList(
