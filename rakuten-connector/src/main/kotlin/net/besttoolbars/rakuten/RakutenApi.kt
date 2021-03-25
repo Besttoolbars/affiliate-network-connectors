@@ -13,6 +13,7 @@ interface RakutenApi {
     fun coupons(
         @Header("Authorization") bearerAuthToken: String,
         @Query("pagenumber") page: Int,
+        @Query("mid") mid: String? = null,
         @Query("resultsperpage") resultPerPage: Int = 500
     ): CompletableFuture<RakutenCouponResponse>
 
