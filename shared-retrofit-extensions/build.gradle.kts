@@ -11,6 +11,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     api("com.squareup.retrofit2:retrofit:${property("retrofit.version")}")
     api("com.google.guava:guava:29.0-jre")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
 }
 
 java {
@@ -24,6 +26,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
 
 tasks.withType(JavaCompile::class) {
     options.compilerArgs.add("-parameters")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
