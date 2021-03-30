@@ -2,7 +2,6 @@ package net.besttoolbars.rakuten
 
 import net.besttoolbars.rakuten.response.*
 import net.besttoolbars.connectors.shared.provideXmlObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -14,6 +13,7 @@ interface RakutenApi {
     fun coupons(
         @Header("Authorization") bearerAuthToken: String,
         @Query("pagenumber") page: Int,
+        @Query("mid") mid: String? = null,
         @Query("resultsperpage") resultPerPage: Int = 500
     ): CompletableFuture<RakutenCouponResponse>
 
@@ -65,19 +65,6 @@ interface RakutenApi {
         @Query("merchantname") merchantName: String? = null
     ): CompletableFuture<RakutenMerchantRootResponse>
 
-    @GET("/events/1.0/transactions")
-    fun transactions(
-        @Header("Authorization") bearerAuthToken: String,
-        @Query("process_date_start") processDateStart: String? = null,
-        @Query("process_date_end") processDateEnd: String? = null,
-        @Query("transaction_date_start") transactionDateStart: String? = null,
-        @Query("transaction_date_end") transactionDateEnd: String? = null,
-        @Query("limit") limit: String? = null,
-        @Query("page") page: String? = null,
-        @Query("currency") currency: String? = null,
-        @Query("type") type: String? = null
-    ): CompletableFuture<RakutenTransactionResponse>
-
     companion object {
         fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenApi {
             val objectMapper = provideXmlObjectMapper()
@@ -88,31 +75,6 @@ interface RakutenApi {
                 retrofit.client(client)
             }
             return retrofit.build().create(RakutenApi::class.java)
-        }
-    }
-}
-
-interface RakutenTokenApi {
-    @FormUrlEncoded
-    @POST("/token")
-    fun token(
-        @Header("Authorization") basicAuthToken: String,
-        @Field("username") username: String,
-        @Field("password") password: String,
-        @Field("scope") scope: String,
-        @Field("grant_type") grantType: String = "password"
-    ): CompletableFuture<OAuth2Token>
-
-    companion object {
-        fun provider(url: String = "https://api.rakutenmarketing.com", client: OkHttpClient? = null): RakutenTokenApi {
-            val objectMapper = jacksonObjectMapper()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            if (client != null) {
-                retrofit.client(client)
-            }
-            return retrofit.build().create(RakutenTokenApi::class.java)
         }
     }
 }

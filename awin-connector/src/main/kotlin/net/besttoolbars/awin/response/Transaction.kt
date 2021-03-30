@@ -23,21 +23,22 @@ data class AwinTransaction (
     val commissionAmount: Amount,
     val saleAmount: Amount,
     val ipHash: String? = null,
-    val customerCountry: String?,
-    val clickRefs: Map<String, String> = emptyMap(),
+    val customerCountry: String? = null,
+    val clickRefs: Map<String, String>? = null,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     val clickDate: LocalDateTime,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     val transactionDate: LocalDateTime,
-    val validationDate: Int? = null,
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    val validationDate: LocalDateTime? = null,
     val type: String? = null,
 
     val declineReason: Any? = null,
 
-    val voucherCodeUsed: Boolean,
+    val voucherCodeUsed: Boolean = false,
     val voucherCode: String? = null,
-    val lapseTime: Long,
-    val amended: Boolean,
+    val lapseTime: Long = 0,
+    val amended: Boolean = false,
 
     val amendReason: Any? = null,
     val oldSaleAmount: Any? = null,
@@ -46,13 +47,13 @@ data class AwinTransaction (
     val clickDevice: String? = null,
     val transactionDevice: String? = null,
     val publisherUrl: String? = null,
-    val advertiserCountry: String,
-    val orderRef: String?,
-    val customParameters: List<CustomParameter>? = emptyList(),
-    val transactionParts: List<TransactionPart> = emptyList(),
-    val paidToPublisher: Boolean,
-    val paymentId: Long,
-    val transactionQueryId: Long,
+    val advertiserCountry: String? = null,
+    val orderRef: String? = null,
+    val customParameters: List<CustomParameter>? = null,
+    val transactionParts: List<TransactionPart>? = null,
+    val paidToPublisher: Boolean = false,
+    val paymentId: Long = 0,
+    val transactionQueryId: Long = 0,
 
     val originalSaleAmount: Any? = null
 )

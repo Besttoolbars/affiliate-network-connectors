@@ -2,9 +2,7 @@ package net.besttoolbars.dcm.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import net.besttoolbars.dcm.deserializers.DCMOfferFileListDataDeserializer
-import net.besttoolbars.dcm.deserializers.DCMOfferListDataDeserializer
-import net.besttoolbars.dcm.deserializers.DCMOfferUrlListDataDeserializer
+import net.besttoolbars.dcm.deserializers.*
 
 data class DCMOfferLimitedList(
     val page: Int,
@@ -49,4 +47,32 @@ data class DCMOfferFileLimitedList(
 data class DCMOfferFileListData(
     @JsonProperty("OfferFile")
     val offerFile: DCMOfferFile
+)
+
+data class DCMReceiptsLimitedList(
+    val page: Int,
+    val current: Int,
+    val count: Int,
+    val pageCount: Int,
+
+    @JsonDeserialize(using = DCMReceiptsListDataDeserializer::class)
+    val data: Map<String, DCMReceiptsListData>
+)
+
+data class DCMReceiptsListData(
+    val receipt: DCMReceipt
+)
+
+data class DCMConversionReportListData(
+    val page: Int,
+    val current: Int,
+    val count: Int,
+    val pageCount: Int,
+
+    @JsonDeserialize(using = DCMConversationReportsListDataDeserializer::class)
+    val data: Map<String, DCMConversionReportData>
+)
+
+data class DCMConversionReportData(
+    val conversion: DCMConversionReport
 )

@@ -74,9 +74,9 @@ data class ImpactRadiusCampaign(
     @JacksonXmlProperty(localName = "CampaignName")
     val campaignName: String,
     @JacksonXmlProperty(localName = "CampaignUrl")
-    val campaignUrl: String,
+    val campaignUrl: String?,
     @JacksonXmlProperty(localName = "CampaignDescription")
-    val campaignDescription: String,
+    val campaignDescription: String?,
     @JacksonXmlElementWrapper(localName = "ShippingRegions", useWrapping = true)
     @JacksonXmlProperty(localName = "ShippingRegions")
     val shippingRegions: List<String>,
@@ -94,7 +94,7 @@ data class ImpactRadiusCampaign(
     val allowsDeeplinking: Boolean,
     @JacksonXmlElementWrapper(localName = "DeeplinkDomains", useWrapping = true)
     @JacksonXmlProperty(localName = "DeeplinkDomains")
-    val deeplinkDomains: List<String> = emptyList(),
+    val deeplinkDomains: List<String>?,
     @JacksonXmlProperty(localName = "Uri")
     val uri: String
 )
