@@ -30,12 +30,12 @@ class GraphQLParamsBuilder(builder: GraphQLParamsBuilder.() -> Unit) {
 
     private val Any.formatted: String
         get() = when (this) {
+            is Number, is Boolean, is Enum<*> -> toString()
             is GraphQLParamsBuilder -> "{ ${this.build()} }"
             is Iterable<*> -> this.filterNotNull().map { it.formatted }.toString()
             is Array<*> -> this.asIterable().formatted
             is GraphQLScalar -> this.string()
-            is String -> "\"$this\""
-            else -> toString()
+            else -> "\"$this\""
         }
 }
 
