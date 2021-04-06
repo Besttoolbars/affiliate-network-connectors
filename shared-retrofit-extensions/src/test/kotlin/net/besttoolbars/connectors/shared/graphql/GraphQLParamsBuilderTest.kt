@@ -2,6 +2,7 @@ package net.besttoolbars.connectors.shared.graphql
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 internal class GraphQLParamsBuilderTest {
@@ -38,6 +39,20 @@ internal class GraphQLParamsBuilderTest {
         val params = gqlParamsBuilder {
             "str_id" set IdScalar("string_id")
             "int_id" set IdScalar(123123)
+        }
+        Assertions.assertEquals(expected, params)
+    }
+
+    @Test
+    fun `graphql custom type`() {
+        val date = ZonedDateTime.of(
+            2021, 4, 6,
+            15, 54, 23, 412,
+            ZoneId.of("Z")
+        )
+        val expected = "date: \"2021-04-06T15:54:23.000000412Z\""
+        val params = gqlParamsBuilder {
+            "date" set date
         }
         Assertions.assertEquals(expected, params)
     }
