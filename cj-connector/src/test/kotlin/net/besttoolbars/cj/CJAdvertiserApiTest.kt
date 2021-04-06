@@ -140,7 +140,7 @@ internal class CJAdvertiserApiTest {
                                             text = "25.00%"
                                         )
                                     ),
-                                    default = CjActionCommissionDefault("25.00%")
+                                    default = CjActionCommissionDefault(text = "25.00%")
                                 )
                             )
                         ),
@@ -178,9 +178,8 @@ internal class CJAdvertiserApiTest {
                                 87,
                                 CjActionCommission(
                                     listOf(),
-                                    CjActionCommissionDefault("5.00%")
-                                )
-                            )
+                                    CjActionCommissionDefault(text = "5.00%")
+                            ))
                         ),
                         linkTypes = listOf(
                             "Text Link",
