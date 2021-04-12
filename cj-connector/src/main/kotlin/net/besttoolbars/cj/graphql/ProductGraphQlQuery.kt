@@ -127,6 +127,7 @@ query {
         limit: Int = 1000,
         offset: Int? = null,
         offerIds: Set<String>? = null,
+        productIds: Set<String>? = null,
         advertiserIds: Set<String>? = null,
         serviceableAreas: Set<String>? = null,
         googleProductCategoryIds: Set<String>? = null,
@@ -143,6 +144,7 @@ query {
             limit = limit,
             offset = offset,
             offerIds = offerIds,
+            productIds = productIds,
             advertiserIds = advertiserIds,
             serviceableAreas = serviceableAreas,
             googleProductCategoryIds = googleProductCategoryIds,
@@ -162,6 +164,7 @@ query {
         val limit: Int = 1000,
         val offset: Int? = null,
         val offerIds: Set<String>? = null,
+        val productIds: Set<String>? = null,
         val advertiserIds: Set<String>? = null,
         val serviceableAreas: Set<String>? = null,
         val googleProductCategoryIds: Set<String>? = null,
@@ -181,6 +184,7 @@ query {
                 "lowPrice" set lowPrice
                 "highPrice" set highPrice
                 "adIds" setIfNotEmpty offerIds
+                "productIds" setIfNotEmpty productIds
                 "availability" set availability
                 "partnerStatus" set advertiserStatus
                 "partnerIds" setIfNotEmpty advertiserIds
