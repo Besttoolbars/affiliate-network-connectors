@@ -4,9 +4,10 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 
-class DCMNullableNumberDeserializer : JsonDeserializer<Double?>() {
+class DCMNullableDoubleDeserializer : JsonDeserializer<Double?>() {
     override fun deserialize(jsonparser: JsonParser?, ctxt: DeserializationContext?): Double? {
-        val value = jsonparser?.doubleValue
-        return if (value == 0.0) null else value
+        val value = jsonparser?.valueAsString
+        val doubleValue = value?.toDouble()
+        return if (doubleValue == 0.0) null else doubleValue
     }
 }

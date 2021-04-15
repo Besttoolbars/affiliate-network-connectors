@@ -12,11 +12,9 @@ interface DCMApi {
     @GET("/Apiv3/json")
     fun getApprovedOffers(
         @Query("api_key") apiKey: String,
-        @Query("page") page: Int,
-        @Query("limit") limit: Int,
         @Query("Target") target: String = "Affiliate_Offer",
         @Query("Method") method: String = "findMyApprovedOffers"
-    ): CompletableFuture<DCMApiResponse<DCMOfferLimitedList>>
+    ): CompletableFuture<DCMApiResponse<Map<String, DCMOfferListData>>>
 
     @GET("/Apiv3/json")
     fun getCategories(

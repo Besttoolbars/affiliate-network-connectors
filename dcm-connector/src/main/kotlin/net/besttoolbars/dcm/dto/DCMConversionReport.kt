@@ -3,7 +3,9 @@ package net.besttoolbars.dcm.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import net.besttoolbars.dcm.deserializers.DCMEmptyStringDeserializer
-import net.besttoolbars.dcm.deserializers.DCMNullableNumberDeserializer
+import net.besttoolbars.dcm.deserializers.DCMNullableDoubleDeserializer
+import net.besttoolbars.dcm.deserializers.DCMNullableIntDeserializer
+import net.besttoolbars.dcm.deserializers.LocalDateTimeDeserializer
 import java.time.LocalDateTime
 
 data class DCMConversionReport(
@@ -14,13 +16,14 @@ data class DCMConversionReport(
 
     val currency: String,
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer::class)
     val datetime: LocalDateTime,
 
     @JsonProperty("offer_id")
     val offerId: Int,
 
     @JsonProperty("offer_url_id")
-    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    @JsonDeserialize(using = DCMNullableIntDeserializer::class)
     val offerUrlId: Int?,
 
     val payout: Double,
@@ -30,11 +33,11 @@ data class DCMConversionReport(
     val coupon: String?,
 
     @JsonProperty("payout@AED")
-    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    @JsonDeserialize(using = DCMNullableDoubleDeserializer::class)
     val payoutInAED: Double?,
 
     @JsonProperty("payout@USD")
-    @JsonDeserialize(using = DCMNullableNumberDeserializer::class)
+    @JsonDeserialize(using = DCMNullableDoubleDeserializer::class)
     val payoutInUSD: Double?
 )
 

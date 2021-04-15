@@ -72,7 +72,7 @@ data class DCMConversionReportListData(
     val count: Int,
     val pageCount: Int,
 
-    @JsonDeserialize(using = DCMConversationReportsListDataDeserializer::class)
+//    @JsonDeserialize(using = DCMConversationReportsListDataDeserializer::class)
     val data: List<DCMConversionReportData>
 )
 
