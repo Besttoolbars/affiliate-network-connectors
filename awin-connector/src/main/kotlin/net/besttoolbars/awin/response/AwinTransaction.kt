@@ -2,7 +2,7 @@ package net.besttoolbars.awin.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import net.besttoolbars.awin.TransactionStatus
+import net.besttoolbars.awin.AwinTransactionStatus
 import java.time.LocalDateTime
 
 typealias AwinTransactionResponse = List<AwinTransaction>
@@ -19,7 +19,7 @@ data class AwinTransaction (
     val commissionSharingPublisherId: Long,
     val commissionSharingSelectedRatePublisherId: Long,
     val siteName: String,
-    val commissionStatus: TransactionStatus,
+    val commissionStatus: AwinTransactionStatus,
     val commissionAmount: Amount,
     val saleAmount: Amount,
     val ipHash: String? = null,

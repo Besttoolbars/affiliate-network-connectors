@@ -2,7 +2,7 @@ package net.besttoolbars.awin.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import net.besttoolbars.awin.CommissionType
+import net.besttoolbars.awin.AwinCommissionType
 
 typealias AwinAdvertiserResponse = List<AwinAdvertiser>
 
@@ -20,17 +20,17 @@ data class AwinAdvertiser(
     val displayUrl: String,
     val clickThroughUrl: String,
     val logoUrl: String?,
-    val primaryRegion: PrimaryRegion? = null,
+    val primaryRegion: AwinPrimaryRegion? = null,
     val currencyCode: String? = null,
-    val validDomains: List<AdvertiserDomains> = emptyList()
+    val validDomains: List<AwinAdvertiserDomains> = emptyList()
 )
 
-data class AdvertiserDomains(
+data class AwinAdvertiserDomains(
     val domain: String? = null
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class PrimaryRegion (
+data class AwinPrimaryRegion (
     val name: String,
     val countryCode: String
 )
@@ -39,14 +39,14 @@ data class PrimaryRegion (
 data class AwinAdvertiserDetailsResponse(
     @JsonProperty("programmeInfo")
     val merchant: AwinAdvertiser,
-    val kpi: Kpi?,
-    val commissionRange: List<CommissionRange> = emptyList()
+    val kpi: AwinKpi?,
+    val commissionRange: List<AwinCommissionRange> = emptyList()
 )
 
-data class CommissionRange (
+data class AwinCommissionRange (
     val min: Double,
     val max: Double,
-    val type: CommissionType
+    val type: AwinCommissionType
 )
 
 /**
@@ -57,7 +57,7 @@ data class CommissionRange (
  * @property awinIndex	a score out of hundred, calculated from an algorithm of EPC, approval percentage, conversion rate and validation period
  */
 
-data class Kpi (
+data class AwinKpi (
     val averagePaymentTime: String,
     val approvalPercentage: Double,
     val epc: Double,

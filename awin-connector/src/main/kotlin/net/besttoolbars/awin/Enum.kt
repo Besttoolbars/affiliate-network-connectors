@@ -2,7 +2,7 @@ package net.besttoolbars.awin
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-enum class TransactionStatus {
+enum class AwinTransactionStatus {
     PENDING,
     APPROVED,
     DECLINED,
@@ -11,14 +11,14 @@ enum class TransactionStatus {
     override fun toString(): String = name.toLowerCase()
 }
 
-enum class TransactionDateType {
+enum class AwinTransactionDateType {
     TRANSACTION,
     VALIDATION;
 
     override fun toString(): String = name.toLowerCase()
 }
 
-enum class TransactionTimeZone(val zone: String) {
+enum class AwinTransactionTimeZone(val zone: String) {
     EUROPE_BERLIN("Europe/Berlin"),
     EUROPE_PARIS("Europe/Paris"),
     EUROPE_LONDON("Europe/London"),
@@ -36,13 +36,13 @@ enum class TransactionTimeZone(val zone: String) {
     override fun toString(): String = zone
 }
 
-enum class CommissionType {
+enum class AwinCommissionType {
     PERCENTAGE,
     FIX,
     AMOUNT
 }
 
-enum class AwinRelationship{
+enum class AwinRelationship {
     JOINED,
     PENDING,
     SUSPENDED,

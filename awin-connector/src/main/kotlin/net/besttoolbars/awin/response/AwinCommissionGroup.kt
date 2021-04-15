@@ -1,18 +1,18 @@
 package net.besttoolbars.awin.response
 
-import net.besttoolbars.awin.CommissionType
+import net.besttoolbars.awin.AwinCommissionType
 
-data class AwinOffersResponse (
+data class AwinCommissionGroupsResponse (
     val advertiser: Long,
     val publisher: Long,
-    val commissionGroups: List<CommissionGroup> = emptyList()
+    val commissionGroups: List<AwinCommissionGroup> = emptyList()
 )
 
-data class CommissionGroup (
+data class AwinCommissionGroup (
     val groupId: Long,
     val groupCode: String? = null,
     val groupName: String,
-    val type: CommissionType,
+    val type: AwinCommissionType,
 
     val percentage: Long? = null,
     val amount: Long? = null,
