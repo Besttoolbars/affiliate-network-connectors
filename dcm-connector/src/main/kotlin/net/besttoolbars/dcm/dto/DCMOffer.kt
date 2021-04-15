@@ -27,7 +27,7 @@ data class DCMOffer(
     val defaultGoalName: String?,
 
     @JsonProperty("default_payout")
-    val defaultPayout: Float,
+    val defaultPayout: Double,
 
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
     val description: String? = null,
@@ -81,18 +81,18 @@ data class DCMOffer(
     val monthlyConversionCap: Int,
 
     @JsonProperty("monthly_payout_cap")
-    val monthlyPayoutCap: Float,
+    val monthlyPayoutCap: Double,
 
     val name: String,
 
     @JsonProperty("payout_cap")
-    val payoutCap: Float,
+    val payoutCap: Double,
 
     @JsonProperty("payout_type")
     val payoutType: PayoutType,
 
     @JsonProperty("percent_payout")
-    val percentPayout: Float,
+    val percentPayout: Double,
 
     @JsonProperty("preview_url")
     @JsonDeserialize(using = DCMEmptyStringDeserializer::class)
@@ -125,6 +125,22 @@ data class DCMOffer(
     @JsonProperty("use_target_rules")
     @JsonDeserialize(using = DCMBooleanDeserializer::class)
     val useTargetRules: Boolean
+)
+
+data class DCMAffiliateOffer(
+    val id: Int,
+
+    @JsonProperty("affiliate_id")
+    val affiliateId: Int,
+
+    @JsonProperty("offer_id")
+    val offerId: Int,
+
+    @JsonProperty("approval_status")
+    val approvalStatus: String?,
+
+    @JsonProperty("agreed_terms_and_conditions")
+    val agreedTermsAndConditions: String?
 )
 
 enum class PayoutType {

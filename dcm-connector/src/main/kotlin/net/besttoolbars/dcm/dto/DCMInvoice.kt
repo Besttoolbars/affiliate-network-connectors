@@ -8,7 +8,7 @@ data class DCMInvoice(
     @JsonProperty("affiliate_id")
     val affiliateId: Int,
 
-    val amount: Float,
+    val amount: Double,
 
     val currency: String,
 

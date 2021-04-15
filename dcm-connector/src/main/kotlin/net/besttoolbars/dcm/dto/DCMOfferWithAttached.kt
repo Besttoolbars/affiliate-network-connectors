@@ -7,8 +7,7 @@ data class DCMOfferWithAttachedList(
 
 data class DCMOfferWithAttached(
     val offer: DCMOffer,
-//    val offerUrls: List<DCMOfferUrl>,
-//    val offerFiles: List<DCMOfferFile>,
+    val affiliateOffer: DCMAffiliateOffer?,
     val categories: List<DCMCategory>,
     val logo: DCMOfferFile?
 )
