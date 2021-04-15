@@ -1,5 +1,7 @@
 package net.besttoolbars.awin
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 enum class TransactionStatus {
     PENDING,
     APPROVED,
@@ -46,6 +48,21 @@ enum class AwinRelationship{
     SUSPENDED,
     REJECTED,
     NOTJOINED;
+
+    override fun toString(): String = name.toLowerCase()
+}
+
+enum class AwinPromotionType {
+    @JsonProperty("promotion")
+    PROMOTION,
+    @JsonProperty("voucher")
+    VOUCHER;
+
+    override fun toString(): String = name.toLowerCase()
+}
+
+enum class AwinPromotionStatus {
+    ACTIVE, EXPIRING, UPCOMING;
 
     override fun toString(): String = name.toLowerCase()
 }
