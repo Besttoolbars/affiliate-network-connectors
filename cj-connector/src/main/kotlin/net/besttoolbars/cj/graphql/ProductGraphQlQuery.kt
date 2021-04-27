@@ -125,8 +125,9 @@ query {
         companyId: String,
         websiteId: String,
         limit: Int = 1000,
-        offset: Int = 0,
+        offset: Int? = null,
         offerIds: Set<String>? = null,
+        productIds: Set<String>? = null,
         advertiserIds: Set<String>? = null,
         serviceableAreas: Set<String>? = null,
         googleProductCategoryIds: Set<String>? = null,
@@ -143,6 +144,7 @@ query {
             limit = limit,
             offset = offset,
             offerIds = offerIds,
+            productIds = productIds,
             advertiserIds = advertiserIds,
             serviceableAreas = serviceableAreas,
             googleProductCategoryIds = googleProductCategoryIds,
@@ -160,8 +162,9 @@ query {
         val companyId: String,
         val websiteId: String,
         val limit: Int = 1000,
-        val offset: Int = 0,
+        val offset: Int? = null,
         val offerIds: Set<String>? = null,
+        val productIds: Set<String>? = null,
         val advertiserIds: Set<String>? = null,
         val serviceableAreas: Set<String>? = null,
         val googleProductCategoryIds: Set<String>? = null,
@@ -174,21 +177,22 @@ query {
     ) {
         fun toShoppingParams(): String =
             gqlParamsBuilder {
-                "companyId" setNotNull companyId
+                "companyId" setNotNullable companyId
                 "limit" set limit
                 "offset" set offset
-                "currency" set currency?.let { "\"$it\"" }
+                "currency" set currency
                 "lowPrice" set lowPrice
                 "highPrice" set highPrice
-                "adIds" setNotEmpty offerIds
+                "adIds" setIfNotEmpty offerIds
+                "productIds" setIfNotEmpty productIds
                 "availability" set availability
                 "partnerStatus" set advertiserStatus
-                "partnerIds" setNotEmpty advertiserIds
-                "keywords" setNotEmpty keywords?.map { "\"$it\"" }
-                "googleProductCategoryIds" setNotEmpty googleProductCategoryIds
+                "partnerIds" setIfNotEmpty advertiserIds
+                "keywords" setIfNotEmpty keywords
+                "googleProductCategoryIds" setIfNotEmpty googleProductCategoryIds
             }
 
-        fun toLinkCodeParams(): String = gqlParamsBuilder { "pid" setNotNull websiteId }
+        fun toLinkCodeParams(): String = gqlParamsBuilder { "pid" setNotNullable websiteId }
 
         enum class AdvertiserStatus {
             JOINED,

@@ -1,6 +1,5 @@
 package net.besttoolbars.connectors.shared.graphql
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.connectors.shared.provideJsonObjectMapper
 import okhttp3.RequestBody
 import retrofit2.Converter
