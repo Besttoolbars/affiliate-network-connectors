@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import net.besttoolbars.awin.response.AwinAdvertiserDetailsResponse
 import net.besttoolbars.awin.response.AwinAdvertiserResponse
-import net.besttoolbars.awin.response.AwinOffersResponse
+import net.besttoolbars.awin.response.AwinCommissionGroupsResponse
 import net.besttoolbars.awin.response.AwinTransactionResponse
 import net.besttoolbars.connectors.shared.RateLimitConfig
 import net.besttoolbars.connectors.shared.provideHttpClientWithRateLimit
@@ -36,11 +36,11 @@ interface AwinApi {
     ): CompletableFuture<AwinAdvertiserDetailsResponse>
 
     @GET("/publishers/{publisher-id}/commissiongroups")
-    fun offers(
+    fun commissionGroups(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,
         @Query("advertiserId") advertiserId: Int
-    ): CompletableFuture<AwinOffersResponse>
+    ): CompletableFuture<AwinCommissionGroupsResponse>
 
     @GET("/publishers/{publisher-id}/transactions/")
     fun transactions(
@@ -48,9 +48,9 @@ interface AwinApi {
         @Query("accessToken") token: String,
         @Query("startDate") startDate: LocalDateTime,
         @Query("endDate") endDate: LocalDateTime,
-        @Query("timezone") timezone: TransactionTimeZone,
-        @Query("dateType") dateType: TransactionDateType? = null,
-        @Query("status") status: TransactionStatus? = null,
+        @Query("timezone") timezone: AwinTransactionTimeZone,
+        @Query("dateType") dateType: AwinTransactionDateType? = null,
+        @Query("status") status: AwinTransactionStatus? = null,
         @Query("advertiserId") advertiserId: Int? = null
     ): CompletableFuture<AwinTransactionResponse>
 
