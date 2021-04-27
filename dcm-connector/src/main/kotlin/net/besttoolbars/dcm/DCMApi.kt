@@ -1,11 +1,14 @@
 package net.besttoolbars.dcm
 
+import net.besttoolbars.connectors.shared.RateLimitConfig
+import net.besttoolbars.connectors.shared.provideHttpClientWithRateLimit
 import net.besttoolbars.dcm.dto.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.time.Duration
 import java.util.concurrent.CompletableFuture
 
 interface DCMApi {
@@ -100,20 +103,23 @@ interface DCMApi {
         @Query("fields[]") field8: String = "Stat.payout",
         @Query("fields[]") field9: String = "Stat.affiliate_info1",
 
-        @Query("filters[Stat.date][conditional]") dateSortBy: String = "LESS_THAN_OR_EQUAL_TO",
+        @Query("filters[Stat.date][conditional]") dateSortBy: String = "GREATER_THAN_OR_EQUAL_TO",
         @Query("Target") target: String = "Affiliate_Report",
         @Query("Method") method: String = "getConversions"
     ): CompletableFuture<DCMApiResponse<DCMConversionReportListData>>
 
     companion object {
-        fun provider(url: String = "https://dcm.api.hasoffers.com/", client: OkHttpClient? = null): DCMApi {
+        fun provider(
+            url: String = "https://dcm.api.hasoffers.com/",
+            client: OkHttpClient? = null,
+            config: RateLimitConfig = RateLimitConfig(50, Duration.ofSeconds(10))
+        ): DCMApi {
             val objectMapper = getDCMMapper()
+            val httpClient = provideHttpClientWithRateLimit(config, client)
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
+                .client(httpClient)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            if (client != null) {
-                retrofit.client(client)
-            }
             return retrofit.build().create(DCMApi::class.java)
         }
     }
