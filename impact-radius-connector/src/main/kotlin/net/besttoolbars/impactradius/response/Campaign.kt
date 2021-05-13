@@ -79,7 +79,7 @@ data class ImpactRadiusCampaign(
     val campaignDescription: String?,
     @JacksonXmlElementWrapper(localName = "ShippingRegions", useWrapping = true)
     @JacksonXmlProperty(localName = "ShippingRegions")
-    val shippingRegions: List<String>,
+    val shippingRegions: List<String>?,
     @JacksonXmlProperty(localName = "CampaignLogoUri")
     val campaignLogoUri: String,
     @JacksonXmlProperty(localName = "PublicTermsUri")
