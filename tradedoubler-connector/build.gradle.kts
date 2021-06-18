@@ -1,10 +1,10 @@
-import com.jfrog.bintray.gradle.BintrayExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 
 plugins {
     kotlin("jvm")
     `maven-publish`
-    id("com.jfrog.bintray")
+    id("com.jfrog.artifactory")
 }
 
 version = "1.0.0"
@@ -35,6 +35,7 @@ tasks.withType(JavaCompile::class) {
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
+    dependsOn(JavaPlugin.CLASSES_TASK_NAME)
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
 }
@@ -48,22 +49,21 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publish = true
-    override = true
-    setPublications("mavenJava")
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = "repo"
-        name = "tradedoubler-connector"
-        userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/tradedoubler-connector"
-        githubRepo = "Besttoolbars/affiliate-network-connectors"
-        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "Tradedoubler affiliate connector"
-        setLabels("kotlin", "jvm", "tradedoubler")
-        setLicenses("Apache-2.0")
+artifactory {
+    setContextUrl("https://softomate.jfrog.io/artifactory")
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.info.setBuildName("tradedoubler-connector")
+    publish(closureOf<PublisherConfig> {
+        repository(delegateClosureOf<groovy.lang.GroovyObject> {
+            setProperty("repoKey", "jvm-modules")
+            setProperty("username", System.getenv("JFROG_MODULES_USER"))
+            setProperty("password", System.getenv("JFROG_MODULES_PASS"))
+        })
+        defaults(delegateClosureOf<groovy.lang.GroovyObject> {
+            invokeMethod("publications", "mavenJava")
+            setProperty("publishPom", true)
+            setProperty("publishArtifacts", true)
+        })
     })
 }
 

@@ -1,10 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.jfrog.bintray.gradle.BintrayExtension
 
 plugins {
     kotlin("jvm")
     `maven-publish`
-    id("com.jfrog.bintray")
+    id("com.jfrog.artifactory")
 }
 
 version = "1.1.0"
@@ -49,22 +48,21 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publish = true
-    override = true
-    setPublications("mavenJava")
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = "repo"
-        name = "awin-connector"
-        userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/awin-connector"
-        githubRepo = "Besttoolbars/affiliate-network-connectors"
-        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "AWIN jvm connector"
-        setLabels("kotlin", "jvm", "cj")
-        setLicenses("Apache-2.0")
+artifactory {
+    setContextUrl("https://softomate.jfrog.io/artifactory")
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.info.setBuildName("awin-connector")
+    publish(closureOf<org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig> {
+        repository(delegateClosureOf<groovy.lang.GroovyObject> {
+            setProperty("repoKey", "jvm-modules")
+            setProperty("username", System.getenv("JFROG_MODULES_USER"))
+            setProperty("password", System.getenv("JFROG_MODULES_PASS"))
+        })
+        defaults(delegateClosureOf<groovy.lang.GroovyObject> {
+            invokeMethod("publications", "mavenJava")
+            setProperty("publishPom", true)
+            setProperty("publishArtifacts", true)
+        })
     })
 }
 
