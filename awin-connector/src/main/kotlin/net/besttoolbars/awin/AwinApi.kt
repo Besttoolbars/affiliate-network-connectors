@@ -48,10 +48,11 @@ interface AwinApi {
         @Query("accessToken") token: String,
         @Query("startDate") startDate: LocalDateTime,
         @Query("endDate") endDate: LocalDateTime,
-        @Query("timezone") timezone: AwinTransactionTimeZone,
+        @Query("timezone") timezone: AwinTransactionTimeZone = AwinTransactionTimeZone.UTC,
         @Query("dateType") dateType: AwinTransactionDateType? = null,
         @Query("status") status: AwinTransactionStatus? = null,
-        @Query("advertiserId") advertiserId: Int? = null
+        @Query("advertiserId") advertiserId: Int? = null,
+        @Query("showBasketProducts") showBasketProducts: Boolean = false
     ): CompletableFuture<AwinTransactionResponse>
 
     companion object {
