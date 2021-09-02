@@ -46,10 +46,27 @@ internal class PdlProfitApiTest {
                           "second_credit": "10000",
                           "term": "30",
                           "first_credit_percent": "0.01",
-                          "first_credit_percent_standard": "1.9",
+                          "first_credit_percent_standard": "1,9",
                           "url": "https:\/\/tds.pdl-profit.com?offerid=22&affid=33",
                           "ecpc": null,
                           "cr": null
+                        },
+                        {
+                          "id": 1744,
+                          "name": "Grivni.com.ua",
+                          "country_code": "UA",
+                          "image": "https:\/\/pdl-profit.com\/uploads\/2021-05-17\/file_60a2620de3459.png",
+                          "credit": "",
+                          "credit_repeat": "",
+                          "days": "",
+                          "first_credit": "",
+                          "second_credit": "",
+                          "term": "",
+                          "first_credit_percent": "",
+                          "first_credit_percent_standard": "",
+                          "url": "https:\/\/tds.pdl-profit.com?offerid=22&affid=33",
+                          "ecpc": 0,
+                          "cr": "0.0000"
                         }
                   ]
             }
@@ -73,11 +90,28 @@ internal class PdlProfitApiTest {
                     firstCredit = 10000,
                     secondCredit = 10000,
                     term = 30,
-                    firstCreditPercent = "0.01",
-                    firstCreditPercentStandard = "1.9",
+                    firstCreditPercent = 0.01,
+                    firstCreditPercentStandard = 1.9,
                     url = "https://tds.pdl-profit.com?offerid=22&affid=33",
                     ecpc = null,
                     cr = null,
+                    countryCode = "UA"
+                ),
+                PdlProfitOffer(
+                    id = 1744,
+                    name = "Grivni.com.ua",
+                    image = "https://pdl-profit.com/uploads/2021-05-17/file_60a2620de3459.png",
+                    credit = 0,
+                    creditRepeat = 0,
+                    days = 0,
+                    firstCredit = 0,
+                    secondCredit = 0,
+                    term = 0,
+                    firstCreditPercent = 0.0,
+                    firstCreditPercentStandard = 0.0,
+                    url = "https://tds.pdl-profit.com?offerid=22&affid=33",
+                    ecpc = 0.0,
+                    cr = 0.0,
                     countryCode = "UA"
                 )
             )

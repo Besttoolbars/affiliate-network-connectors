@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile;
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
@@ -6,7 +6,7 @@ plugins {
     id("com.jfrog.artifactory")
 }
 
-version = "0.0.1"
+version = "0.0.4"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))

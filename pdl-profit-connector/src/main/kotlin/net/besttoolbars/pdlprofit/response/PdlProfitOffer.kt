@@ -2,6 +2,8 @@ package net.besttoolbars.pdlprofit.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import net.besttoolbars.pdlprofit.json.PdlProfitCreditPercentDeserializer
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlProfitOffer(
@@ -12,18 +14,20 @@ data class PdlProfitOffer(
     val url: String,
     @JsonProperty("country_code")
     val countryCode: String,
-    val cr: String?,
+    val cr: Double?,
     val credit: Int,
     @JsonProperty("credit_repeat")
     val creditRepeat: Int,
     val days: Int,
-    val ecpc: Int?,
+    val ecpc: Double?,
     @JsonProperty("first_credit")
     val firstCredit: Int,
     @JsonProperty("second_credit")
     val secondCredit: Int,
     @JsonProperty("first_credit_percent")
-    val firstCreditPercent: String,
+    @JsonDeserialize(using = PdlProfitCreditPercentDeserializer::class)
+    val firstCreditPercent: Double,
     @JsonProperty("first_credit_percent_standard")
-    val firstCreditPercentStandard: String
+    @JsonDeserialize(using = PdlProfitCreditPercentDeserializer::class)
+    val firstCreditPercentStandard: Double
 )
