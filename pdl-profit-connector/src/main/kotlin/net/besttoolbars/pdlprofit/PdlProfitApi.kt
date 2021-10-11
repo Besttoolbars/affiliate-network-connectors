@@ -2,7 +2,6 @@ package net.besttoolbars.pdlprofit
 
 import net.besttoolbars.connectors.shared.provideJsonObjectMapper
 import net.besttoolbars.pdlprofit.response.PdlProfitConversion
-import net.besttoolbars.pdlprofit.response.PdlProfitLeadType
 import net.besttoolbars.pdlprofit.response.PdlProfitOffer
 import net.besttoolbars.pdlprofit.response.PdlProfitResponse
 import okhttp3.OkHttpClient
@@ -20,7 +19,7 @@ interface PdlProfitApi {
         @Query("p") page: Int = 1,
         @Query("pp") pageSize: Int = 100,
         @Query("country") country: String? = null,
-        @Query("mode") leadType: PdlProfitLeadType? = null
+        @Query("mode") leadType: String? = null
     ): CompletableFuture<PdlProfitResponse<PdlProfitOffer>>
 
     @GET("/partnerapi/postbacks")

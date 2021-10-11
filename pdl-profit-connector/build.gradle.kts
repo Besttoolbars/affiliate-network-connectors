@@ -6,7 +6,7 @@ plugins {
     id("com.jfrog.artifactory")
 }
 
-version = "0.0.5"
+version = "1.0.0"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))

@@ -1,7 +1,6 @@
 package net.besttoolbars.pdlprofit
 
 import net.besttoolbars.pdlprofit.response.PdlProfitConversion
-import net.besttoolbars.pdlprofit.response.PdlProfitLeadType
 import net.besttoolbars.pdlprofit.response.PdlProfitOffer
 import net.besttoolbars.pdlprofit.response.PdlProfitResponse
 import okhttp3.mockwebserver.MockResponse
@@ -173,7 +172,7 @@ internal class PdlProfitApiTest {
                     leadDate = instantDatetimeFormatter.parse("10-06-2020 23:09:29", Instant::from),
                     summ = 4.488758025301738,
                     currency = "USD",
-                    leadType = PdlProfitLeadType.CPL,
+                    leadType = "CPL",
                     subId = "59d90h9x9a7g5ec3",
                     subId2 = null,
                     subId3 = null,

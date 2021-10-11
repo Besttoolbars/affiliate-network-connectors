@@ -32,7 +32,7 @@ data class PdlProfitPostbackConversion(
     val realCur: String,
     val currency: String,
     @JsonProperty("lead_type")
-    val leadType: PdlProfitLeadType,
+    val leadType: String,
     @JsonProperty("click_ip")
     val clickIp: String?,
     @JsonProperty("summ")

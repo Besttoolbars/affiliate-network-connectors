@@ -23,7 +23,7 @@ data class PdlProfitConversion(
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "UTC")
     val leadDate: Instant?,
     @JsonProperty("lead_type")
-    val leadType: PdlProfitLeadType,
+    val leadType: String,
     val name: String,
     @JsonProperty("postback_unix_date")
     val postbackUnixDate: Int?,
