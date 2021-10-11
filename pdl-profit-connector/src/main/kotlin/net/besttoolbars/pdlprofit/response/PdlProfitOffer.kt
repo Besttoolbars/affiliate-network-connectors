@@ -3,7 +3,7 @@ package net.besttoolbars.pdlprofit.response
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import net.besttoolbars.pdlprofit.json.PdlProfitCreditPercentDeserializer
+import net.besttoolbars.pdlprofit.json.PdlProfitCustomDoubleDeserializer
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PdlProfitOffer(
@@ -15,19 +15,23 @@ data class PdlProfitOffer(
     @JsonProperty("country_code")
     val countryCode: String,
     val cr: Double?,
-    val credit: Int,
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
+    val credit: Double,
     @JsonProperty("credit_repeat")
-    val creditRepeat: Int,
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
+    val creditRepeat: Double,
     val days: Int,
     val ecpc: Double?,
     @JsonProperty("first_credit")
-    val firstCredit: Int,
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
+    val firstCredit: Double,
     @JsonProperty("second_credit")
-    val secondCredit: Int,
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
+    val secondCredit: Double,
     @JsonProperty("first_credit_percent")
-    @JsonDeserialize(using = PdlProfitCreditPercentDeserializer::class)
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
     val firstCreditPercent: Double,
     @JsonProperty("first_credit_percent_standard")
-    @JsonDeserialize(using = PdlProfitCreditPercentDeserializer::class)
+    @JsonDeserialize(using = PdlProfitCustomDoubleDeserializer::class)
     val firstCreditPercentStandard: Double
 )
