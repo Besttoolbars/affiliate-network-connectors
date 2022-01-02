@@ -1,6 +1,10 @@
 package net.besttoolbars.city
 
-import net.besttoolbars.city.response.*
+import net.besttoolbars.city.response.CityAdsCoupon
+import net.besttoolbars.city.response.CityAdsOffer
+import net.besttoolbars.city.response.CityAdsPaginationListResponse
+import net.besttoolbars.city.response.CityAdsPaginationMapResponse
+import net.besttoolbars.connectors.shared.CommaSeparatedValues
 import net.besttoolbars.connectors.shared.provideJsonObjectMapper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -17,7 +21,7 @@ interface CityAdsApi {
         @Query("remote_auth") token: String,
         @Query("start") page: Int = 0,
         @Query("limit") limit: Int = 100,
-        @Query("geo") geo: IdSet? = null,
+        @Query("geo") geo: CommaSeparatedValues<Int>? = null,
         @Query("user_has_offer") hasOffer: Boolean = true,
         @Query("lang") responseLang: String = "en"
     ): CompletableFuture<CityAdsPaginationMapResponse<CityAdsOffer>>
@@ -27,13 +31,13 @@ interface CityAdsApi {
         @Query("remote_auth") token: String,
         @Query("start") page: Int = 0,
         @Query("limit") limit: Int = 100,
-        @Query("geo") geo: IdSet? = null,
+        @Query("geo") geo: CommaSeparatedValues<Int>? = null,
         @Query("lang") responseLang: String = "en",
         @Query("coupon_lang") couponLang: String? = null
     ): CompletableFuture<CityAdsPaginationListResponse<CityAdsCoupon>>
 
     companion object {
-        fun provider(url: String = "https://cityads.com", client: OkHttpClient? = null): CityAdsApi {
+        fun provide(url: String = "https://cityads.com", client: OkHttpClient? = null): CityAdsApi {
             val objectMapper = provideJsonObjectMapper()
             val retrofit = Retrofit.Builder()
                 .baseUrl(url)
@@ -44,14 +48,7 @@ interface CityAdsApi {
     }
 }
 
-data class IdSet(val ids: Set<Int>) {
-    override fun toString(): String = ids.joinToString(",")
-    companion object {
-        fun of(vararg ids: Int): IdSet = IdSet(ids.toSet())
-    }
-}
-
-enum class CityAdsOfferType{
+enum class CityAdsOfferType {
     WEB,
     WEB_FAVOURITE,
     MOBILE,
@@ -60,5 +57,6 @@ enum class CityAdsOfferType{
     API_FAVOURITE,
     ALL,
     ALL_FAVOURITE;
+
     override fun toString(): String = name.toLowerCase()
 }

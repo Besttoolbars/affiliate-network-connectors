@@ -4,6 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+data class CityAdsOffer(
+    val id: Long = 0,
+    val name: String? = null,
+    @JsonProperty("offer_logo")
+    val logo: String? = null,
+    @JsonProperty("offer_logo_svg")
+    val logoSvg: String? = null,
+    val favicon: String? = null,
+    val categories: List<CityAdsMainCategory> = emptyList(),
+    val site: String? = null,
+    val geo: List<CityAdsGeo> = emptyList(),
+    @JsonProperty("items")
+    val links: List<CityAdsActivationLinks> = emptyList(),
+    val cpa: String? = null,
+    val cpl: String? = null,
+    val screen: String? = null,
+    @JsonProperty("shop_id")
+    val shopId: String? = null,
+    @JsonProperty("epc7days")
+    val sevenDayEpc: Double = 0.0,
+    @JsonProperty("epc90days")
+    val threeMonthEpc: Double = 0.0
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class CityAdsGeo(
     val id: Long? = null,
     val name: String? = null,
@@ -44,29 +69,4 @@ data class CityAdsMainCategory(
     val title: String? = null,
     @JsonProperty("other_categories")
     val subCategories: List<CityAdsCategory> = emptyList()
-)
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class CityAdsOffer(
-    val id: Long = 0,
-    val name: String? = null,
-    @JsonProperty("offer_logo")
-    val logo: String? = null,
-    @JsonProperty("offer_logo_svg")
-    val logoSvg: String? = null,
-    val favicon: String? = null,
-    val categories: List<CityAdsMainCategory> = emptyList(),
-    val site: String? = null,
-    val geo: List<CityAdsGeo> = emptyList(),
-    @JsonProperty("items")
-    val links: List<CityAdsActivationLinks> = emptyList(),
-    val cpa: String? = null,
-    val cpl: String? = null,
-    val screen: String? = null,
-    @JsonProperty("shop_id")
-    val shopId: String? = null,
-    @JsonProperty("epc7days")
-    val sevenDayEpc: Double = 0.0,
-    @JsonProperty("epc90days")
-    val threeMonthEpc: Double = 0.0
 )

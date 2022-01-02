@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    api(project(":shared-retrofit-extensions"))
     implementation(project(":shared-mapper"))
     implementation(kotlin("stdlib-jdk8"))
 
