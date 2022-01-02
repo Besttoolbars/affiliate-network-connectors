@@ -3,8 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     `maven-publish`
-    id("com.jfrog.bintray")
+    id("com.jfrog.artifactory")
 }
+
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -31,7 +33,7 @@ tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.withType(JavaCompile::class) {
+tasks.withType<JavaCompile> {
     options.compilerArgs.add("-parameters")
 }
 
@@ -49,25 +51,20 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publish = true
-    override = true
-    setPublications("mavenJava")
-    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
-        repo = "repo"
-        name = "city-ads-connector"
-        userOrg = "besttoolbars"
-        websiteUrl = "https://github.com/Besttoolbars/affiliate-network-connectors/city-ads-connector"
-        githubRepo = "Besttoolbars/affiliate-network-connectors"
-        vcsUrl = "https://github.com/Besttoolbars/affiliate-network-connectors.git"
-        description = "City Ads jvm connector"
-        setLabels("kotlin", "jvm", "city-ads")
-        setLicenses("Apache-2.0")
+artifactory {
+    setContextUrl("https://softomate.jfrog.io/artifactory")
+    clientConfig.isIncludeEnvVars = true
+    clientConfig.info.buildName = "city-ads-connector"
+    publish(closureOf<org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig> {
+        repository(delegateClosureOf<groovy.lang.GroovyObject> {
+            setProperty("repoKey", "jvm-modules")
+            setProperty("username", System.getenv("JFROG_MODULES_USER"))
+            setProperty("password", System.getenv("JFROG_MODULES_PASS"))
+        })
+        defaults(delegateClosureOf<groovy.lang.GroovyObject> {
+            invokeMethod("publications", "mavenJava")
+            setProperty("publishPom", true)
+            setProperty("publishArtifacts", true)
+        })
     })
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
