@@ -4,7 +4,7 @@ plugins {
     id("com.jfrog.artifactory")
 }
 
-version = "1.0.1"
+version = "1.1.0"
 
 dependencies {
     implementation(project(":shared-mapper"))
