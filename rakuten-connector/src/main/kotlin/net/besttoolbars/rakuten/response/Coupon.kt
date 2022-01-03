@@ -74,6 +74,13 @@ sealed class RakutenBaseTag {
 
     @JacksonXmlText
     lateinit var value: String
+
+    override fun equals(other: Any?): Boolean {
+        if (other is RakutenBaseTag) {
+            return id == other.id && value == other.value
+        }
+        return super.equals(other)
+    }
 }
 
 class RakutenCouponCategory : RakutenBaseTag() {

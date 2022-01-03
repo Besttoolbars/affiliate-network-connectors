@@ -33,6 +33,10 @@ tasks.withType(JavaCompile::class) {
     options.compilerArgs.add("-parameters")
 }
 
+tasks.withType<Test>() {
+    useJUnitPlatform()
+}
+
 val sourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
