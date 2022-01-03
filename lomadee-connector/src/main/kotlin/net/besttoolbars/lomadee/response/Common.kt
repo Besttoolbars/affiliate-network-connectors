@@ -2,7 +2,8 @@ package net.besttoolbars.lomadee.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
-data class Pagination (
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Pagination(
     val page: Long,
     val size: Long,
     val totalSize: Long,
@@ -16,7 +17,7 @@ data class Pagination (
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class RequestInfo (
+data class RequestInfo(
     val status: String,
     val message: String?
 )

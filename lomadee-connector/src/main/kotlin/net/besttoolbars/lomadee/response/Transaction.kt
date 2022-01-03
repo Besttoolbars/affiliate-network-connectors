@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @JacksonXmlRootElement(localName = "result")
 data class TransactionReport(
     val details: Details,
-    @JacksonXmlElementWrapper(useWrapping=false)
+    @JacksonXmlElementWrapper(useWrapping = false)
     val item: List<Item> = emptyList()
 )
 

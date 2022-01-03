@@ -30,7 +30,8 @@ internal class LomadeeOffersApiTest {
                     "page": 1,
                     "size": 210,
                     "totalSize": 210,
-                    "totalPage": 1
+                    "totalPage": 1,
+                    "sortValues": null
                   },
                   "stores": [
                     {

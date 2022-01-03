@@ -2,26 +2,29 @@ package net.besttoolbars.lomadee.response
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
-data class OffersResponse (
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class OffersResponse(
     val requestInfo: RequestInfo,
     val pagination: Pagination?,
     val offers: List<Offer> = emptyList()
 )
 
-data class OfferCategoriesResponse (
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class OfferCategoriesResponse(
     val requestInfo: RequestInfo,
     val pagination: Pagination?,
     val categories: List<OfferCategory> = emptyList()
 )
 
-data class OfferStoresResponse (
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class OfferStoresResponse(
     val requestInfo: RequestInfo,
     val pagination: Pagination?,
     val stores: List<OfferStore> = emptyList()
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Offer (
+data class Offer(
     val id: String,
     val name: String,
     val category: OfferCategory,
@@ -33,6 +36,7 @@ data class Offer (
     val store: OfferStore
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class OfferCategory(
     val id: Int,
     val name: String,
@@ -40,6 +44,7 @@ data class OfferCategory(
     val link: String? = null
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class OfferStore(
     val id: Long,
     val name: String,
@@ -50,6 +55,7 @@ data class OfferStore(
     val events: List<OfferEvent> = emptyList()
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class OfferEvent(
     val event: String,
     val eventType: String,
