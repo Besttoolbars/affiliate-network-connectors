@@ -10,7 +10,7 @@ data class PdlProfitOffer(
     val id: Int,
     val image: String,
     val name: String,
-    val term: Int,
+    val term: String?,
     val url: String,
     @JsonProperty("country_code")
     val countryCode: String,
