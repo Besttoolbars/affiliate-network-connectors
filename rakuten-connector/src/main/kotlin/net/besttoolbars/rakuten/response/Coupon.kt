@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 data class RakutenCoupon(
     @field:JacksonXmlProperty(localName = "type", isAttribute = true)
@@ -15,12 +15,12 @@ data class RakutenCoupon(
     val offerDescription: String?,
 
     @JacksonXmlProperty(localName = "offerstartdate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val offerStartDate: LocalDate?,
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    val offerStartDate: ZonedDateTime?,
 
     @JacksonXmlProperty(localName = "offerenddate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    val offerEndDate: LocalDate?,
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    val offerEndDate: ZonedDateTime?,
 
     @JacksonXmlProperty(localName = "couponcode")
     val couponCode: String?,
