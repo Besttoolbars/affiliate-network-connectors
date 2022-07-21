@@ -22,16 +22,16 @@ data class AwinTransaction (
     val commissionStatus: AwinTransactionStatus,
     val commissionAmount: Amount,
     val saleAmount: Amount,
-    val ipHash: String? = null,
-    val customerCountry: String? = null,
-    val clickRefs: Map<String, String>? = null,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    val clickDate: LocalDateTime,
+    val clickDate: LocalDateTime?,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     val transactionDate: LocalDateTime,
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     val validationDate: LocalDateTime? = null,
+    val clickRefs: Map<String, String>? = null,
     val type: String? = null,
+    val ipHash: String? = null,
+    val customerCountry: String? = null,
 
     val declineReason: Any? = null,
 
