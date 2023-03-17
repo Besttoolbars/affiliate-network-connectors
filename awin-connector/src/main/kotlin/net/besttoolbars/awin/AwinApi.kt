@@ -32,14 +32,14 @@ interface AwinApi {
     fun merchants(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,
-        @Query("advertiserId") advertiserId: Int
+        @Query("advertiserId") advertiserId: Long
     ): CompletableFuture<AwinAdvertiserDetailsResponse>
 
     @GET("/publishers/{publisher-id}/commissiongroups")
     fun commissionGroups(
         @Path("publisher-id") publisherId: Int,
         @Query("accessToken") token: String,
-        @Query("advertiserId") advertiserId: Int
+        @Query("advertiserId") advertiserId: Long
     ): CompletableFuture<AwinCommissionGroupsResponse>
 
     @GET("/publishers/{publisher-id}/transactions/")
@@ -51,7 +51,7 @@ interface AwinApi {
         @Query("timezone") timezone: AwinTransactionTimeZone,
         @Query("dateType") dateType: AwinTransactionDateType? = null,
         @Query("status") status: AwinTransactionStatus? = null,
-        @Query("advertiserId") advertiserId: Int? = null
+        @Query("advertiserId") advertiserId: Long? = null
     ): CompletableFuture<AwinTransactionResponse>
 
     companion object {

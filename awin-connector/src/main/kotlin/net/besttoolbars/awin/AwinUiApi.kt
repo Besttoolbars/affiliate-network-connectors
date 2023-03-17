@@ -19,7 +19,7 @@ interface AwinUiApi {
         @Path("publisher-id") publisherId: Int,
         @Path("token") promotionToken: String,
         @Query("promotionType") type: AwinPromotionType? = null,
-        @Query("advertiserIds") advertiserIds: CompressedArray<Int>? = null,
+        @Query("advertiserIds") advertiserIds: CompressedArray<Long>? = null,
         @Query("membershipStatus") membershipStatus: AwinRelationship? = null,
         @Query("promotionStatus") promotionStatus: AwinPromotionStatus? = null,
         @Query("categoryIds") categoryIds: CompressedArray<Int>? = null,

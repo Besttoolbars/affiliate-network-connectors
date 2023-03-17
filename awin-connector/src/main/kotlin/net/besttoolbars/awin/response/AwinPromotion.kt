@@ -43,7 +43,7 @@ data class AwinPromotion(
     val deeplink: String,
     @JsonProperty("Commission Groups")
     @JsonDeserialize(using = AwinCsvStringListDeserializer::class)
-    val commissionGroups: List<String>,
+    val commissionGroups: List<String>?,
     @JsonProperty("Commission")
     val commission: String?,
     @JsonProperty("Exclusive")
